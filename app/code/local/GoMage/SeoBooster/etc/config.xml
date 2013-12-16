@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * GoMage Seo Booster Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2013 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use/
+ * @version      Release: 1.0.0
+ * @since        Available since Release 1.0.0
+ */
+-->
+<config>
+    <global>
+        <blocks>
+            <gomage_seobooster>
+                <class>GoMage_SeoBooster_Block</class>
+            </gomage_seobooster>
+            <adminhtml>
+                <rewrite>
+                    <widget_form_element_dependence>GoMage_SeoBooster_Block_Adminhtml_Widget_Form_Element_Dependence</widget_form_element_dependence>
+                </rewrite>
+            </adminhtml>
+            <catalog>
+                <rewrite>
+                    <product_view>GoMage_SeoBooster_Block_Catalog_Product_View</product_view>
+                </rewrite>
+            </catalog>
+        </blocks>
+        <helpers>
+            <gomage_seobooster>
+                <class>GoMage_SeoBooster_Helper</class>
+            </gomage_seobooster>
+        </helpers>
+        <models>
+            <gomage_seobooster>
+                <class>GoMage_SeoBooster_Model</class>
+            </gomage_seobooster>
+            <catalog>
+                <rewrite>
+                    <product_url>GoMage_SeoBooster_Model_Catalog_Product_Url</product_url>
+                    <product>GoMage_SeoBooster_Model_Catalog_Product</product>
+                </rewrite>
+            </catalog>
+        </models>
+    </global>
+    <default>
+        <gomage_seobooster>
+            <general>
+                <enabled>0</enabled>
+                <enable_canonical_url>0</enable_canonical_url>
+                <cross_domain_canonical_url>0</cross_domain_canonical_url>
+                <product_canonical_url>1</product_canonical_url>
+            </general>
+        </gomage_seobooster>
+    </default>
+</config>
+

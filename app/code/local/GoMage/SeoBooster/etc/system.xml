@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * GoMage Seo Booster Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2013 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use/
+ * @version      Release: 1.0.0
+ * @since        Available since Release 1.0.0
+ */
+ -->
+<config>
+   <tabs>
+      <gomage translate="label">
+         <label>GoMage</label>
+         <sort_order>200</sort_order>
+      </gomage>
+   </tabs>
+   <sections>
+       <gomage_activation>
+           <label>Activation</label>
+           <tab>gomage</tab>
+           <frontend_type>text</frontend_type>
+           <sort_order>1000</sort_order>
+           <show_in_default>1</show_in_default>
+           <show_in_website>1</show_in_website>
+           <show_in_store>1</show_in_store>
+           <groups>
+               <seobooster translate="label">
+                   <label>GoMage Seo Booster v.1.0</label>
+                   <frontend_type>text</frontend_type>
+                   <sort_order>20</sort_order>
+                   <show_in_default>1</show_in_default>
+                   <show_in_website>1</show_in_website>
+                   <show_in_store>1</show_in_store>
+                   <fields>
+                       <key>
+                           <label>Activation Key</label>
+                           <frontend_type>text</frontend_type>
+                           <sort_order>5</sort_order>
+                           <show_in_default>1</show_in_default>
+                           <show_in_website>0</show_in_website>
+                           <show_in_store>0</show_in_store>
+                       </key>
+                       <websites translate="label">
+                           <label>Select Websites</label>
+                           <frontend_type>checkbox</frontend_type>
+                           <source_model>adminhtml/system_config_source_website</source_model>
+                           <frontend_model>gomage_seobooster/adminhtml_config_form_renderer_website</frontend_model>
+                           <sort_order>20</sort_order>
+                           <show_in_default>1</show_in_default>
+                           <show_in_website>0</show_in_website>
+                           <show_in_store>0</show_in_store>
+                       </websites>
+                       <ar>
+                           <frontend_type>hidden</frontend_type>
+                           <sort_order>25</sort_order>
+                           <show_in_default>0</show_in_default>
+                           <show_in_website>0</show_in_website>
+                           <show_in_store>0</show_in_store>
+                       </ar>
+                       <time>
+                           <frontend_type>hidden</frontend_type>
+                           <sort_order>25</sort_order>
+                           <show_in_default>0</show_in_default>
+                           <show_in_website>0</show_in_website>
+                           <show_in_store>0</show_in_store>
+                       </time>
+                       <installed>
+                           <frontend_type>hidden</frontend_type>
+                           <sort_order>25</sort_order>
+                           <show_in_default>0</show_in_default>
+                           <show_in_website>0</show_in_website>
+                           <show_in_store>0</show_in_store>
+                       </installed>
+                       <count>
+                           <frontend_type>hidden</frontend_type>
+                           <sort_order>25</sort_order>
+                           <show_in_default>0</show_in_default>
+                           <show_in_website>0</show_in_website>
+                           <show_in_store>0</show_in_store>
+                       </count>
+                   </fields>
+               </seobooster>
+           </groups>
+       </gomage_activation>
+       <gomage_notification>
+           <label>Notifications</label>
+           <tab>gomage</tab>
+           <frontend_type>text</frontend_type>
+           <sort_order>1100</sort_order>
+           <show_in_default>1</show_in_default>
+           <show_in_website>0</show_in_website>
+           <show_in_store>0</show_in_store>
+           <groups>
+               <notification>
+                   <label>Notifications</label>
+                   <frontend_type>text</frontend_type>
+                   <sort_order>10</sort_order>
+                   <show_in_default>1</show_in_default>
+                   <show_in_website>0</show_in_website>
+                   <show_in_store>0</show_in_store>
+                   <fields>
+                       <enable>
+                           <label>I'd like to get advertising by GoMage</label>
+                           <frontend_type>select</frontend_type>
+                           <source_model>adminhtml/system_config_source_yesno</source_model>
+                           <sort_order>10</sort_order>
+                           <show_in_default>1</show_in_default>
+                           <show_in_website>0</show_in_website>
+                           <show_in_store>0</show_in_store>
+                       </enable>
+                   </fields>
+               </notification>
+           </groups>
+       </gomage_notification>
+      <gomage_seobooster>
+        <label>SEO Booster</label>
+        <tab>gomage</tab>
+        <frontend_type>text</frontend_type>
+        <sort_order>300</sort_order>
+        <show_in_default>1</show_in_default>
+        <show_in_website>1</show_in_website>
+        <show_in_store>1</show_in_store>
+        <groups>
+          <general translate="label">
+            <label>General</label>
+            <frontend_type>text</frontend_type>
+            <sort_order>10</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <expanded>1</expanded>
+            <fields>
+                <enabled translate="label comment">
+                    <label>Enabled</label>
+                    <frontend_type>select</frontend_type>
+                    <source_model>adminhtml/system_config_source_yesno</source_model>
+                    <!--<frontend_model>gomage_seobooster/adminhtml_config_form_renderer_enabledisable</frontend_model>-->
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                </enabled>
+                <enable_canonical_url>
+                  <label>Add Canonical URL Meta Header</label>
+                  <frontend_type>select</frontend_type>
+                  <source_model>gomage_seobooster/config_source_canonical</source_model>
+                  <sort_order>2</sort_order>
+                  <show_in_default>1</show_in_default>
+                  <show_in_website>1</show_in_website>
+                  <show_in_store>1</show_in_store>
+                </enable_canonical_url>
+                <cross_domain_canonical_url>
+                    <label>Cross Domain Canonical URL</label>
+                    <frontend_type>select</frontend_type>
+                    <source_model>gomage_seobooster/config_source_storeurl</source_model>
+                    <sort_order>3</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <depends>
+                        <enable_canonical_url>multiple-1-2-3</enable_canonical_url>
+                    </depends>
+                </cross_domain_canonical_url>
+                <product_canonical_url>
+                    <label>Product Canonical URL</label>
+                    <frontend_type>select</frontend_type>
+                    <source_model>gomage_seobooster/config_source_canonical_product</source_model>
+                    <sort_order>4</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <depends>
+                        <enable_canonical_url>multiple-1-3</enable_canonical_url>
+                    </depends>
+                </product_canonical_url>
+            </fields>
+          </general>
+        </groups>
+      </gomage_seobooster>
+   </sections>
+</config>
