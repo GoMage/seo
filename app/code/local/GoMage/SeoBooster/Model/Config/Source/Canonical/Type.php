@@ -19,7 +19,7 @@
  * @subpackage Model
  * @author     Roman Bublik <rb@gomage.com>
  */
-class GoMage_SeoBooster_Model_Config_Source_Canonical_Product
+class GoMage_SeoBooster_Model_Config_Source_Canonical_Type
 {
     public function toOptionArray()
     {

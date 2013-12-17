@@ -30,7 +30,7 @@ class GoMage_SeoBooster_Block_Catalog_Product_View extends Mage_Catalog_Block_Pr
      */
     protected function _prepareLayout()
     {
-        $this->getLayout()->createBlock('catalog/breadcrumbs');
+
         $headBlock = $this->getLayout()->getBlock('head');
         if ($headBlock) {
             $product = $this->getProduct();

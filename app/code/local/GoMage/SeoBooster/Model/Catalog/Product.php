@@ -21,6 +21,7 @@
  */
 class GoMage_SeoBooster_Model_Catalog_Product extends Mage_Catalog_Model_Product
 {
+    const CANONICAL_PRODUCT_URL_TYPE_CONFIG_VALUE = 0;
     /**
      * Return product category with high Level
      *
@@ -30,10 +31,11 @@ class GoMage_SeoBooster_Model_Catalog_Product extends Mage_Catalog_Model_Product
     {
         if (!$this->hasData('high_level_category')) {
             $categories = $this->getCategoryCollection()
+                ->setStoreId($this->getStoreId())
+                ->addAttributeToSelect('is_active')
                 ->setOrder('level')
                 ->setOrder('entity_id');
             $category = $categories->getFirstItem();
-            Zend_Debug::dump($category->getData());
             $this->setData('high_level_category', $category);
         }
 

@@ -26,6 +26,7 @@
             <catalog>
                 <rewrite>
                     <product_view>GoMage_SeoBooster_Block_Catalog_Product_View</product_view>
+                    <category_view>GoMage_SeoBooster_Block_Catalog_Category_View</category_view>
                 </rewrite>
             </catalog>
         </blocks>
@@ -45,6 +46,15 @@
                 </rewrite>
             </catalog>
         </models>
+        <resources>
+            <gomage_seobooster_setup>
+                <setup>
+                    <module>GoMage_SeoBooster</module>
+                    <connection>core_setup</connection>
+                    <class>Mage_Eav_Model_Entity_Setup</class>
+                </setup>
+            </gomage_seobooster_setup>
+        </resources>
     </global>
     <default>
         <gomage_seobooster>
@@ -56,5 +66,10 @@
             </general>
         </gomage_seobooster>
     </default>
+    <modules>
+        <GoMage_SeoBooster>
+            <version>1.0.1</version>
+        </GoMage_SeoBooster>
+    </modules>
 </config>
 

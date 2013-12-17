@@ -27,6 +27,8 @@ abstract class GoMage_SeoBooster_Helper_Canonical_Abstract extends Mage_Core_Hel
 
     abstract public function getCanonicalUrl($object);
 
+    abstract public function getCanonicalStore($object);
+
     protected function _moduleEnabled()
     {
         return Mage::helper('gomage_seobooster')->isEnabled();

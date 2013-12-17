@@ -32,8 +32,8 @@ class GoMage_SeoBooster_Model_Catalog_Product_Url extends Mage_Catalog_Model_Pro
     {
         $routePath      = '';
         $routeParams    = $params;
-
         $storeId    = $product->getStoreId();
+
         if (isset($params['_ignore_category'])) {
             unset($params['_ignore_category']);
             $categoryId = null;
@@ -73,7 +73,7 @@ class GoMage_SeoBooster_Model_Catalog_Product_Url extends Mage_Catalog_Model_Pro
         }
 
         if ($storeId != Mage::app()->getStore()->getId()) {
-            $routeParams['_store_to_url'] = true;
+            $routeParams['_store_to_url'] = isset($routeParams['_store_to_url']) ? $routeParams['_store_to_url'] : true;
         }
 
         if (!empty($requestPath)) {
