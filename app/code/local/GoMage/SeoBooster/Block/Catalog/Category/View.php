@@ -12,9 +12,7 @@
  */
 
 /**
- * Short description of the class
- *
- * Long description of the class (if any...)
+ * Category view block
  *
  * @category   GoMage
  * @package    GoMage_SeoBooster
@@ -23,6 +21,12 @@
  */
 class GoMage_SeoBooster_Block_Catalog_Category_View extends Mage_Catalog_Block_Category_View
 {
+    /**
+     * Prepare layout
+     * Set category meta data to head block
+     *
+     * @return GoMage_SeoBooster_Block_Catalog_Category_View
+     */
     protected function _prepareLayout()
     {
         Mage_Core_Block_Template::_prepareLayout();

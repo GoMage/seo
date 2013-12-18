@@ -12,7 +12,7 @@
  */
 
 /**
- * Short description of the class
+ * Canonical product url type source model
  *
  * @category   GoMage
  * @package    GoMage_SeoBooster

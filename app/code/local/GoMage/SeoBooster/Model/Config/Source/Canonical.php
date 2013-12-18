@@ -21,6 +21,11 @@
  */
 class GoMage_SeoBooster_Model_Config_Source_Canonical
 {
+    /**
+     * Retrieve option array
+     *
+     * @return array
+     */
     public function toOptionArray()
     {
         $options = array(

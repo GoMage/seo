@@ -12,9 +12,9 @@
  */
 
 /**
- * Short description of the class
- *
- * Long description of the class (if any...)
+ * Form element dependencies mapper
+ * Assumes that one element may depend on other element values.
+ * Will toggle as "enabled" only if all elements it depends from toggle as true.
  *
  * @category   GoMage
  * @package    GoMage_SeoBooster
@@ -24,8 +24,10 @@
 class GoMage_SeoBooster_Block_Adminhtml_Widget_Form_Element_Dependence extends Mage_Adminhtml_Block_Widget_Form_Element_Dependence
 {
     const MULTIPLE_VALUE_PREFIX = 'multiple-';
+
     /**
      * Field dependences JSON map generator
+     *
      * @return string
      */
     protected function _getDependsJson()

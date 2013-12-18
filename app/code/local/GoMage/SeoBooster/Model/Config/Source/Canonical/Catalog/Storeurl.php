@@ -12,7 +12,7 @@
  */
 
 /**
- * Short description of the class
+ * Catalog Canonical store source model
  *
  * @category   GoMage
  * @package    GoMage_SeoBooster

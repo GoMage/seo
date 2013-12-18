@@ -12,9 +12,7 @@
  */
 
 /**
- * Short description of the class
- *
- * Long description of the class (if any...)
+ * Product view block
  *
  * @category   GoMage
  * @package    GoMage_SeoBooster

@@ -12,9 +12,7 @@
  */
 
 /**
- * Short description of the class
- *
- * Long description of the class (if any...)
+ * Abstract helper class for canonical urls
  *
  * @category   GoMage
  * @package    GoMage_SeoBooster
@@ -23,12 +21,34 @@
  */
 abstract class GoMage_SeoBooster_Helper_Canonical_Abstract extends Mage_Core_Helper_Data
 {
+    /**
+     * Can use canonical tags
+     *
+     * @return bool
+     */
     abstract public function canUseCanonicalTag();
 
+    /**
+     * Return canonical url
+     *
+     * @param Object $object Object
+     * @return string
+     */
     abstract public function getCanonicalUrl($object);
 
+    /**
+     * Return store for canonical url
+     *
+     * @param Object $object Object
+     * @return mixed
+     */
     abstract public function getCanonicalStore($object);
 
+    /**
+     * Return module status
+     *
+     * @return bool
+     */
     protected function _moduleEnabled()
     {
         return Mage::helper('gomage_seobooster')->isEnabled();

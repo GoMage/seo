@@ -12,7 +12,7 @@
  */
 
 /**
- * Short description of the class
+ * Canonical store source model
  *
  * @category   GoMage
  * @package    GoMage_SeoBooster
@@ -21,6 +21,11 @@
  */
 class GoMage_SeoBooster_Model_Config_Source_Storeurl
 {
+    /**
+     * Retrieve option array
+     *
+     * @return array
+     */
     public function toOptionArray()
     {
         $stores = Mage::getResourceModel('core/store_collection');

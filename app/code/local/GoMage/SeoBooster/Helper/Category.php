@@ -12,9 +12,7 @@
  */
 
 /**
- * Short description of the class
- *
- * Long description of the class (if any...)
+ * Helper for category canonical url
  *
  * @category   GoMage
  * @package    GoMage_SeoBooster
@@ -85,8 +83,9 @@ class GoMage_SeoBooster_Helper_Category extends GoMage_SeoBooster_Helper_Canonic
     /**
      * Return category in store
      *
-     * @param $categoryId
-     * @param $storeId
+     * @param int $categoryId Category Id
+     * @param int $storeId    Store Id
+     * @return Mage_Catalog_Model_Category
      */
     protected function _getCategoryInStore($categoryId, $storeId)
     {
@@ -118,9 +117,12 @@ class GoMage_SeoBooster_Helper_Category extends GoMage_SeoBooster_Helper_Canonic
         $rewrite->loadByIdPath($idPath);
 
         if ($rewrite->getId()) {
-            return $category->getUrlInstance()->getDirectUrl($rewrite->getRequestPath(), $params);
+            $url = $category->getUrlInstance()->getDirectUrl($rewrite->getRequestPath(), $params);
+        } else {
+            $url = $category->getCategoryIdUrl();
         }
 
-        return $category->getCategoryIdUrl();
+        $category->getUrlInstance()->setStore(Mage::app()->getStore()->getId());
+        return $url;
     }
 }

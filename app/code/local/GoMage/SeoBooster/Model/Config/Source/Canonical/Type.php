@@ -12,7 +12,7 @@
  */
 
 /**
- * Product canonical url source model
+ * Canonical url type source model
  *
  * @category   GoMage
  * @package    GoMage_SeoBooster
@@ -21,6 +21,11 @@
  */
 class GoMage_SeoBooster_Model_Config_Source_Canonical_Type
 {
+    /**
+     * Retrieve option array
+     *
+     * @return array
+     */
     public function toOptionArray()
     {
         $options = array(

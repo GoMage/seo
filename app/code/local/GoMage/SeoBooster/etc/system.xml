@@ -138,7 +138,7 @@
                 <enabled translate="label comment">
                     <label>Enabled</label>
                     <frontend_type>select</frontend_type>
-                    <source_model>adminhtml/system_config_source_yesno</source_model>
+                    <source_model>adminhtml/system_config_source_enabledisable</source_model>
                     <!--<frontend_model>gomage_seobooster/adminhtml_config_form_renderer_enabledisable</frontend_model>-->
                     <sort_order>1</sort_order>
                     <show_in_default>1</show_in_default>
@@ -178,6 +178,15 @@
                         <enable_canonical_url>multiple-1-3</enable_canonical_url>
                     </depends>
                 </product_canonical_url>
+                <add_trailing_slash>
+                    <label>Add Trailing Slash</label>
+                    <frontend_type>select</frontend_type>
+                    <source_model>adminhtml/system_config_source_yesno</source_model>
+                    <sort_order>5</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                </add_trailing_slash>
             </fields>
           </general>
         </groups>
