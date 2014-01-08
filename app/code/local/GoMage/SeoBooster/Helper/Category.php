@@ -125,4 +125,60 @@ class GoMage_SeoBooster_Helper_Category extends GoMage_SeoBooster_Helper_Canonic
         $category->getUrlInstance()->setStore(Mage::app()->getStore()->getId());
         return $url;
     }
+
+    /**
+     * Enable link rel
+     *
+     * @return bool
+     */
+    public function canAddNextPrevLinkRel()
+    {
+        return $this->_moduleEnabled() &&  Mage::getStoreConfig('gomage_seobooster/general/add_trailing_slash');
+    }
+
+    /**
+     * Add Link Rel next|prev
+     *
+     * @return GoMage_SeoBooster_Helper_Category
+     */
+    public function addNextPrevLinkRel()
+    {
+        $headBlock = Mage::app()->getLayout()->getBlock('head');
+        if ($pager = $this->_getPagerBlock()) {
+            if ($pager->getLastPageNum() > 1) {
+                if ($pager->isFirstPage() || $pager->getCurrentPage() < $pager->getLastPageNum()) {
+                    $headBlock->addLinkRel('next', $pager->getPageUrl($pager->getCurrentPage() + 1));
+                }
+                if ($pager->isLastPage() || $pager->getCurrentPage() > 1) {
+                    $lastPageNum = $pager->getLastPageNum() < $pager->getCurrentPage()
+                        ? $pager->getLastPageNum() : $pager->getCurrentPage();
+                    $headBlock->addLinkRel('prev', $pager->getPageUrl($lastPageNum - 1));
+                }
+            }
+        }
+    }
+
+    protected function _getPagerBlock()
+    {
+        $toolbarBlock = Mage::app()->getLayout()->createBlock('catalog/product_list_toolbar');
+        $pagerBlock = Mage::app()->getLayout()->createBlock('page/html_pager');
+        $toolbarBlock->setCollection($this->_getCategoryProducts());
+
+        if ($pagerBlock instanceof Varien_Object) {
+            $pagerBlock->setAvailableLimit($toolbarBlock->getAvailableLimit());
+            $pagerBlock->setLimit($toolbarBlock->getLimit())->setCollection($toolbarBlock->getCollection());
+
+            return $pagerBlock;
+        }
+
+        return false;
+    }
+
+    protected function _getCategoryProducts()
+    {
+        $layer = Mage::getSingleton('catalog/layer');
+        return $layer->getProductCollection();
+    }
+
+
 }

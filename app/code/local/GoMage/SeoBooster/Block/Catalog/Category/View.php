@@ -51,6 +51,10 @@ class GoMage_SeoBooster_Block_Catalog_Category_View extends Mage_Catalog_Block_C
             } elseif ($this->helper('catalog/category')->canUseCanonicalTag()) {
                 $headBlock->addLinkRel('canonical', $category->getUrl());
             }
+            if (Mage::helper('gomage_seobooster/category')->canAddNextPrevLinkRel()) {
+                Mage::helper('gomage_seobooster/category')->addNextPrevLinkRel();
+            }
+
             /*
             want to show rss feed in the url
             */

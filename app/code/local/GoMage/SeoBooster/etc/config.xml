@@ -94,6 +94,7 @@
                 <cross_domain_canonical_url>0</cross_domain_canonical_url>
                 <product_canonical_url>1</product_canonical_url>
                 <add_trailing_slash>0</add_trailing_slash>
+                <enable_link_rel>0</enable_link_rel>
             </general>
         </gomage_seobooster>
     </default>

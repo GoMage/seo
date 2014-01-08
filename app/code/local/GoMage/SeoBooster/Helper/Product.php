@@ -49,11 +49,10 @@ class GoMage_SeoBooster_Helper_Product extends GoMage_SeoBooster_Helper_Canonica
     public function getCanonicalUrl($product)
     {
         if ($this->canUseCanonicalTag()) {
-            $params = array('_nosid' => true, '_store_to_url' => false, '_ignore_category' => true);
+            $params = array('_nosid' => true, '_store_to_url' => false, '_ignore_category' => true, '_ignore_store' => true);
             $storeId = $this->getCanonicalStore($product);
             $storeProduct = $product;
-            if ($storeId !== GoMage_SeoBooster_Helper_Data::CANONICAL_URL_DEFAULT_DOMAIN_VALUE ||
-                $storeId !== Mage::app()->getStore()->getId()) {
+            if ($storeId !== GoMage_SeoBooster_Helper_Data::CANONICAL_URL_DEFAULT_DOMAIN_VALUE) {
                 $store = Mage::app()->getStore($storeId);
                 if ($store->getIsActive()) {
                     $storeProduct = $this->_getProductInStore($product->getId(), $store->getId());
@@ -105,10 +104,10 @@ class GoMage_SeoBooster_Helper_Product extends GoMage_SeoBooster_Helper_Canonica
     {
         $canonicalProductStore = $product->getCanonicalUrlStore();
         if ($canonicalProductStore != GoMage_SeoBooster_Helper_Data::CANONICAL_URL_DEFAULT_DOMAIN_VALUE) {
-            return $canonicalProductStore;
+            return (int) $canonicalProductStore;
         }
 
-        return Mage::getStoreConfig('gomage_seobooster/general/cross_domain_canonical_url');
+        return (int) Mage::getStoreConfig('gomage_seobooster/general/cross_domain_canonical_url');
     }
 
     /**
