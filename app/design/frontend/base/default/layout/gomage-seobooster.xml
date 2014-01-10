@@ -1,0 +1,7 @@
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+            <block type="gomage_seobooster/page_html_head_opengraph" name="head.og.metadata" template="gomage/seobooster/page/html/head/opengraph.phtml"/>
+        </reference>
+    </default>
+</layout>

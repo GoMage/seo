@@ -86,6 +86,15 @@
             </gomage_seobooster_setup>
         </resources>
     </global>
+    <frontend>
+        <layout>
+            <updates>
+                <gomage_seobooster module="GoMage_SeoBooster">
+                    <file>gomage-seobooster.xml</file>
+                </gomage_seobooster>
+            </updates>
+        </layout>
+    </frontend>
     <default>
         <gomage_seobooster>
             <general>
@@ -95,7 +104,15 @@
                 <product_canonical_url>1</product_canonical_url>
                 <add_trailing_slash>0</add_trailing_slash>
                 <enable_link_rel>0</enable_link_rel>
+                <enable_opengraph_metadata>0</enable_opengraph_metadata>
+                <enable_rich_snippets>0</enable_rich_snippets>
             </general>
+            <url_rewrite>
+                <enable_layered_url_rewrite>0</enable_layered_url_rewrite>
+                <layered_friendly_urls>1</layered_friendly_urls>
+                <layered_separator>=</layered_separator>
+                <layered_rewrite_path></layered_rewrite_path>
+            </url_rewrite>
         </gomage_seobooster>
     </default>
     <modules>

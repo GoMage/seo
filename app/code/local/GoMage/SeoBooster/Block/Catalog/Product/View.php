@@ -57,6 +57,9 @@ class GoMage_SeoBooster_Block_Catalog_Product_View extends Mage_Catalog_Block_Pr
                 $params = array('_ignore_category'=>true);
                 $headBlock->addLinkRel('canonical', $product->getUrlModel()->getUrl($product, $params));
             }
+            if (Mage::helper('gomage_seobooster/opengraph_product')->canAddOpengraphMetaData()) {
+                Mage::helper('gomage_seobooster/opengraph_product')->addMetadata();
+            }
         }
 
         return Mage_Catalog_Block_Product_Abstract::_prepareLayout();

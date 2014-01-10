@@ -48,33 +48,29 @@ class GoMage_SeoBooster_Helper_Product extends GoMage_SeoBooster_Helper_Canonica
      */
     public function getCanonicalUrl($product)
     {
-        if ($this->canUseCanonicalTag()) {
-            $params = array('_nosid' => true, '_store_to_url' => false, '_ignore_category' => true, '_ignore_store' => true);
-            $storeId = $this->getCanonicalStore($product);
-            $storeProduct = $product;
-            if ($storeId !== GoMage_SeoBooster_Helper_Data::CANONICAL_URL_DEFAULT_DOMAIN_VALUE) {
-                $store = Mage::app()->getStore($storeId);
-                if ($store->getIsActive()) {
-                    $storeProduct = $this->_getProductInStore($product->getId(), $store->getId());
-                    if (Mage::helper('catalog/product')->canShow($storeProduct)) {
-                        $params['_store'] = $store->getId();
-                    } else {
-                        $storeProduct = $product;
-                    }
+        $params = array('_nosid' => true, '_store_to_url' => false, '_ignore_category' => true, '_ignore_store' => true);
+        $storeId = $this->getCanonicalStore($product);
+        $storeProduct = $product;
+        if ($storeId !== GoMage_SeoBooster_Helper_Data::CANONICAL_URL_DEFAULT_DOMAIN_VALUE) {
+            $store = Mage::app()->getStore($storeId);
+            if ($store->getIsActive()) {
+                $storeProduct = $this->_getProductInStore($product->getId(), $store->getId());
+                if (Mage::helper('catalog/product')->canShow($storeProduct)) {
+                    $params['_store'] = $store->getId();
+                } else {
+                    $storeProduct = $product;
                 }
             }
-            if ($this->getCanonicalUrlType($storeProduct) != self::CANONICAL_PRODUCT_URL_SHORTEST) {
-                $highLevelCategory = $storeProduct->getHighLevelCategory();
-                if ($highLevelCategory && $highLevelCategory->getIsActive()) {
-                    unset($params['_ignore_category']);
-                    $params['category'] = $highLevelCategory->getId();
-                }
+        }
+        if ($this->getCanonicalUrlType($storeProduct) != self::CANONICAL_PRODUCT_URL_SHORTEST) {
+            $highLevelCategory = $storeProduct->getHighLevelCategory();
+            if ($highLevelCategory && $highLevelCategory->getIsActive()) {
+                unset($params['_ignore_category']);
+                $params['category'] = $highLevelCategory->getId();
             }
-
-            return $storeProduct->getUrlModel()->getUrl($product, $params);
         }
 
-        return false;
+        return $storeProduct->getUrlModel()->getUrl($product, $params);
     }
 
     /**

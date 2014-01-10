@@ -45,23 +45,20 @@ class GoMage_SeoBooster_Helper_Category extends GoMage_SeoBooster_Helper_Canonic
      */
     public function getCanonicalUrl($category)
     {
-        if ($this->canUseCanonicalTag()) {
-            $storeId = $this->getCanonicalStore($category);
-            if ($storeId !== GoMage_SeoBooster_Helper_Data::CANONICAL_URL_DEFAULT_DOMAIN_VALUE ||
-                $storeId !== Mage::app()->getStore()->getId()) {
-                $store = Mage::app()->getStore($storeId);
-                if ($store->getIsActive()) {
-                    $storeCategory = $this->_getCategoryInStore($category->getId(), $store->getId());
-                    if ($storeCategory->getIsActive()) {
-                        return $this->getCategoryUrl($storeCategory, $storeId);
-                    }
+        $storeId = $this->getCanonicalStore($category);
+        if ($storeId !== GoMage_SeoBooster_Helper_Data::CANONICAL_URL_DEFAULT_DOMAIN_VALUE ||
+            $storeId !== Mage::app()->getStore()->getId()) {
+            $store = Mage::app()->getStore($storeId);
+            if ($store->getIsActive()) {
+                $storeCategory = $this->_getCategoryInStore($category->getId(), $store->getId());
+                if ($storeCategory->getIsActive()) {
+                    return $this->getCategoryUrl($storeCategory, $storeId);
                 }
             }
-
-            return $category->getUrl();
         }
 
-        return false;
+        return $category->getUrl();
+
     }
 
     /**
@@ -133,7 +130,7 @@ class GoMage_SeoBooster_Helper_Category extends GoMage_SeoBooster_Helper_Canonic
      */
     public function canAddNextPrevLinkRel()
     {
-        return $this->_moduleEnabled() &&  Mage::getStoreConfig('gomage_seobooster/general/add_trailing_slash');
+        return $this->_moduleEnabled() &&  Mage::getStoreConfig('gomage_seobooster/general/enable_next_prev_link_rel');
     }
 
     /**
@@ -147,17 +144,32 @@ class GoMage_SeoBooster_Helper_Category extends GoMage_SeoBooster_Helper_Canonic
         if ($pager = $this->_getPagerBlock()) {
             if ($pager->getLastPageNum() > 1) {
                 if ($pager->isFirstPage() || $pager->getCurrentPage() < $pager->getLastPageNum()) {
-                    $headBlock->addLinkRel('next', $pager->getPageUrl($pager->getCurrentPage() + 1));
+                    $headBlock->addLinkRel('next', $pager->getPagerUrl(array(
+                        $pager->getLimitVarName() => $pager->getLimit(),
+                        $pager->getModeVarName()  => $pager->getMode(),
+                        $pager->getPageVarName()  => $pager->getCurrentPage() + 1
+                    )));
                 }
                 if ($pager->isLastPage() || $pager->getCurrentPage() > 1) {
                     $lastPageNum = $pager->getLastPageNum() < $pager->getCurrentPage()
                         ? $pager->getLastPageNum() : $pager->getCurrentPage();
-                    $headBlock->addLinkRel('prev', $pager->getPageUrl($lastPageNum - 1));
+                    $headBlock->addLinkRel('prev', $pager->getPagerUrl(array(
+                        $pager->getLimitVarName() => $pager->getLimit(),
+                        $pager->getModeVarName()  => $pager->getMode(),
+                        $pager->getPageVarName() => $lastPageNum - 1
+                    )));
                 }
             }
         }
+
+        return $this;
     }
 
+    /**
+     * Return pager block
+     *
+     * @return bool|Mage_Page_Block_Html_Pager
+     */
     protected function _getPagerBlock()
     {
         $toolbarBlock = Mage::app()->getLayout()->createBlock('catalog/product_list_toolbar');
@@ -166,7 +178,12 @@ class GoMage_SeoBooster_Helper_Category extends GoMage_SeoBooster_Helper_Canonic
 
         if ($pagerBlock instanceof Varien_Object) {
             $pagerBlock->setAvailableLimit($toolbarBlock->getAvailableLimit());
-            $pagerBlock->setLimit($toolbarBlock->getLimit())->setCollection($toolbarBlock->getCollection());
+            $pagerBlock->setLimit($toolbarBlock->getLimit())
+                ->setLimitVarName($toolbarBlock->getLimitVarName())
+                ->setPageVarName($toolbarBlock->getPageVarName())
+                ->setModeVarName($toolbarBlock->getModeVarName())
+                ->setMode($toolbarBlock->getCurrentMode())
+                ->setCollection($toolbarBlock->getCollection());
 
             return $pagerBlock;
         }
@@ -174,6 +191,11 @@ class GoMage_SeoBooster_Helper_Category extends GoMage_SeoBooster_Helper_Canonic
         return false;
     }
 
+    /**
+     * Return product collection
+     *
+     * @return Mage_Catalog_Model_Resource_Product_Collection
+     */
     protected function _getCategoryProducts()
     {
         $layer = Mage::getSingleton('catalog/layer');

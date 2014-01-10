@@ -54,6 +54,9 @@ class GoMage_SeoBooster_Block_Catalog_Category_View extends Mage_Catalog_Block_C
             if (Mage::helper('gomage_seobooster/category')->canAddNextPrevLinkRel()) {
                 Mage::helper('gomage_seobooster/category')->addNextPrevLinkRel();
             }
+            if (Mage::helper('gomage_seobooster/opengraph_category')->canAddOpengraphMetaData()) {
+                Mage::helper('gomage_seobooster/opengraph_category')->addMetadata();
+            }
 
             /*
             want to show rss feed in the url
