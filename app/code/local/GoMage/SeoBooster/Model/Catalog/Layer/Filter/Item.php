@@ -29,14 +29,21 @@ class GoMage_SeoBooster_Model_Catalog_Layer_Filter_Item extends Mage_Catalog_Mod
     public function getUrl()
     {
         $query = array(
-            $this->getFilter()->getRequestVar()=>$this->getValue(),
             Mage::getBlockSingleton('page/html_pager')->getPageVarName() => null // exclude current page from urls
         );
+
         $params = array(
             '_current'=>true,
             '_use_rewrite'=>true,
-            '_query'=>$query
         );
+
+        if ($separator = Mage::helper('gomage_seobooster/layered')->getSeparator()) {
+            $params['_layered_query_params'] = array($this->getFilter()->getRequestVar() => $this->getValue());
+        } else {
+            $query[$this->getFilter()->getRequestVar()] = $this->getValue();
+        }
+
+        $params['_query'] = $query;
 
         return Mage::helper('gomage_seobooster')->getUrl('*/*/*', $params);
     }

@@ -53,6 +53,7 @@
                     <category>GoMage_SeoBooster_Model_Catalog_Category</category>
                     <layer_filter_item>GoMage_SeoBooster_Model_Catalog_Layer_Filter_Item</layer_filter_item>
                     <template_filter>GoMage_SeoBooster_Model_Catalog_Template_Filter</template_filter>
+                    <layer_filter_attribute>GoMage_SeoBooster_Model_Catalog_Layer_Filter_Attribute</layer_filter_attribute>
                 </rewrite>
             </catalog>
             <cms>
@@ -94,6 +95,9 @@
                 </gomage_seobooster>
             </updates>
         </layout>
+        <events>
+
+        </events>
     </frontend>
     <default>
         <gomage_seobooster>
@@ -105,13 +109,12 @@
                 <add_trailing_slash>0</add_trailing_slash>
                 <enable_link_rel>0</enable_link_rel>
                 <enable_opengraph_metadata>0</enable_opengraph_metadata>
-                <enable_rich_snippets>0</enable_rich_snippets>
             </general>
             <url_rewrite>
                 <enable_layered_url_rewrite>0</enable_layered_url_rewrite>
-                <layered_friendly_urls>1</layered_friendly_urls>
+                <layered_friendly_urls>0</layered_friendly_urls>
                 <layered_separator>=</layered_separator>
-                <layered_rewrite_path></layered_rewrite_path>
+                <layered_rewrite_path/>
             </url_rewrite>
         </gomage_seobooster>
     </default>

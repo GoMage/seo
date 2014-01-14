@@ -205,15 +205,6 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                 </enable_opengraph_metadata>
-                <enable_rich_snippets>
-                    <label>Enable Rich Snippets</label>
-                    <frontend_type>select</frontend_type>
-                    <source_model>adminhtml/system_config_source_enabledisable</source_model>
-                    <sort_order>8</sort_order>
-                    <show_in_default>1</show_in_default>
-                    <show_in_website>1</show_in_website>
-                    <show_in_store>1</show_in_store>
-                </enable_rich_snippets>
             </fields>
           </general>
           <url_rewrite>
@@ -248,7 +239,8 @@
                   </layered_friendly_urls>
                   <layered_separator>
                       <label>Layered Navigation Separator</label>
-                      <frontend_type>text</frontend_type>
+                      <frontend_type>select</frontend_type>
+                      <source_model>gomage_seobooster/config_source_layered_separator</source_model>
                       <sort_order>3</sort_order>
                       <show_in_default>1</show_in_default>
                       <show_in_website>1</show_in_website>
