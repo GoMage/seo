@@ -21,6 +21,7 @@
  */
 class GoMage_SeoBooster_Helper_Layered extends Mage_Core_Helper_Data
 {
+    protected $_request;
     /**
      * Is url rewrite for layered navigation enabled
      *
@@ -56,6 +57,27 @@ class GoMage_SeoBooster_Helper_Layered extends Mage_Core_Helper_Data
     }
 
     /**
+     * Return can add rewrite path to layered url
+     *
+     * @return bool
+     */
+    public function canAddRewritePath()
+    {
+        return $this->isUrlRewriteEnabled()
+            && Mage::getStoreConfig('gomage_seobooster/url_rewrite/layered_rewrite_path');
+    }
+
+    /**
+     * Return rewrite path for layered url
+     *
+     * @return string
+     */
+    public function getRewritePath()
+    {
+        return Mage::getStoreConfig('gomage_seobooster/url_rewrite/layered_rewrite_path');
+    }
+
+    /**
      * Return query string for layered
      *
      * @param array $params  Query params
@@ -72,7 +94,9 @@ class GoMage_SeoBooster_Helper_Layered extends Mage_Core_Helper_Data
             ksort($params);
             if ($valueSeparator = $this->getSeparator()) {
                 foreach ($params as $_param => $_value) {
-                    $queryParams[] = $_param . $valueSeparator . $_value;
+                    if (!is_null($_value)) {
+                        $queryParams[] = $_param . $valueSeparator . $_value;
+                    }
                 }
                 $query = implode($paramsSeparator, $queryParams);
             } else {
@@ -93,7 +117,6 @@ class GoMage_SeoBooster_Helper_Layered extends Mage_Core_Helper_Data
     public function isLayeredQueryParam($param, $value)
     {
         if (!$value) {
-            $value = null;
             $params = $this->prepareLayeredQueryParam($param);
             return count($params) < 2 ? false : true;
         }
@@ -120,5 +143,25 @@ class GoMage_SeoBooster_Helper_Layered extends Mage_Core_Helper_Data
         }
 
         return array();
+    }
+
+    public function getRequest()
+    {
+        if (is_null($this->_request)) {
+            $request = new Mage_Core_Controller_Request_Http();
+            $params = $request->getParams();
+            $request->clearParams();
+            foreach ($params as $key => $value) {
+                if ($this->isLayeredQueryParam($key, $value)) {
+                    $param = $this->prepareLayeredQueryParam($key);
+                    if (count($param) == 2) {
+                        $request->setParam($param[0], $param[1]);
+                    }
+                }
+            }
+            $this->_request = $request;
+        }
+
+        return $this->_request;
     }
 }

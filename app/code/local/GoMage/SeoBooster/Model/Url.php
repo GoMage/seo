@@ -61,9 +61,13 @@ class GoMage_SeoBooster_Model_Url extends Mage_Core_Model_Url
         }
 
         $layeredQueryParams = null;
-        if (isset($routeParams['_layered_query_params'])) {;
-            $this->setLayeredQueryParams($routeParams['_layered_query_params']);
+        if (isset($routeParams['_layered_query_params'])) {
+            $layeredQueryParams = $routeParams['_layered_query_params'];
             unset($routeParams['_layered_query_params']);
+        }
+
+        if ($layeredQueryParams !== null) {
+            $this->setLayeredQueryParams($layeredQueryParams);
         }
 
         $noSid = null;
@@ -85,6 +89,7 @@ class GoMage_SeoBooster_Model_Url extends Mage_Core_Model_Url
                 $this->setQueryParams(array());
             }
         }
+
 
         if ($noSid !== true) {
             $this->_prepareSessionUrl($url);
@@ -120,7 +125,17 @@ class GoMage_SeoBooster_Model_Url extends Mage_Core_Model_Url
      */
     public function setLayeredQueryParams(array $params)
     {
-        $this->setData('layered_query_params', $params);
+//        $data = $this->_getData('layered_query_params');
+//        if (!$data) {
+//            $data = array();
+//        }
+//        if (is_array($params)) {
+//            foreach ($params as $key => $value) {
+//                $data[$key] = $value;
+//            }
+            $this->setData('layered_query_params', $params);
+//        }
+
         return $this;
     }
 

@@ -99,6 +99,7 @@ class GoMage_SeoBooster_Model_Catalog_Layer_Filter_Attribute extends Mage_Catalo
             return parent::apply($request, $filterBlock);
         }
 
+
         $filter = $request->getParam($this->_requestVar);
         if (is_array($filter)) {
             return $this;

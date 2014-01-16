@@ -60,6 +60,7 @@ class GoMage_SeoBooster_Model_Catalog_Layer_Filter_Item extends Mage_Catalog_Mod
         $params['_use_rewrite'] = true;
         $params['_query']       = $query;
         $params['_escape']      = true;
+        $params['_layered_query_params'][$this->getFilter()->getRequestVar()] = $this->getFilter()->getResetValue();
         return Mage::helper('gomage_seobooster')->getUrl('*/*/*', $params);
     }
 

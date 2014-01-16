@@ -29,6 +29,10 @@
                     <category_view>GoMage_SeoBooster_Block_Catalog_Category_View</category_view>
                     <layer_state>GoMage_SeoBooster_Block_Catalog_Layer_State</layer_state>
                     <product_list_toolbar>GoMage_Seobooster_Block_Catalog_Product_List_Toolbar</product_list_toolbar>
+                    <layer_filter_category>GoMage_SeoBooster_Block_Catalog_Layer_Filter_Category</layer_filter_category>
+                    <layer_filter_price>GoMage_SeoBooster_Block_Catalog_Layer_Filter_Price</layer_filter_price>
+                    <layer_filter_decimal>GoMage_SeoBooster_Block_Catalog_Layer_Filter_Decimal</layer_filter_decimal>
+                    <layer_filter_attribute>GoMage_SeoBooster_Block_Catalog_Layer_Filter_Attribute</layer_filter_attribute>
                 </rewrite>
             </catalog>
             <page>
@@ -86,6 +90,16 @@
                 </setup>
             </gomage_seobooster_setup>
         </resources>
+        <events>
+            <controller_front_init_before>
+                <observers>
+                    <prepare_layered_request>
+                        <class>gomage_seobooster/observer</class>
+                        <method>prepareLayeredRequest</method>
+                    </prepare_layered_request>
+                </observers>
+            </controller_front_init_before>
+        </events>
     </global>
     <frontend>
         <layout>
@@ -95,9 +109,6 @@
                 </gomage_seobooster>
             </updates>
         </layout>
-        <events>
-
-        </events>
     </frontend>
     <default>
         <gomage_seobooster>
