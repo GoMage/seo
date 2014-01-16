@@ -63,8 +63,7 @@ class GoMage_SeoBooster_Helper_Layered extends Mage_Core_Helper_Data
      */
     public function canAddRewritePath()
     {
-        return $this->isUrlRewriteEnabled()
-            && Mage::getStoreConfig('gomage_seobooster/url_rewrite/layered_rewrite_path');
+        return $this->isUrlRewriteEnabled() && Mage::getStoreConfig('gomage_seobooster/url_rewrite/layered_rewrite_path');
     }
 
     /**
@@ -74,7 +73,8 @@ class GoMage_SeoBooster_Helper_Layered extends Mage_Core_Helper_Data
      */
     public function getRewritePath()
     {
-        return Mage::getStoreConfig('gomage_seobooster/url_rewrite/layered_rewrite_path');
+        return $this->canAddRewritePath() ? Mage::getStoreConfig('gomage_seobooster/url_rewrite/layered_rewrite_path')
+            : false;
     }
 
     /**

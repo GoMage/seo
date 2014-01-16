@@ -66,10 +66,6 @@ class GoMage_SeoBooster_Model_Url extends Mage_Core_Model_Url
             unset($routeParams['_layered_query_params']);
         }
 
-        if ($layeredQueryParams !== null) {
-            $this->setLayeredQueryParams($layeredQueryParams);
-        }
-
         $noSid = null;
         if (isset($routeParams['_nosid'])) {
             $noSid = (bool)$routeParams['_nosid'];
@@ -88,6 +84,10 @@ class GoMage_SeoBooster_Model_Url extends Mage_Core_Model_Url
             if ($query === false) {
                 $this->setQueryParams(array());
             }
+        }
+
+        if ($layeredQueryParams !== null) {
+            $this->setLayeredQueryParams($layeredQueryParams);
         }
 
 
@@ -125,16 +125,16 @@ class GoMage_SeoBooster_Model_Url extends Mage_Core_Model_Url
      */
     public function setLayeredQueryParams(array $params)
     {
-//        $data = $this->_getData('layered_query_params');
-//        if (!$data) {
-//            $data = array();
-//        }
-//        if (is_array($params)) {
-//            foreach ($params as $key => $value) {
-//                $data[$key] = $value;
-//            }
-            $this->setData('layered_query_params', $params);
-//        }
+        $data = $this->_getData('layered_query_params');
+        if (!$data) {
+            $data = array();
+        }
+        if (is_array($params)) {
+            foreach ($params as $key => $value) {
+                $data[$key] = $value;
+            }
+            $this->setData('layered_query_params', $data);
+        }
 
         return $this;
     }
@@ -176,6 +176,13 @@ class GoMage_SeoBooster_Model_Url extends Mage_Core_Model_Url
         if (!$this->hasData('route_path')) {
             $routePath = $this->getRequest()->getAlias(Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS);
             if (!empty($routeParams['_use_rewrite']) && ($routePath !== null)) {
+                if ($layerRewritePath = $this->getLayerRewritePath()) {
+                    if ($routePath != '' && substr($routePath, -1, 1) !== '/') {
+                        $routePath .= '/';
+                    }
+
+                    $routePath .= $layerRewritePath;
+                }
                 $routePath = $this->_addTrailingSlash($routePath);
                 $this->setData('route_path', $routePath);
                 return $routePath;
@@ -193,8 +200,99 @@ class GoMage_SeoBooster_Model_Url extends Mage_Core_Model_Url
                 $routePath .= '/';
             }
             $this->setData('route_path', $routePath);
+            Mage::log($routePath);
         }
         return $this->_getData('route_path');
+    }
+
+    /**
+     * Set Route Parameters
+     *
+     * @param array $data
+     * @return Mage_Core_Model_Url
+     */
+    public function setRoutePath($data)
+    {
+        if ($this->_getData('route_path') == $data) {
+            return $this;
+        }
+
+        $a = explode('/', $data);
+
+        $route = array_shift($a);
+        if ('*' === $route) {
+            $route = $this->getRequest()->getRequestedRouteName();
+        }
+        $this->setRouteName($route);
+        $routePath = $route . '/';
+
+        if (!empty($a)) {
+            $controller = array_shift($a);
+            if ('*' === $controller) {
+                $controller = $this->getRequest()->getRequestedControllerName();
+            }
+            $this->setControllerName($controller);
+            $routePath .= $controller . '/';
+        }
+
+        if (!empty($a)) {
+            $action = array_shift($a);
+            if ('*' === $action) {
+                $action = $this->getRequest()->getRequestedActionName();
+            }
+            $this->setActionName($action);
+            $routePath .= $action . '/';
+        }
+
+        if ($layerRewritePath  = Mage::helper('gomage_seobooster/layered')->getRewritePath()) {
+            if (!empty($a)) {
+                $routeLayerRewritePath = $a[0];
+                if ($layerRewritePath === $routeLayerRewritePath) {
+                    array_shift($a);
+                    $this->setLayerRewritePath($layerRewritePath);
+                    $routePath .= $layerRewritePath . '/';
+                }
+            }
+        }
+
+        if (!empty($a)) {
+            $this->unsetData('route_params');
+            while (!empty($a)) {
+                $key = array_shift($a);
+                if (!empty($a)) {
+                    $value = array_shift($a);
+                    $this->setRouteParam($key, $value);
+                    $routePath .= $key . '/' . $value . '/';
+                }
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Set Layer rewrite path
+     *
+     * @param string $path PAth
+     * @return $this|Varien_Object
+     */
+    public function setLayerRewritePath($path)
+    {
+        if ($this->_getData('layer_rewrite_path') == $path) {
+            return $this;
+        }
+
+        return $this->setData('layer_rewrite_path', $path);
+    }
+
+    /**
+     * Return layer rewrite path
+     *
+     * @return string
+     */
+    public function getLayerRewritePath()
+    {
+        return $this->_getData('layer_rewrite_path');
     }
 
     /**

@@ -12,7 +12,7 @@
  */
 
 /**
- * Layer state block
+ * Layered navigation state block
  *
  * @category   GoMage
  * @package    GoMage_SeoBooster
@@ -32,10 +32,12 @@ class GoMage_SeoBooster_Block_Catalog_Layer_State extends Mage_Catalog_Block_Lay
         foreach ($this->getActiveFilters() as $item) {
             $filterState[$item->getFilter()->getRequestVar()] = $item->getFilter()->getCleanValue();
         }
+        $queryIndex = Mage::helper('gomage_seobooster/layered')->getSeparator() ? '_layered_query_params' : '_query';
         $params['_current']     = true;
         $params['_use_rewrite'] = true;
-        $params['_query']       = $filterState;
+        $params[$queryIndex]    = $filterState;
         $params['_escape']      = true;
+        
         return Mage::helper('gomage_seobooster')->getUrl('*/*/*', $params);
     }
 }

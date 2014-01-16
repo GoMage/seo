@@ -58,7 +58,7 @@ class GoMage_SeoBooster_Helper_Data extends Mage_Core_Helper_Data
         }
 
         if ($this->isEnabled()) {
-            $urlModel = Mage::getSingleton('gomage_seobooster/url');
+            $urlModel = Mage::getModel('gomage_seobooster/url');
             if (isset($store)) {
                 $urlModel->setStore($store);
             }

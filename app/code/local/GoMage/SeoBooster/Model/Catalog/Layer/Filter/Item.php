@@ -45,7 +45,7 @@ class GoMage_SeoBooster_Model_Catalog_Layer_Filter_Item extends Mage_Catalog_Mod
 
         $params['_query'] = $query;
 
-        return Mage::helper('gomage_seobooster')->getUrl('*/*/*', $params);
+        return Mage::helper('gomage_seobooster')->getUrl('*/*/*/rewrite_path', $params);
     }
 
     /**
@@ -55,12 +55,21 @@ class GoMage_SeoBooster_Model_Catalog_Layer_Filter_Item extends Mage_Catalog_Mod
      */
     public function getRemoveUrl()
     {
-        $query = array($this->getFilter()->getRequestVar()=>$this->getFilter()->getResetValue());
+        $params = array();
+        $query = array();
+        $layeredQuery = array();
+
+        if ($separator = Mage::helper('gomage_seobooster/layered')->getSeparator()) {
+            $layeredQuery = array($this->getFilter()->getRequestVar()=>$this->getFilter()->getResetValue());
+        } else {
+            $query = array($this->getFilter()->getRequestVar()=>$this->getFilter()->getResetValue());
+        }
+
         $params['_current']     = true;
         $params['_use_rewrite'] = true;
         $params['_query']       = $query;
         $params['_escape']      = true;
-        $params['_layered_query_params'][$this->getFilter()->getRequestVar()] = $this->getFilter()->getResetValue();
+        $params['_layered_query_params'] = $layeredQuery;
         return Mage::helper('gomage_seobooster')->getUrl('*/*/*', $params);
     }
 
@@ -76,12 +85,23 @@ class GoMage_SeoBooster_Model_Catalog_Layer_Filter_Item extends Mage_Catalog_Mod
             return false;
         }
 
+        $query = array();
+        $layeredQuery = array();
+
+        if (Mage::helper('gomage_seobooster/layered')->getSeparator()) {
+            $layeredQuery = array($this->getFilter()->getRequestVar() => null);
+        } else {
+            $query = array($this->getFilter()->getRequestVar() => null);
+        }
+
         $urlParams = array(
             '_current' => true,
             '_use_rewrite' => true,
-            '_query' => array($this->getFilter()->getRequestVar() => null),
+            '_query' => $query,
             '_escape' => true,
+            '_layered_query_params' => $layeredQuery
         );
+
         return Mage::helper('gomage_seobooster')->getUrl('*/*/*', $urlParams);
     }
 }
