@@ -50,6 +50,10 @@ class GoMage_SeoBooster_Model_Url_Rewrite extends Mage_Core_Model_Url_Rewrite
          */
         $requestCases = array();
         $pathInfo = $request->getPathInfo();
+        if ($rewritePath = Mage::helper('gomage_seobooster/layered')->getRewritePath()) {
+            $pathInfo = str_replace('/' . $rewritePath, '', $pathInfo);
+            $request->setPathInfo($pathInfo);
+        }
         $origSlash = (substr($pathInfo, -1) == '/') ? '/' : '';
         $requestPath = trim($pathInfo, '/');
 

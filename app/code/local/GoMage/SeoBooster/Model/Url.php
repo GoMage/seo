@@ -176,18 +176,13 @@ class GoMage_SeoBooster_Model_Url extends Mage_Core_Model_Url
         if (!$this->hasData('route_path')) {
             $routePath = $this->getRequest()->getAlias(Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS);
             if (!empty($routeParams['_use_rewrite']) && ($routePath !== null)) {
-                if ($layerRewritePath = $this->getLayerRewritePath()) {
-                    if ($routePath != '' && substr($routePath, -1, 1) !== '/') {
-                        $routePath .= '/';
-                    }
-
-                    $routePath .= $layerRewritePath;
-                }
+                $routePath = $this->_addLayerRewritePathToRoute($routePath);
                 $routePath = $this->_addTrailingSlash($routePath);
                 $this->setData('route_path', $routePath);
                 return $routePath;
             }
             $routePath = $this->getActionPath();
+            $routePath = $this->_addLayerRewritePathToRoute($routePath);
             if ($this->getRouteParams()) {
                 foreach ($this->getRouteParams() as $key=>$value) {
                     if (is_null($value) || false === $value || '' === $value || !is_scalar($value)) {
@@ -200,9 +195,21 @@ class GoMage_SeoBooster_Model_Url extends Mage_Core_Model_Url
                 $routePath .= '/';
             }
             $this->setData('route_path', $routePath);
-            Mage::log($routePath);
         }
         return $this->_getData('route_path');
+    }
+
+    protected function _addLayerRewritePathToRoute($routePath)
+    {
+        if ($layerRewritePath = $this->getLayerRewritePath()) {
+            if ($routePath != '' && substr($routePath, -1, 1) !== '/') {
+                $routePath .= '/';
+            }
+
+            $routePath .= $layerRewritePath . '/';
+        }
+
+        return $routePath;
     }
 
     /**
@@ -244,7 +251,7 @@ class GoMage_SeoBooster_Model_Url extends Mage_Core_Model_Url
             $routePath .= $action . '/';
         }
 
-        if ($layerRewritePath  = Mage::helper('gomage_seobooster/layered')->getRewritePath()) {
+        if ($layerRewritePath = Mage::helper('gomage_seobooster/layered')->getRewritePath()) {
             if (!empty($a)) {
                 $routeLayerRewritePath = $a[0];
                 if ($layerRewritePath === $routeLayerRewritePath) {

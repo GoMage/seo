@@ -42,10 +42,15 @@ class GoMage_SeoBooster_Model_Catalog_Layer_Filter_Item extends Mage_Catalog_Mod
         } else {
             $query[$this->getFilter()->getRequestVar()] = $this->getValue();
         }
-
         $params['_query'] = $query;
 
-        return Mage::helper('gomage_seobooster')->getUrl('*/*/*/rewrite_path', $params);
+        $routePath = '*/*/*';
+
+        if ($rewritePath = Mage::helper('gomage_seobooster/layered')->getRewritePath()) {
+            $routePath .= '/' . $rewritePath;
+        }
+
+        return Mage::helper('gomage_seobooster')->getUrl($routePath, $params);
     }
 
     /**

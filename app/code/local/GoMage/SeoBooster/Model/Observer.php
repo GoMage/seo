@@ -23,6 +23,9 @@ class GoMage_SeoBooster_Model_Observer
 {
     public function prepareLayeredRequest(Varien_Event_Observer $observer)
     {
+        $front = $observer->getEvent()->getFront();
+        $request = $front->getRequest();
+        $pathInfo = $request->getPathInfo();
 
     }
 }
