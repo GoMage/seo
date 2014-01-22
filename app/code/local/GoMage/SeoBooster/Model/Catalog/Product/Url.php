@@ -71,6 +71,7 @@ class GoMage_SeoBooster_Model_Catalog_Product_Url extends Mage_Catalog_Model_Pro
         if ($storeId != Mage::app()->getStore()->getId() && $storeId != null && !isset($routeParams['_ignore_store'])) {
             $routeParams['_store_to_url'] = true;
         }
+        unset($routeParams['_ignore_store']);
 
         if (!empty($requestPath)) {
             $routeParams['_direct'] = $requestPath;

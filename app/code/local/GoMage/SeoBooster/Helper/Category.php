@@ -143,20 +143,21 @@ class GoMage_SeoBooster_Helper_Category extends GoMage_SeoBooster_Helper_Canonic
         $headBlock = Mage::app()->getLayout()->getBlock('head');
         if ($pager = $this->_getPagerBlock()) {
             if ($pager->getLastPageNum() > 1) {
+                if ($pager->isLastPage() || $pager->getCurrentPage() > 1) {
+                    $lastPageNum = $pager->getLastPageNum() < $pager->getCurrentPage()
+                        ? $pager->getLastPageNum() : $pager->getCurrentPage();
+                    $params = array(
+                        $pager->getLimitVarName() => $pager->getLimit(),
+                        $pager->getModeVarName()  => $pager->getMode(),
+                        $pager->getPageVarName()  => ($lastPageNum - 1 > 1) ? $lastPageNum - 1 : null
+                    );
+                    $headBlock->addLinkRel('prev', $pager->getPagerUrl($params));
+                }
                 if ($pager->isFirstPage() || $pager->getCurrentPage() < $pager->getLastPageNum()) {
                     $headBlock->addLinkRel('next', $pager->getPagerUrl(array(
                         $pager->getLimitVarName() => $pager->getLimit(),
                         $pager->getModeVarName()  => $pager->getMode(),
                         $pager->getPageVarName()  => $pager->getCurrentPage() + 1
-                    )));
-                }
-                if ($pager->isLastPage() || $pager->getCurrentPage() > 1) {
-                    $lastPageNum = $pager->getLastPageNum() < $pager->getCurrentPage()
-                        ? $pager->getLastPageNum() : $pager->getCurrentPage();
-                    $headBlock->addLinkRel('prev', $pager->getPagerUrl(array(
-                        $pager->getLimitVarName() => $pager->getLimit(),
-                        $pager->getModeVarName()  => $pager->getMode(),
-                        $pager->getPageVarName() => $lastPageNum - 1
                     )));
                 }
             }

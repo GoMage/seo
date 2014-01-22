@@ -203,6 +203,7 @@ class GoMage_SeoBooster_Model_Url extends Mage_Core_Model_Url
     {
         if ($layerRewritePath = $this->getLayerRewritePath()) {
             if ($routePath != '' && substr($routePath, -1, 1) !== '/') {
+                $routePath = preg_replace('/\.[a-z]{2,4}$/', '', $routePath);
                 $routePath .= '/';
             }
 

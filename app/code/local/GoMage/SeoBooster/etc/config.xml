@@ -28,7 +28,7 @@
                     <product_view>GoMage_SeoBooster_Block_Catalog_Product_View</product_view>
                     <category_view>GoMage_SeoBooster_Block_Catalog_Category_View</category_view>
                     <layer_state>GoMage_SeoBooster_Block_Catalog_Layer_State</layer_state>
-                    <product_list_toolbar>GoMage_Seobooster_Block_Catalog_Product_List_Toolbar</product_list_toolbar>
+                    <product_list_toolbar>GoMage_SeoBooster_Block_Catalog_Product_List_Toolbar</product_list_toolbar>
                     <layer_filter_category>GoMage_SeoBooster_Block_Catalog_Layer_Filter_Category</layer_filter_category>
                     <layer_filter_price>GoMage_SeoBooster_Block_Catalog_Layer_Filter_Price</layer_filter_price>
                     <layer_filter_decimal>GoMage_SeoBooster_Block_Catalog_Layer_Filter_Decimal</layer_filter_decimal>

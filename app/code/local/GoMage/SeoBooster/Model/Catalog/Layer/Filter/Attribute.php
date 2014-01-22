@@ -43,7 +43,7 @@ class GoMage_SeoBooster_Model_Catalog_Layer_Filter_Attribute extends Mage_Catalo
                     continue;
                 }
                 if (Mage::helper('core/string')->strlen($option['value'])) {
-                    $value = Mage::helper('gomage_seobooster/layered')->canUseFriendlyUrl() ? $option['label']
+                    $value = Mage::helper('gomage_seobooster/layered')->canUseFriendlyUrl() ? strtolower($option['label'])
                         : $option['value'];
                     // Check filter type
                     if ($this->_getIsFilterableAttribute($attribute) == self::OPTIONS_ONLY_WITH_RESULTS) {

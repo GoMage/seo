@@ -22,6 +22,9 @@
 class GoMage_SeoBooster_Helper_Layered extends Mage_Core_Helper_Data
 {
     protected $_request;
+
+    protected $_filterableParamsCount = null;
+
     /**
      * Is url rewrite for layered navigation enabled
      *
@@ -63,7 +66,9 @@ class GoMage_SeoBooster_Helper_Layered extends Mage_Core_Helper_Data
      */
     public function canAddRewritePath()
     {
-        return $this->isUrlRewriteEnabled() && Mage::getStoreConfig('gomage_seobooster/url_rewrite/layered_rewrite_path');
+        return $this->isUrlRewriteEnabled()
+            && Mage::getStoreConfig('gomage_seobooster/url_rewrite/enable_layered_rewrite_path')
+            && Mage::getStoreConfig('gomage_seobooster/url_rewrite/layered_rewrite_path');
     }
 
     /**
@@ -145,6 +150,11 @@ class GoMage_SeoBooster_Helper_Layered extends Mage_Core_Helper_Data
         return array();
     }
 
+    /**
+     * Return new request object with prepared layer params
+     *
+     * @return Mage_Core_Controller_Request_Http
+     */
     public function getRequest()
     {
         if (is_null($this->_request)) {
@@ -163,5 +173,29 @@ class GoMage_SeoBooster_Helper_Layered extends Mage_Core_Helper_Data
         }
 
         return $this->_request;
+    }
+
+    /**
+     * Return filterable params count
+     *
+     * @return int
+     */
+    public function getFilterableParamsSize()
+    {
+        if (is_null($this->_filterableParamsCount)) {
+            $params = $this->getRequest()->getParams();
+            $attributes = array();
+            foreach ($params as $key => $value) {
+                if ($value) {
+                    $attributes[] = $key;
+                }
+            }
+            $collection = Mage::getResourceModel('catalog/product_attribute_collection')->addIsFilterableFilter();
+            $collection->addFieldToFilter('main_table.attribute_code', array('in' => $attributes));
+
+            $this->_filterableParamsCount = $collection->getSize();
+        }
+
+        return $this->_filterableParamsCount;
     }
 }
