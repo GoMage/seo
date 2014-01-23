@@ -100,8 +100,15 @@ class GoMage_SeoBooster_Model_Url extends Mage_Core_Model_Url
         $layeredQuery = '';
         if ($layeredQueryParams = $this->_getData('layered_query_params')) {
             if ($layeredQuery = Mage::helper('gomage_seobooster/layered')->getQuery($layeredQueryParams, $escapeQuery)) {
-                $url .= $mark . $layeredQuery;
-                $mark = $escapeQuery ? '&amp;' : '&';
+                if (Mage::helper('gomage_seobooster/layered')->canAddRewritePath()) {
+                    if ($categorySuffix = Mage::getStoreConfig('catalog/seo/category_url_suffix')) {
+                        $layeredQuery .= $categorySuffix;
+                    }
+                    $url .= $layeredQuery;
+                } else {
+                    $url .= $mark . $layeredQuery;
+                    $mark = $escapeQuery ? '&amp;' : '&';
+                }
             }
         }
 
@@ -115,6 +122,26 @@ class GoMage_SeoBooster_Model_Url extends Mage_Core_Model_Url
         }
 
         return $this->escape($url);
+    }
+
+    /**
+     * Get query params part of url
+     *
+     * @param bool $escape "&" escape flag
+     * @return string
+     */
+    public function getQuery($escape = false)
+    {
+        if (!$this->hasData('query')) {
+            $query = '';
+            $params = $this->getQueryParams();
+            if (is_array($params)) {
+                ksort($params);
+                $query = http_build_query($params, '', $escape ? '&amp;' : '&');
+            }
+            $this->setData('query', $query);
+        }
+        return $this->_getData('query');
     }
 
     /**
@@ -253,14 +280,8 @@ class GoMage_SeoBooster_Model_Url extends Mage_Core_Model_Url
         }
 
         if ($layerRewritePath = Mage::helper('gomage_seobooster/layered')->getRewritePath()) {
-            if (!empty($a)) {
-                $routeLayerRewritePath = $a[0];
-                if ($layerRewritePath === $routeLayerRewritePath) {
-                    array_shift($a);
-                    $this->setLayerRewritePath($layerRewritePath);
-                    $routePath .= $layerRewritePath . '/';
-                }
-            }
+            $this->setLayerRewritePath($layerRewritePath);
+            $routePath .= $layerRewritePath . '/';
         }
 
         if (!empty($a)) {
@@ -361,8 +382,15 @@ class GoMage_SeoBooster_Model_Url extends Mage_Core_Model_Url
                     } else {
                         $this->setLayerQueryParam($key);
                     }
-
                 }
+
+                if (Mage::helper('gomage_seobooster/layered')->canAddRewritePath()) {
+                    $layeredParams = Mage::helper('gomage_seobooster/layered')->getFilterableParams();
+                    foreach ($layeredParams as $key => $value) {
+                        $this->setLayerQueryParam($key, $value);
+                    }
+                }
+
                 $this->setUseUrlCache(false);
             }
             unset($data['_current']);

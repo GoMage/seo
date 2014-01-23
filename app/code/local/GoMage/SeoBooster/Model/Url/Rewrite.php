@@ -49,11 +49,9 @@ class GoMage_SeoBooster_Model_Url_Rewrite extends Mage_Core_Model_Url_Rewrite
          * Choose any matched rewrite, but in priority order that depends on same presence of slash and query params.
          */
         $requestCases = array();
-        $pathInfo = $request->getPathInfo();
-        if ($rewritePath = Mage::helper('gomage_seobooster/layered')->getRewritePath()) {
-            $pathInfo = str_replace('/' . $rewritePath, '', $pathInfo);
-            $request->setPathInfo($pathInfo);
-        }
+        $pathInfo = $this->preparePathInfo($request);
+        $this->preparePathInfo($request);
+
         $origSlash = (substr($pathInfo, -1) == '/') ? '/' : '';
         $requestPath = trim($pathInfo, '/');
 
@@ -139,5 +137,34 @@ class GoMage_SeoBooster_Model_Url_Rewrite extends Mage_Core_Model_Url_Rewrite
         $this->setTargetPath(Mage::helper('gomage_seobooster')->addTrailingSlash($path));
 
         return $this;
+    }
+
+    protected function preparePathInfo($request)
+    {
+        $pathInfo = $request->getPathInfo();
+        if ($rewritePath = Mage::helper('gomage_seobooster/layered')->getRewritePath()) {
+            if ($rewritePathPos = strripos($pathInfo, '/'. $rewritePath)) {
+                $queryString = substr($pathInfo, ($rewritePathPos + strlen($rewritePath) + 2));
+                if ($queryString) {
+                    $params = explode('/', $queryString);
+                    $separtor = Mage::helper('gomage_seobooster/layered')->getSeparator();
+                    foreach ($params as $param) {
+                        if (!$separtor) {
+                            list($key, $value) = explode('=', $param);
+                            $request->setParam($key, $value);
+                        } else {
+                            $request->setParam($param, '');
+                        }
+                    }
+                }
+                $pathInfo = substr_replace($pathInfo, '', $rewritePathPos);
+                if ($categorySuffix = Mage::getStoreConfig('catalog/seo/category_url_suffix')) {
+                    $pathInfo .= $categorySuffix;
+                }
+                $request->setPathInfo($pathInfo);
+            }
+        }
+
+        return $pathInfo;
     }
 }

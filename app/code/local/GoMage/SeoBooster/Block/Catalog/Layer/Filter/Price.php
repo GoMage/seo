@@ -38,7 +38,8 @@ class GoMage_SeoBooster_Block_Catalog_Layer_Filter_Price extends Mage_Catalog_Bl
         $this->_prepareFilter();
         $request = $this->getRequest();
         $helper = Mage::helper('gomage_seobooster/layered');
-        $request = $helper->getSeparator() ? $helper->getRequest() : $request;
+        $request = $helper->getSeparator() || Mage::helper('gomage_seobooster/layered')->canAddRewritePath()
+            ? $helper->getRequest() : $request;
 
         $this->_filter->apply($request, $this);
         return $this;
