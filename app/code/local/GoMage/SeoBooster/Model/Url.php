@@ -71,6 +71,12 @@ class GoMage_SeoBooster_Model_Url extends Mage_Core_Model_Url
             $noSid = (bool)$routeParams['_nosid'];
             unset($routeParams['_nosid']);
         }
+
+        if (isset($routeParams['_use_layer_rewrite'])) {
+            $this->setData('use_layer_rewrite', $routeParams['_use_layer_rewrite']);
+            unset($routeParams['_use_layer_rewrite']);
+        }
+
         $url = $this->getRouteUrl($routePath, $routeParams);
         /**
          * Apply query params, need call after getRouteUrl for rewrite _current values
@@ -90,17 +96,34 @@ class GoMage_SeoBooster_Model_Url extends Mage_Core_Model_Url
             $this->setLayeredQueryParams($layeredQueryParams);
         }
 
-
         if ($noSid !== true) {
             $this->_prepareSessionUrl($url);
         }
 
+        $url = $this->_addQueryToUrl($url, $escapeQuery);
+
+        if ($this->getFragment()) {
+            $url .= '#' . $this->getFragment();
+        }
+
+        return $this->escape($url);
+    }
+
+    /**
+     * Add query string to url
+     *
+     * @param string $url         Url
+     * @param bool   $escapeQuery Escape Query
+     * @return string
+     */
+    protected function _addQueryToUrl($url, $escapeQuery = false)
+    {
         $mark = (strpos($url, '?') === false) ? '?' : ($escapeQuery ? '&amp;' : '&');
 
-        $layeredQuery = '';
         if ($layeredQueryParams = $this->_getData('layered_query_params')) {
             if ($layeredQuery = Mage::helper('gomage_seobooster/layered')->getQuery($layeredQueryParams, $escapeQuery)) {
-                if (Mage::helper('gomage_seobooster/layered')->canAddRewritePath()) {
+                if (Mage::helper('gomage_seobooster/layered')->getRewritePath()
+                    && $this->_getData('use_layer_rewrite') !== false) {
                     if ($categorySuffix = Mage::getStoreConfig('catalog/seo/category_url_suffix')) {
                         $layeredQuery .= $categorySuffix;
                     }
@@ -117,31 +140,7 @@ class GoMage_SeoBooster_Model_Url extends Mage_Core_Model_Url
             $url .= $mark . $query;
         }
 
-        if ($this->getFragment()) {
-            $url .= '#' . $this->getFragment();
-        }
-
-        return $this->escape($url);
-    }
-
-    /**
-     * Get query params part of url
-     *
-     * @param bool $escape "&" escape flag
-     * @return string
-     */
-    public function getQuery($escape = false)
-    {
-        if (!$this->hasData('query')) {
-            $query = '';
-            $params = $this->getQueryParams();
-            if (is_array($params)) {
-                ksort($params);
-                $query = http_build_query($params, '', $escape ? '&amp;' : '&');
-            }
-            $this->setData('query', $query);
-        }
-        return $this->_getData('query');
+        return $url;
     }
 
     /**
@@ -226,9 +225,16 @@ class GoMage_SeoBooster_Model_Url extends Mage_Core_Model_Url
         return $this->_getData('route_path');
     }
 
+    /**
+     * Add Layer rewrite path to route path
+     *
+     * @param string $routePath Route Path
+     * @return string
+     */
     protected function _addLayerRewritePathToRoute($routePath)
     {
-        if ($layerRewritePath = $this->getLayerRewritePath()) {
+        if (($layerRewritePath = Mage::helper('gomage_seobooster/layered')->getRewritePath())
+            && ($this->_getData('use_layer_rewrite') !== false)) {
             if ($routePath != '' && substr($routePath, -1, 1) !== '/') {
                 $routePath = preg_replace('/\.[a-z]{2,4}$/', '', $routePath);
                 $routePath .= '/';
@@ -238,90 +244,6 @@ class GoMage_SeoBooster_Model_Url extends Mage_Core_Model_Url
         }
 
         return $routePath;
-    }
-
-    /**
-     * Set Route Parameters
-     *
-     * @param array $data
-     * @return Mage_Core_Model_Url
-     */
-    public function setRoutePath($data)
-    {
-        if ($this->_getData('route_path') == $data) {
-            return $this;
-        }
-
-        $a = explode('/', $data);
-
-        $route = array_shift($a);
-        if ('*' === $route) {
-            $route = $this->getRequest()->getRequestedRouteName();
-        }
-        $this->setRouteName($route);
-        $routePath = $route . '/';
-
-        if (!empty($a)) {
-            $controller = array_shift($a);
-            if ('*' === $controller) {
-                $controller = $this->getRequest()->getRequestedControllerName();
-            }
-            $this->setControllerName($controller);
-            $routePath .= $controller . '/';
-        }
-
-        if (!empty($a)) {
-            $action = array_shift($a);
-            if ('*' === $action) {
-                $action = $this->getRequest()->getRequestedActionName();
-            }
-            $this->setActionName($action);
-            $routePath .= $action . '/';
-        }
-
-        if ($layerRewritePath = Mage::helper('gomage_seobooster/layered')->getRewritePath()) {
-            $this->setLayerRewritePath($layerRewritePath);
-            $routePath .= $layerRewritePath . '/';
-        }
-
-        if (!empty($a)) {
-            $this->unsetData('route_params');
-            while (!empty($a)) {
-                $key = array_shift($a);
-                if (!empty($a)) {
-                    $value = array_shift($a);
-                    $this->setRouteParam($key, $value);
-                    $routePath .= $key . '/' . $value . '/';
-                }
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * Set Layer rewrite path
-     *
-     * @param string $path PAth
-     * @return $this|Varien_Object
-     */
-    public function setLayerRewritePath($path)
-    {
-        if ($this->_getData('layer_rewrite_path') == $path) {
-            return $this;
-        }
-
-        return $this->setData('layer_rewrite_path', $path);
-    }
-
-    /**
-     * Return layer rewrite path
-     *
-     * @return string
-     */
-    public function getLayerRewritePath()
-    {
-        return $this->_getData('layer_rewrite_path');
     }
 
     /**
@@ -384,7 +306,7 @@ class GoMage_SeoBooster_Model_Url extends Mage_Core_Model_Url
                     }
                 }
 
-                if (Mage::helper('gomage_seobooster/layered')->canAddRewritePath()) {
+                if (Mage::helper('gomage_seobooster/layered')->getRewritePath()) {
                     $layeredParams = Mage::helper('gomage_seobooster/layered')->getFilterableParams();
                     foreach ($layeredParams as $key => $value) {
                         $this->setLayerQueryParam($key, $value);

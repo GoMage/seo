@@ -187,7 +187,6 @@ class GoMage_SeoBooster_Helper_Layered extends Mage_Core_Helper_Data
                     $request->setParam($key, $this->_removeCategorySuffixFromRequestValue($value));
                 }
             }
-            Mage::log($request->getParams());
             $this->_request = $request;
         }
 

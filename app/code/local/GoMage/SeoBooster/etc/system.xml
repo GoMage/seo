@@ -257,6 +257,9 @@
                       <show_in_default>1</show_in_default>
                       <show_in_website>1</show_in_website>
                       <show_in_store>1</show_in_store>
+                      <depends>
+                          <enable_layered_url_rewrite>1</enable_layered_url_rewrite>
+                      </depends>
                   </enable_layered_rewrite_path>
                   <layered_rewrite_path>
                       <label>Layered Navigation Rewrite Path</label>
@@ -265,8 +268,10 @@
                       <show_in_default>1</show_in_default>
                       <show_in_website>1</show_in_website>
                       <show_in_store>1</show_in_store>
+                      <validate>required-entry</validate>
                       <depends>
                           <enable_layered_rewrite_path>1</enable_layered_rewrite_path>
+                          <enable_layered_url_rewrite>1</enable_layered_url_rewrite>
                       </depends>
                   </layered_rewrite_path>
               </fields>

@@ -131,6 +131,11 @@ class GoMage_SeoBooster_Model_Url_Rewrite extends Mage_Core_Model_Url_Rewrite
         return true;
     }
 
+    /**
+     * Prepare target path
+     *
+     * @return $this
+     */
     protected function _prepareTargetPath()
     {
         $path = $this->getTargetPath();
@@ -139,21 +144,41 @@ class GoMage_SeoBooster_Model_Url_Rewrite extends Mage_Core_Model_Url_Rewrite
         return $this;
     }
 
+    /**
+     * Prepare path info and set params to request
+     *
+     * @param Mage_Core_Controller_Request_Http $request Request
+     * @return string
+     */
     protected function preparePathInfo($request)
     {
         $pathInfo = $request->getPathInfo();
+
         if ($rewritePath = Mage::helper('gomage_seobooster/layered')->getRewritePath()) {
             if ($rewritePathPos = strripos($pathInfo, '/'. $rewritePath)) {
                 $queryString = substr($pathInfo, ($rewritePathPos + strlen($rewritePath) + 2));
                 if ($queryString) {
                     $params = explode('/', $queryString);
                     $separtor = Mage::helper('gomage_seobooster/layered')->getSeparator();
-                    foreach ($params as $param) {
-                        if (!$separtor) {
-                            list($key, $value) = explode('=', $param);
-                            $request->setParam($key, $value);
-                        } else {
-                            $request->setParam($param, '');
+                    if ($separtor == '/') {
+                        if (!empty($params)) {
+                            while (!empty($params)) {
+                                $key = array_shift($params);
+                                if (!empty($params)) {
+                                    $value = array_shift($params);
+                                    $request->setParam($key, $value);
+                                }
+                            }
+                        }
+                    } else {
+                        foreach ($params as $param) {
+                            if (!$separtor) {
+                                $param = explode('=', "$param=");
+                                list($key, $value) = $param;
+                                $request->setParam($key, $value);
+                            } else {
+                                $request->setParam($param, '');
+                            }
                         }
                     }
                 }

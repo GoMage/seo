@@ -90,16 +90,6 @@
                 </setup>
             </gomage_seobooster_setup>
         </resources>
-        <events>
-            <controller_front_init_before>
-                <observers>
-                    <prepare_layered_request>
-                        <class>gomage_seobooster/observer</class>
-                        <method>prepareLayeredRequest</method>
-                    </prepare_layered_request>
-                </observers>
-            </controller_front_init_before>
-        </events>
     </global>
     <frontend>
         <layout>
