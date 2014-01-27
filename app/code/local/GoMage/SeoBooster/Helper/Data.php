@@ -88,4 +88,25 @@ class GoMage_SeoBooster_Helper_Data extends Mage_Core_Helper_Data
 
         return $routePath;
     }
+
+    /**
+     * Can use url rewrite for product reviews
+     *
+     * @return bool
+     */
+    public function canUseProductReviewsUrlRewrite()
+    {
+        return $this->isEnabled() &&
+            Mage::getStoreConfig('gomage_seobooster/url_rewrite/enable_product_review_url_rewrite');
+    }
+
+    /**
+     * Return product reviews url rewrite path
+     *
+     * @return string
+     */
+    public function getProductReviewsUrlRewritePath()
+    {
+        return Mage::getStoreConfig('gomage_seobooster/url_rewrite/product_review_rewrite_path');
+    }
 }

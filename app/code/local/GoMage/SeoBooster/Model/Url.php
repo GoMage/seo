@@ -208,7 +208,7 @@ class GoMage_SeoBooster_Model_Url extends Mage_Core_Model_Url
                 return $routePath;
             }
             $routePath = $this->getActionPath();
-            $routePath = $this->_addLayerRewritePathToRoute($routePath);
+
             if ($this->getRouteParams()) {
                 foreach ($this->getRouteParams() as $key=>$value) {
                     if (is_null($value) || false === $value || '' === $value || !is_scalar($value)) {
@@ -220,6 +220,7 @@ class GoMage_SeoBooster_Model_Url extends Mage_Core_Model_Url
             if ($routePath != '' && substr($routePath, -1, 1) !== '/') {
                 $routePath .= '/';
             }
+            $routePath = $this->_addLayerRewritePathToRoute($routePath);
             $this->setData('route_path', $routePath);
         }
         return $this->_getData('route_path');

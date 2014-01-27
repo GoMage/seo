@@ -40,6 +40,11 @@
                     <html_pager>GoMage_SeoBooster_Block_Page_Html_Pager</html_pager>
                 </rewrite>
             </page>
+            <review>
+                <rewrite>
+                    <helper>GoMage_SeoBooster_Block_Review_Helper</helper>
+                </rewrite>
+            </review>
         </blocks>
         <helpers>
             <gomage_seobooster>
@@ -58,6 +63,7 @@
                     <layer_filter_item>GoMage_SeoBooster_Model_Catalog_Layer_Filter_Item</layer_filter_item>
                     <template_filter>GoMage_SeoBooster_Model_Catalog_Template_Filter</template_filter>
                     <layer_filter_attribute>GoMage_SeoBooster_Model_Catalog_Layer_Filter_Attribute</layer_filter_attribute>
+                    <url>GoMage_SeoBooster_Model_Catalog_Url</url>
                 </rewrite>
             </catalog>
             <cms>
@@ -115,7 +121,10 @@
                 <enable_layered_url_rewrite>0</enable_layered_url_rewrite>
                 <layered_friendly_urls>0</layered_friendly_urls>
                 <layered_separator>=</layered_separator>
-                <layered_rewrite_path/>
+                <enable_layered_rewrite_path>0</enable_layered_rewrite_path>
+                <layered_rewrite_path>filter_path</layered_rewrite_path>
+                <enable_product_review_url_rewrite>0</enable_product_review_url_rewrite>
+                <product_review_rewrite_path>reviews</product_review_rewrite_path>
             </url_rewrite>
         </gomage_seobooster>
     </default>
