@@ -12,7 +12,7 @@
  */
 
 /**
- * Short description of the class
+ * Catalog url model
  *
  * @category   GoMage
  * @package    GoMage_SeoBooster
