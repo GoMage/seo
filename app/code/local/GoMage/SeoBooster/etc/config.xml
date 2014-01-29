@@ -96,6 +96,24 @@
                 </setup>
             </gomage_seobooster_setup>
         </resources>
+        <events>
+            <tag_save_after>
+                <observers>
+                    <refresh_tag_url_rewrite>
+                        <class>gomage_seobooster/observer</class>
+                        <method>refreshTagUrlRewrite</method>
+                    </refresh_tag_url_rewrite>
+                </observers>
+            </tag_save_after>
+            <tag_delete_after>
+                <observers>
+                    <remove_tag_url_rewrite>
+                        <class>gomage_seobooster/observer</class>
+                        <method>removeTagUrlRewrite</method>
+                    </remove_tag_url_rewrite>
+                </observers>
+            </tag_delete_after>
+        </events>
     </global>
     <frontend>
         <layout>
@@ -125,12 +143,14 @@
                 <layered_rewrite_path>filter_path</layered_rewrite_path>
                 <enable_product_review_url_rewrite>0</enable_product_review_url_rewrite>
                 <product_review_rewrite_path>reviews</product_review_rewrite_path>
+                <enable_tag_url_rewrite>0</enable_tag_url_rewrite>
+                <tag_url_rewrite_path>tags</tag_url_rewrite_path>
             </url_rewrite>
         </gomage_seobooster>
     </default>
     <modules>
         <GoMage_SeoBooster>
-            <version>1.0.1</version>
+            <version>1.0.2</version>
         </GoMage_SeoBooster>
     </modules>
 </config>

@@ -12,7 +12,7 @@
  */
 
 /**
- * Short description of the class
+ * Observer model
  *
  * @category   GoMage
  * @package    GoMage_Seobooster
@@ -21,5 +21,46 @@
  */
 class GoMage_SeoBooster_Model_Observer
 {
+    /**
+     * Refresh tag url rewrite if tag is new or name updated
+     *
+     * @param Varien_Event_Observer $observer Observer
+     * @return $this
+     */
+    public function refreshTagUrlRewrite(Varien_Event_Observer $observer)
+    {
+        $event = $observer->getEvent();
+        $tag = $event->getDataObject();
 
+        if (!Mage::helper('gomage_seobooster')->canUseTagUrlRewrite()){
+            return $this;
+        }
+
+        if (!$tag || !$tag->getId()) {
+            return $this;
+        }
+
+        if ($tag->isObjectNew() || ($tag->getOrigData('name') != $tag->getName())) {
+            Mage::getModel('gomage_seobooster/tag_url')->refreshTagRewrite($tag);
+        }
+    }
+
+    /**
+     * Remove tag url rewrite if tag deleted
+     *
+     * @param Varien_Event_Observer $observer Observer
+     * @return $this
+     */
+    public function removeTagUrlRewrite(Varien_Event_Observer $observer)
+    {
+        $event = $observer->getEvent();
+        $tag = $event->getDataObject();
+
+        if (!Mage::helper('gomage_seobooster')->canUseTagUrlRewrite()){
+            return $this;
+        }
+
+        $tag->isDeleted(true);
+        Mage::getModel('gomage_seobooster/tag_url')->refreshTagRewrite($tag);
+    }
 }

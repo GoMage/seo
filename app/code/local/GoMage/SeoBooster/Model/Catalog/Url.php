@@ -50,23 +50,10 @@ class GoMage_SeoBooster_Model_Catalog_Url extends Mage_Catalog_Model_Url
         if ($category->getId() == $category->getPath()) {
             return $this;
         }
-        if ($product->getUrlKey() == '') {
-            $urlKey = $this->getProductModel()->formatUrlKey($product->getName());
-        }
-        else {
-            $urlKey = $this->getProductModel()->formatUrlKey($product->getUrlKey());
-        }
 
         $idPath      = $this->generateReviewPath('id', $product, $category);
         $targetPath  = $this->generateReviewPath('target', $product, $category);
         $requestPath = $this->getProductReviewRequestPath($product, $category);
-
-        $categoryId = null;
-        $updateKeys = true;
-        if ($category->getLevel() > 1) {
-            $categoryId = $category->getId();
-            $updateKeys = false;
-        }
 
         $rewriteData = array(
             'store_id'      => $category->getStoreId(),

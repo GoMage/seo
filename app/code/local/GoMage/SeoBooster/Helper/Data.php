@@ -109,4 +109,25 @@ class GoMage_SeoBooster_Helper_Data extends Mage_Core_Helper_Data
     {
         return Mage::getStoreConfig('gomage_seobooster/url_rewrite/product_review_rewrite_path');
     }
+
+    /**
+     * Can use url rewrite for tags
+     *
+     * @return bool
+     */
+    public function canUseTagUrlRewrite()
+    {
+        return $this->isEnabled() &&
+        Mage::getStoreConfig('gomage_seobooster/url_rewrite/enable_tag_url_rewrite');
+    }
+
+    /**
+     * Return tags url rewrite path
+     *
+     * @return string
+     */
+    public function getTagRewritePath()
+    {
+        return Mage::getStoreConfig('gomage_seobooster/url_rewrite/tag_url_rewrite_path');
+    }
 }
