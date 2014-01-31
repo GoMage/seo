@@ -130,4 +130,19 @@ class GoMage_SeoBooster_Helper_Data extends Mage_Core_Helper_Data
     {
         return Mage::getStoreConfig('gomage_seobooster/url_rewrite/tag_url_rewrite_path');
     }
+
+    /**
+     * Format Key for URL
+     *
+     * @param string $str
+     * @return string
+     */
+    public function formatUrlKey($str)
+    {
+        $urlKey = preg_replace('#[^0-9a-z]+#i', '-', Mage::helper('catalog/product_url')->format($str));
+        $urlKey = strtolower($urlKey);
+        $urlKey = trim($urlKey, '-');
+
+        return $urlKey;
+    }
 }

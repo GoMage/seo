@@ -309,6 +309,7 @@
                   <tag_url_rewrite_path>
                       <label>Tags Rewrite Path</label>
                       <frontend_type>text</frontend_type>
+                      <backend_model>gomage_seobooster/config_backend_tag_rewrite</backend_model>
                       <sort_order>9</sort_order>
                       <show_in_default>1</show_in_default>
                       <show_in_website>1</show_in_website>

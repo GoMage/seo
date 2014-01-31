@@ -54,7 +54,11 @@
         <models>
             <gomage_seobooster>
                 <class>GoMage_SeoBooster_Model</class>
+                <resourceModel>gomage_seobooster_resource</resourceModel>
             </gomage_seobooster>
+            <gomage_seobooster_resource>
+                <class>GoMage_SeoBooster_Model_Resource</class>
+            </gomage_seobooster_resource>
             <catalog>
                 <rewrite>
                     <product_url>GoMage_SeoBooster_Model_Catalog_Product_Url</product_url>
@@ -86,6 +90,16 @@
                     <url_rewrite>GoMage_SeoBooster_Model_Url_Rewrite</url_rewrite>
                 </rewrite>
             </core>
+            <tag_resource>
+                <rewrite>
+                    <indexer_summary>GoMage_SeoBooster_Model_Resource_Tag_Indexer_Summary</indexer_summary>
+                </rewrite>
+            </tag_resource>
+            <tag>
+                <rewrite>
+                    <tag>GoMage_SeoBooster_Model_Tag_Tag</tag>
+                </rewrite>
+            </tag>
         </models>
         <resources>
             <gomage_seobooster_setup>
@@ -150,7 +164,7 @@
     </default>
     <modules>
         <GoMage_SeoBooster>
-            <version>1.0.2</version>
+            <version>1.0.3</version>
         </GoMage_SeoBooster>
     </modules>
 </config>

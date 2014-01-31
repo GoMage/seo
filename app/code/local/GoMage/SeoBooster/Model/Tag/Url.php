@@ -22,11 +22,48 @@
 class GoMage_SeoBooster_Model_Tag_Url
 {
     /**
+     * Static URL Rewrite Instance
+     *
+     * @var Mage_Core_Model_Url_Rewrite
+     */
+    protected static $_urlRewrite;
+
+    /**
+     * Static URL instance
+     *
+     * @var Mage_Core_Model_Url
+     */
+    protected static $_url;
+
+    /**
      * Tag url suffix
      *
      * @var string
      */
     protected $_tagUrlSuffix = '.html';
+
+    /**
+     * Return resource model
+     *
+     * @return GoMage_SeoBooster_Model_Resource_Tag_Url
+     */
+    protected function _getResourceModel()
+    {
+        return Mage::getResourceModel('gomage_seobooster/tag_url');
+    }
+
+    /**
+     * Retrieve URL Instance
+     *
+     * @return Mage_Core_Model_Url
+     */
+    public function getUrlInstance()
+    {
+        if (!self::$_url) {
+            self::$_url = Mage::getModel('gomage_seobooster/url');
+        }
+        return self::$_url;
+    }
 
     /**
      * Refresh tag url rewrite
@@ -65,8 +102,10 @@ class GoMage_SeoBooster_Model_Tag_Url
             }
         } else {
             $urlRewriteModel->setData($rewriteData)->save();
-            $tag->setData('url_rewrite_id', $urlRewriteModel->getId())->save();
+            $tag->setData('url_rewrite_id', $urlRewriteModel->getId());
         }
+
+        $tag->save();
 
         return $this;
     }
@@ -101,6 +140,13 @@ class GoMage_SeoBooster_Model_Tag_Url
             return 'tag' . '/' . $tag->getId();
         } elseif ($type == 'request') {
             $urlKey = $this->_formatUrlKey($tag->getName());
+            if ($this->_getResourceModel()->checkUrlKeyUnique($urlKey, $tag->getId())) {
+                $urlKey .= '-'. $tag->getId();
+            }
+            if ($urlKey != $tag->getUrlKey()) {
+                $tag->setUrlKey($urlKey);
+            }
+
             $path = $this->_getTagRewritePath() . '/' . $urlKey . $this->_tagUrlSuffix;
             return $path;
         }
@@ -116,11 +162,7 @@ class GoMage_SeoBooster_Model_Tag_Url
      */
     protected function _formatUrlKey($str)
     {
-        $urlKey = preg_replace('#[^0-9a-z]+#i', '-', Mage::helper('catalog/product_url')->format($str));
-        $urlKey = strtolower($urlKey);
-        $urlKey = trim($urlKey, '-');
-
-        return $urlKey;
+        return Mage::helper('gomage_seobooster')->formatUrlKey($str);
     }
 
     /**
@@ -131,5 +173,48 @@ class GoMage_SeoBooster_Model_Tag_Url
     protected function _getTagRewritePath()
     {
         return Mage::helper('gomage_seobooster')->getTagRewritePath();
+    }
+
+    public function getUrl(Mage_Tag_Model_Tag $tag, $params = array())
+    {
+        $routePath      = '';
+        $routeParams    = $params;
+        $storeId = null;
+
+        $idPath = sprintf('tag/%d', $tag->getId());
+
+        $rewrite = $this->getUrlRewrite();
+        $rewrite->loadByIdPath($idPath);
+        if ($rewrite->getId()) {
+            $requestPath = $rewrite->getRequestPath();
+        }
+
+        if (!empty($requestPath)) {
+            $routeParams['_direct'] = $requestPath;
+        } else {
+            $routePath = 'tag/product/list/tagId';
+            $routeParams['id']  = $tag->getId();
+        }
+
+        // reset cached URL instance GET query params
+        if (!isset($routeParams['_query'])) {
+            $routeParams['_query'] = array();
+        }
+
+        return $this->getUrlInstance()->setStore($storeId)
+            ->getUrl($routePath, $routeParams);
+    }
+
+    /**
+     * Retrieve URL Rewrite Instance
+     *
+     * @return Mage_Core_Model_Url_Rewrite
+     */
+    public function getUrlRewrite()
+    {
+        if (!self::$_urlRewrite) {
+            self::$_urlRewrite = Mage::getModel('core/url_rewrite');
+        }
+        return self::$_urlRewrite;
     }
 }
