@@ -65,7 +65,6 @@ class GoMage_SeoBooster_Model_Url_Rewrite extends Mage_Core_Model_Url_Rewrite
         $requestCases[] = $requestPath . $origSlash;
         $requestCases[] = $requestPath . $altSlash;
 
-//        Zend_Debug::dump($requestCases);die;
         $this->loadByRequestPath($requestCases);
 
         /**
@@ -153,7 +152,6 @@ class GoMage_SeoBooster_Model_Url_Rewrite extends Mage_Core_Model_Url_Rewrite
     protected function preparePathInfo($request)
     {
         $pathInfo = $request->getPathInfo();
-//        echo $pathInfo;die;
         if ($rewritePath = Mage::helper('gomage_seobooster/layered')->getRewritePath()) {
             if ($rewritePathPos = strripos($pathInfo, '/'. $rewritePath)) {
                 $queryString = substr($pathInfo, ($rewritePathPos + strlen($rewritePath) + 2));

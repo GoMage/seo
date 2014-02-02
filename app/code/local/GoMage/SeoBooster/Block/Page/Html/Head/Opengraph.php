@@ -31,7 +31,10 @@ class GoMage_SeoBooster_Block_Page_Html_Head_Opengraph extends Mage_Core_Block_T
      */
     public function addItem($property, $content)
     {
-        $this->_items[$property] = $content;
+        if (!isset($this->_items[$property])) {
+            $this->_items[$property] = array();
+        }
+        $this->_items[$property][$content] = $content;
     }
 
     /**

@@ -54,11 +54,46 @@ class GoMage_SeoBooster_Helper_Opengraph_Product extends GoMage_SeoBooster_Helpe
     public function getImage()
     {
         $entity = $this->getEntity();
-
         if ($entity && $entity->getImage()) {
-            return Mage::helper('catalog/image')->init($entity, 'image')->__toString();
+            return $this->_getImageInfo($entity->getImage(), $entity);
         }
 
-        return '';
+        return false;
+    }
+
+    /**
+     * Return product images
+     *
+     * @return array
+     */
+    public function getImages()
+    {
+        $product  = $this->getEntity();
+        $images = array();
+        $imagesCollection = $product->getMediaGalleryImages();
+
+        foreach ($imagesCollection as $_image) {
+            $images[] = $this->_getImageInfo($_image, $product);
+        }
+
+        return $images;
+    }
+
+    /**
+     * Add Product Images
+     *
+     * @param $ogMetaBlock
+     */
+    protected function _addImages($ogMetaBlock)
+    {
+        parent::_addImages($ogMetaBlock);
+        $images = $this->getImages();
+        foreach ($images as $image) {
+            $ogMetaBlock->addItem('og:image', $image['image']);
+            $ogMetaBlock->addItem('og:image:url', $image['image']);
+            $ogMetaBlock->addItem('og:image:type', $image['type']);
+            $ogMetaBlock->addItem('og:image:width', $image['width']);
+            $ogMetaBlock->addItem('og:image:height', $image['height']);
+        }
     }
 }

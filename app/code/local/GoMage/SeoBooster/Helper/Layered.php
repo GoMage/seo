@@ -86,6 +86,35 @@ class GoMage_SeoBooster_Helper_Layered extends Mage_Core_Helper_Data
     }
 
     /**
+     * Return url by route
+     *
+     * @param string      $route   Route
+     * @param array       $params  Route params
+     * @param int|null    $storeId Store Id
+     * @return string
+     */
+    public function getUrl($route, $params = array(), $storeId = null)
+    {
+        if (!is_null($storeId)) {
+            $store = Mage::app()->getStore($storeId);
+        }
+
+        if (Mage::helper('gomage_seobooster')->isEnabled()) {
+            $urlModel = Mage::getModel('gomage_seobooster/catalog_layer_url');
+            if (isset($store)) {
+                $urlModel->setStore($store);
+            }
+
+            return $urlModel->getUrl($route, $params);
+        }
+        if (isset($store)) {
+            return $store->getUrl($route, $params);
+        }
+
+        return $this->_getUrl($route, $params);
+    }
+
+    /**
      * Return query string for layered
      *
      * @param array $params  Query params
@@ -146,8 +175,10 @@ class GoMage_SeoBooster_Helper_Layered extends Mage_Core_Helper_Data
                 $key = $param[0];
                 unset($param[0]);
                 $value = implode($separator, $param);
+                $value = str_replace('/', '', $value);
                 return array($key, $this->_removeCategorySuffixFromRequestValue($value));
             } else {
+                $param[1] = str_replace('/', '', $param[1]);
                 $param[1] = $this->_removeCategorySuffixFromRequestValue($param[1]);
             }
 

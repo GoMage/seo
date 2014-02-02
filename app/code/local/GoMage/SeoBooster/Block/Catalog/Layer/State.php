@@ -39,6 +39,6 @@ class GoMage_SeoBooster_Block_Catalog_Layer_State extends Mage_Catalog_Block_Lay
         $params[$queryIndex]    = $filterState;
         $params['_escape']      = true;
         
-        return Mage::helper('gomage_seobooster')->getUrl('*/*/*', $params);
+        return Mage::helper('gomage_seobooster/layered')->getUrl('*/*/*', $params);
     }
 }

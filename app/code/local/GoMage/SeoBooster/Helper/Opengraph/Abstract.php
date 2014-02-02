@@ -66,6 +66,7 @@ abstract class GoMage_SeoBooster_Helper_Opengraph_Abstract extends Mage_Core_Hel
         }
 
         if ($entity && $entity->getId() && isset($ogMetaBlock)) {
+            Mage::log(mageDebugBacktrace(true, true, true));
             if ($title = $entity->getName()) {
                 $ogMetaBlock->addItem('og:title', strip_tags($title));
             }
@@ -75,13 +76,53 @@ abstract class GoMage_SeoBooster_Helper_Opengraph_Abstract extends Mage_Core_Hel
             if ($url = $this->getCanonicalUrl()) {
                 $ogMetaBlock->addItem('og:url', $url);
             }
-            if ($image = $this->getImage()) {
-                $ogMetaBlock->addItem('og:image', $image);
+
+            if ($storeName = $this->_getStoreName()) {
+                $ogMetaBlock->addItem('og:og:site_name', $storeName);
             }
+
             $ogMetaBlock->addItem('og:type', 'website');
+            $ogMetaBlock->addItem('og:locale', $this->getStoreLocale());
+
+            $this->_addLacales($ogMetaBlock);
+            $this->_addImages($ogMetaBlock);
         }
 
         return $this;
+    }
+
+    /**
+     * Add Store locales
+     *
+     * @param $ogMetaBlock
+     */
+    protected function _addLacales($ogMetaBlock)
+    {
+        $locales = $this->getStoresLocale();
+        foreach ($locales as $locale) {
+            $ogMetaBlock->addItem('og:locale:alternate', $locale);
+        }
+    }
+
+    /**
+     * Add entity images
+     *
+     * @param $ogMetaBlock
+     */
+    protected function _addImages($ogMetaBlock)
+    {
+        if ($image = $this->getImage()) {
+            if (is_array($image)) {
+                $ogMetaBlock->addItem('og:image', $image['image']);
+                $ogMetaBlock->addItem('og:image:url', $image['image']);
+                $ogMetaBlock->addItem('og:image:type', $image['type']);
+                $ogMetaBlock->addItem('og:image:width', $image['width']);
+                $ogMetaBlock->addItem('og:image:height', $image['height']);
+            } else if (is_string($image)) {
+                $ogMetaBlock->addItem('og:image', $image);
+                $ogMetaBlock->addItem('og:image:url', $image);
+            }
+        }
     }
 
     /**
@@ -92,5 +133,53 @@ abstract class GoMage_SeoBooster_Helper_Opengraph_Abstract extends Mage_Core_Hel
     public function getHeadBlock()
     {
         return Mage::app()->getLayout()->getBlock('head');
+    }
+
+    protected function _getStoreName()
+    {
+        return Mage::getStoreConfig('general/store_information/name');
+    }
+
+    public function getStoreLocale($storeId = null)
+    {
+        if (is_null($storeId)) {
+            $storeId = Mage::app()->getStore()->getId();
+        }
+
+        return Mage::getStoreConfig('general/locale/code', $storeId);
+    }
+
+    public function getStoresLocale()
+    {
+        $locales = array();
+        $currentStoreId = Mage::app()->getStore()->getId();
+        $stores = Mage::app()->getStores();
+        foreach ($stores as $store) {
+            if ($store->getId() != $currentStoreId) {
+                $locale = $this->getStoreLocale($store->getId());
+                $locales[$locale] = $locale;
+            }
+        }
+
+        return $locales;
+    }
+
+    protected function _getImageInfo($_image, $entity)
+    {
+        $imageFile = is_string($_image) ? $_image : $_image->getFile();
+        $baseDir = Mage::getSingleton('catalog/product_media_config')->getBaseMediaPath();
+        $image = Mage::helper('catalog/image')->init($entity, 'image', $imageFile);
+
+        if (($imageFile) && (0 !== strpos($imageFile, '/', 0))) {
+            $imageFile = '/' . $imageFile;
+        }
+        $imageFile = $baseDir . $imageFile;
+
+        return array(
+            'image'  => $image->__toString(),
+            'width'  => $image->getOriginalHeight(),
+            'height' => $image->getOriginalWidth(),
+            'type'   => mime_content_type($imageFile)
+        );
     }
 }

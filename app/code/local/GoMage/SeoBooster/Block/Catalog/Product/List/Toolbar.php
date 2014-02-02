@@ -28,6 +28,6 @@ class GoMage_SeoBooster_Block_Catalog_Product_List_Toolbar extends Mage_Catalog_
      */
     protected function _getUrlModelClass()
     {
-        return 'gomage_seobooster/url';
+        return 'gomage_seobooster/catalog_layer_url';
     }
 }
