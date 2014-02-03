@@ -55,6 +55,11 @@ class GoMage_SeoBooster_Model_Catalog_Url extends Mage_Catalog_Model_Url
         $targetPath  = $this->generateReviewPath('target', $product, $category);
         $requestPath = $this->getProductReviewRequestPath($product, $category);
 
+        $categoryId = null;
+        if ($category->getLevel() > 1) {
+            $categoryId = $category->getId();
+        }
+
         $rewriteData = array(
             'store_id'      => $category->getStoreId(),
             'category_id'   => $categoryId,
