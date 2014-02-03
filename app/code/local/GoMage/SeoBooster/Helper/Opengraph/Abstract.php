@@ -66,7 +66,6 @@ abstract class GoMage_SeoBooster_Helper_Opengraph_Abstract extends Mage_Core_Hel
         }
 
         if ($entity && $entity->getId() && isset($ogMetaBlock)) {
-            Mage::log(mageDebugBacktrace(true, true, true));
             if ($title = $entity->getName()) {
                 $ogMetaBlock->addItem('og:title', strip_tags($title));
             }

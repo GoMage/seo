@@ -1,7 +1,13 @@
+<?xml version="1.0"?>
 <layout version="0.1.0">
     <default>
         <reference name="head">
             <block type="gomage_seobooster/page_html_head_opengraph" name="head.og.metadata" template="gomage/seobooster/page/html/head/opengraph.phtml"/>
         </reference>
     </default>
+    <catalog_product_view>
+        <reference name="content">
+            <block type="gomage_seobooster/catalog_product_richSnippet" name="product.rich.snippet" template="gomage/seobooster/catalog/product/richsnippet.phtml" />
+        </reference>
+    </catalog_product_view>
 </layout>

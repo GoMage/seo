@@ -148,6 +148,7 @@
                 <add_trailing_slash>0</add_trailing_slash>
                 <enable_link_rel>0</enable_link_rel>
                 <enable_opengraph_metadata>0</enable_opengraph_metadata>
+                <enable_rich_snippets>0</enable_rich_snippets>
             </general>
             <url_rewrite>
                 <enable_layered_url_rewrite>0</enable_layered_url_rewrite>

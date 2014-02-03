@@ -132,6 +132,16 @@ class GoMage_SeoBooster_Helper_Data extends Mage_Core_Helper_Data
     }
 
     /**
+     * Is rich snippet enable
+     *
+     * @return mixed
+     */
+    public function isRichSnippetEnabled()
+    {
+        return Mage::getStoreConfig('gomage_seobooster/general/enable_rich_snippets');
+    }
+
+    /**
      * Format Key for URL
      *
      * @param string $str
