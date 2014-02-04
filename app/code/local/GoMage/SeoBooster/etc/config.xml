@@ -45,6 +45,11 @@
                     <helper>GoMage_SeoBooster_Block_Review_Helper</helper>
                 </rewrite>
             </review>
+            <rss>
+                <rewrite>
+                    <list>GoMage_SeoBooster_Block_Rss_List</list>
+                </rewrite>
+            </rss>
         </blocks>
         <helpers>
             <gomage_seobooster>
@@ -160,6 +165,8 @@
                 <product_review_rewrite_path>reviews</product_review_rewrite_path>
                 <enable_tag_url_rewrite>0</enable_tag_url_rewrite>
                 <tag_url_rewrite_path>tags</tag_url_rewrite_path>
+                <enable_rss_url_rewrite>0</enable_rss_url_rewrite>
+                <rss_url_rewrite_path>rss</rss_url_rewrite_path>
             </url_rewrite>
         </gomage_seobooster>
     </default>

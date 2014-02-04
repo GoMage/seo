@@ -132,6 +132,27 @@ class GoMage_SeoBooster_Helper_Data extends Mage_Core_Helper_Data
     }
 
     /**
+     * Can use rss url rewrite
+     *
+     * @return bool
+     */
+    public function canUseRssUrlRewrite()
+    {
+        return $this->isEnabled() &&
+        Mage::getStoreConfig('gomage_seobooster/url_rewrite/enable_rss_url_rewrite');
+    }
+
+    /**
+     * Return rss url rewrite path
+     *
+     * @return string
+     */
+    public function getRssUrlRewritePath()
+    {
+        return Mage::getStoreConfig('gomage_seobooster/url_rewrite/rss_url_rewrite_path');
+    }
+
+    /**
      * Is rich snippet enable
      *
      * @return mixed

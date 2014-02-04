@@ -239,4 +239,83 @@ class GoMage_SeoBooster_Model_Catalog_Url extends Mage_Catalog_Model_Url
     {
         return Mage::helper('gomage_seobooster')->getProductReviewsUrlRewritePath();
     }
+
+    /**
+     * Refresh category rewrite
+     *
+     * @param Varien_Object $category
+     * @param string $parentPath
+     * @param bool $refreshProducts
+     * @return Mage_Catalog_Model_Url
+     */
+    protected function _refreshCategoryRewrites(Varien_Object $category, $parentPath = null, $refreshProducts = true)
+    {
+        parent::_refreshCategoryRewrites($category, $parentPath, $refreshProducts);
+        if (Mage::helper('gomage_seobooster')->canUseRssUrlRewrite()) {
+            $this->_refreshCategoryRssRewrite($category);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Refresh category rss rewrite
+     *
+     * @param Varien_Object $category Category
+     * @return $this
+     */
+    protected function _refreshCategoryRssRewrite(Varien_Object $category)
+    {
+        if ($category->getId() != $this->getStores($category->getStoreId())->getRootCategoryId()) {
+            $idPath      = $this->generateRssPath('id', $category);
+            $targetPath  = $this->generateRssPath('target', $category);
+            $requestPath = $this->generateRssPath('request', $category);
+
+            $rewriteData = array(
+                'store_id'      => $category->getStoreId(),
+                'category_id'   => $category->getId(),
+                'product_id'    => null,
+                'id_path'       => $idPath,
+                'request_path'  => $requestPath,
+                'target_path'   => $targetPath,
+                'is_system'     => 0
+            );
+
+            $this->getResource()->saveRewrite($rewriteData, $this->_rewrite);
+        }
+        return $this;
+    }
+
+    /**
+     * Generate either id path, request path or target path for rss
+     *
+     * For generating id or system path, either product or category is required
+     * For generating request path - category is required
+     *
+     * @param string $type
+     * @param Varien_Object $category
+     * @return string
+     * @throws Mage_Core_Exception
+     */
+    public function generateRssPath($type = 'target', $category = null)
+    {
+        if (!$category) {
+            Mage::throwException(Mage::helper('core')->__('Please specify either a category.'));
+        }
+
+        // generate id_path
+        if ('id' === $type) {
+            return 'rss/cid/' . $category->getId();
+        } elseif ('request' === $type) {
+            $urlKey = $this->getCategoryModel()->formatUrlKey($category->getUrlKey());
+            $categoryUrlSuffix = $this->getCategoryUrlSuffix($category->getStoreId());
+            $rssRewritePath = Mage::helper('gomage_seobooster')->getRssUrlRewritePath();
+
+            return $rssRewritePath. '/' . $urlKey . $categoryUrlSuffix;
+        }
+
+        return 'rss/catalog/category/cid/'. $category->getId() . '/store_id/' . $category->getStoreId();
+    }
+
+
 }
