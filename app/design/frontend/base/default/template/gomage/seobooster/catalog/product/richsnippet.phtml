@@ -13,9 +13,12 @@
         <div itemprop="offerDetails" itemscope itemtype="http://data-vocabulary.org/Offer">
             <div itemprop="price" content="<?php echo $product->getFinalPrice(); ?>"></div>
             <div itemprop="currency" content="<?php echo $this->getCurrencyCode(); ?>"></div>
-            <div itemprop="offerCount" content="1"></div>
             <div itemprop="condition" content="used"></div>
             <div itemprop="identifier" content="sku:<?php echo $product->getSku();?>"></div>
+            <div itemprop="availability" content="<?php echo $this->getStockStatus(); ?>"></div>
+            <?php if ($qty = $this->getQty()): ?>
+                <div itemprop="quantity" content="<?php echo $qty; ?>"></div>
+            <?php endif;?>
         </div>
         <?php if ($this->getReviewsCount() > 0):?>
             <div itemprop="review" itemscope itemtype="http://data-vocabulary.org/Review-aggregate">

@@ -107,6 +107,35 @@ class GoMage_SeoBooster_Block_Catalog_Product_RichSnippet extends Mage_Catalog_B
         return $this->getProduct()->getRatingSummary()->getReviewsCount();
     }
 
+    /**
+     * Return product stock status
+     *
+     * @return string
+     */
+    public function getStockStatus()
+    {
+        return $this->getProduct()->getIsSalable() ? 'in_stock' : 'out_of_stock';
+    }
+
+    /**
+     * Return product qty
+     *
+     * @return float|bool
+     */
+    public function getQty()
+    {
+        if (!$this->getProduct()->getIsSalable()) {
+            return false;
+        }
+
+        if (($this->getProduct()->getStockItem()->getManageStock()) &&
+            ($this->getProduct()->getStockItem()->getQty() > 0)) {
+            return $this->getProduct()->getStockItem()->getQty();
+        }
+
+        return false;
+    }
+
     protected function _toHtml()
     {
         if (Mage::helper('gomage_seobooster')->isRichSnippetEnabled()) {
