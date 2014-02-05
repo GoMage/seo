@@ -50,6 +50,11 @@
                     <list>GoMage_SeoBooster_Block_Rss_List</list>
                 </rewrite>
             </rss>
+            <cms>
+                <rewrite>
+                    <page>GoMage_SeoBooster_Block_Cms_Page</page>
+                </rewrite>
+            </cms>
         </blocks>
         <helpers>
             <gomage_seobooster>
@@ -143,6 +148,18 @@
             </updates>
         </layout>
     </frontend>
+    <adminhtml>
+        <events>
+            <adminhtml_cms_page_edit_tab_meta_prepare_form>
+                <observers>
+                    <add_cms_page_meta_fields>
+                        <class>gomage_seobooster/observer</class>
+                        <method>addCmsPageMetaFields</method>
+                    </add_cms_page_meta_fields>
+                </observers>
+            </adminhtml_cms_page_edit_tab_meta_prepare_form>
+        </events>
+    </adminhtml>
     <default>
         <gomage_seobooster>
             <general>
@@ -172,7 +189,7 @@
     </default>
     <modules>
         <GoMage_SeoBooster>
-            <version>1.0.3</version>
+            <version>1.0.6</version>
         </GoMage_SeoBooster>
     </modules>
 </config>

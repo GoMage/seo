@@ -57,6 +57,7 @@ class GoMage_SeoBooster_Block_Catalog_Category_View extends Mage_Catalog_Block_C
             if (Mage::helper('gomage_seobooster/opengraph_category')->canAddOpengraphMetaData()) {
                 Mage::helper('gomage_seobooster/opengraph_category')->addMetadata();
             }
+            $headBlock->setRobots(Mage::helper('gomage_seobooster')->getRobots($category));
 
             /*
             want to show rss feed in the url
@@ -68,5 +69,20 @@ class GoMage_SeoBooster_Block_Catalog_Category_View extends Mage_Catalog_Block_C
         }
 
         return $this;
+    }
+
+    /**
+     * Return rss link
+     *
+     * @return string
+     */
+    public function getRssLink()
+    {
+        if (Mage::helper('gomage_seobooster')->canUseRssUrlRewrite()) {
+            return Mage::getModel('gomage_seobooster/rss_url')
+                ->getUrl($this->getCurrentCategory()->getId(), Mage::app()->getStore()->getId());
+        }
+
+        return parent::getRssLink();
     }
 }

@@ -60,6 +60,7 @@ class GoMage_SeoBooster_Block_Catalog_Product_View extends Mage_Catalog_Block_Pr
             if (Mage::helper('gomage_seobooster/opengraph_product')->canAddOpengraphMetaData()) {
                 Mage::helper('gomage_seobooster/opengraph_product')->addMetadata();
             }
+            $headBlock->setRobots(Mage::helper('gomage_seobooster')->getRobots($product));
         }
 
         return Mage_Catalog_Block_Product_Abstract::_prepareLayout();

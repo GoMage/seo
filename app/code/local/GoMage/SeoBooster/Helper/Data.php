@@ -176,4 +176,19 @@ class GoMage_SeoBooster_Helper_Data extends Mage_Core_Helper_Data
 
         return $urlKey;
     }
+
+    /**
+     * Return robots for product, category or cms page
+     *
+     * @param Mage_Catalog_Model_Product|Mage_Catalog_Model_Category|Mage_Cms_Model_Page $entity Entity
+     * @return string
+     */
+    public function getRobots($entity)
+    {
+        if (($robots = $entity->getRobots()) && $this->isEnabled()) {
+            return $robots;
+        }
+
+        return Mage::getStoreConfig('design/head/default_robots');
+    }
 }

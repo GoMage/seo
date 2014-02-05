@@ -63,4 +63,39 @@ class GoMage_SeoBooster_Model_Observer
         $tag->isDeleted(true);
         Mage::getModel('gomage_seobooster/tag_url')->refreshTagRewrite($tag);
     }
+
+    /**
+     * Add fields to meta tab of cms page
+     *
+     * @param Varien_Event_Observer $observer
+     */
+    public function addCmsPageMetaFields(Varien_Event_Observer $observer)
+    {
+        $event = $observer->getEvent();
+        $form = $event->getForm();
+        $fieldset = $form->getElement('meta_fieldset');
+
+        $fieldset->addField('canonical_url_store', 'select', array(
+            'label'     => Mage::helper('gomage_seobooster')->__('Cross Domain Canonical URL'),
+            'title'     => Mage::helper('gomage_seobooster')->__('Cross Domain Canonical URL'),
+            'name'      => 'canonical_url_store',
+            'required'  => true,
+            'options'   => Mage::getModel('gomage_seobooster/config_source_canonical_catalog_storeurl')->getOptionArray(),
+        ));
+        $fieldset->addField('robots', 'select', array(
+            'label'     => Mage::helper('gomage_seobooster')->__('Robots'),
+            'title'     => Mage::helper('gomage_seobooster')->__('Robots'),
+            'name'      => 'robots',
+            'required'  => true,
+            'options'   => Mage::getModel('gomage_seobooster/config_source_robots')->getOptionArray(),
+        ));
+
+        $fieldset->addField('exclude_from_sitemap', 'select', array(
+            'label'     => Mage::helper('gomage_seobooster')->__('Exclude From Sitemap'),
+            'title'     => Mage::helper('gomage_seobooster')->__('Exclude From Sitemap'),
+            'name'      => 'exclude_from_sitemap',
+            'required'  => true,
+            'options'   => Mage::getModel('eav/entity_attribute_source_boolean')->getOptionArray(),
+        ));
+    }
 }
