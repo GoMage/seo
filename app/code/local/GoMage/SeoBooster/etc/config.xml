@@ -110,6 +110,11 @@
                     <tag>GoMage_SeoBooster_Model_Tag_Tag</tag>
                 </rewrite>
             </tag>
+            <sitemap>
+                <rewrite>
+                    <sitemap>GoMage_Seobooster_Model_Sitemap_Sitemap</sitemap>
+                </rewrite>
+            </sitemap>
         </models>
         <resources>
             <gomage_seobooster_setup>
@@ -186,6 +191,15 @@
                 <rss_url_rewrite_path>rss</rss_url_rewrite_path>
             </url_rewrite>
         </gomage_seobooster>
+        <sitemap>
+            <extended_settings>
+                <include_product_images>0</include_product_images>
+                <max_images_per_product>0</max_images_per_product>
+                <include_product_tags>0</include_product_tags>
+                <paroduct_tags_changefreq>daily</paroduct_tags_changefreq>
+                <paroduct_tags_priority>0.5</paroduct_tags_priority>
+            </extended_settings>
+        </sitemap>
     </default>
     <modules>
         <GoMage_SeoBooster>

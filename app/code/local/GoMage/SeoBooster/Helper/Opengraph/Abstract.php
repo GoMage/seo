@@ -77,7 +77,7 @@ abstract class GoMage_SeoBooster_Helper_Opengraph_Abstract extends Mage_Core_Hel
             }
 
             if ($storeName = $this->_getStoreName()) {
-                $ogMetaBlock->addItem('og:og:site_name', $storeName);
+                $ogMetaBlock->addItem('og:site_name', $storeName);
             }
 
             $ogMetaBlock->addItem('og:type', 'website');

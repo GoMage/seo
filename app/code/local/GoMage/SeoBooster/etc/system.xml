@@ -354,5 +354,73 @@
           </url_rewrite>
         </groups>
       </gomage_seobooster>
+       <sitemap>
+           <groups>
+               <extended_settings translate="label">
+                   <label>Extended Settings</label>
+                   <frontend_type>text</frontend_type>
+                   <sort_order>60</sort_order>
+                   <show_in_default>1</show_in_default>
+                   <show_in_website>1</show_in_website>
+                   <show_in_store>1</show_in_store>
+                   <fields>
+                       <include_product_images>
+                           <label>Include Product Images</label>
+                           <frontend_type>select</frontend_type>
+                           <source_model>adminhtml/system_config_source_yesno</source_model>
+                           <sort_order>1</sort_order>
+                           <show_in_default>1</show_in_default>
+                           <show_in_website>1</show_in_website>
+                           <show_in_store>1</show_in_store>
+                       </include_product_images>
+                       <max_images_per_product>
+                           <label>Maximum Images per Product</label>
+                           <frontend_type>text</frontend_type>
+                           <sort_order>2</sort_order>
+                           <show_in_default>1</show_in_default>
+                           <show_in_website>1</show_in_website>
+                           <show_in_store>1</show_in_store>
+                           <depends>
+                               <include_product_images>1</include_product_images>
+                           </depends>
+                       </max_images_per_product>
+                       <include_product_tags>
+                           <label>Include Product Tags</label>
+                           <frontend_type>select</frontend_type>
+                           <source_model>adminhtml/system_config_source_yesno</source_model>
+                           <sort_order>3</sort_order>
+                           <show_in_default>1</show_in_default>
+                           <show_in_website>1</show_in_website>
+                           <show_in_store>1</show_in_store>
+                       </include_product_tags>
+                       <paroduct_tags_changefreq translate="label">
+                           <label>Frequency</label>
+                           <frontend_type>select</frontend_type>
+                           <source_model>adminhtml/system_config_source_frequency</source_model>
+                           <sort_order>4</sort_order>
+                           <show_in_default>1</show_in_default>
+                           <show_in_website>1</show_in_website>
+                           <show_in_store>1</show_in_store>
+                           <depends>
+                               <include_product_tags>1</include_product_tags>
+                           </depends>
+                       </paroduct_tags_changefreq>
+                       <paroduct_tags_priority translate="label comment">
+                           <label>Priority</label>
+                           <frontend_type>text</frontend_type>
+                           <backend_model>adminhtml/system_config_backend_sitemap</backend_model>
+                           <sort_order>5</sort_order>
+                           <show_in_default>1</show_in_default>
+                           <show_in_website>1</show_in_website>
+                           <show_in_store>1</show_in_store>
+                           <comment>Valid values range: from 0.0 to 1.0.</comment>
+                           <depends>
+                               <include_product_tags>1</include_product_tags>
+                           </depends>
+                       </paroduct_tags_priority>
+                   </fields>
+               </extended_settings>
+           </groups>
+       </sitemap>
    </sections>
 </config>
