@@ -127,13 +127,13 @@ class GoMage_SeoBooster_Model_Catalog_Url extends Mage_Catalog_Model_Url
                 $categoryUrl = Mage::helper('catalog/category')->getCategoryUrlPath($category->getUrlPath(),
                     false, $category->getStoreId());
                 $path = $categoryUrl . '/' . $urlKey . '/' . $reviewRewritePath .$productUrlSuffix;
-                return $this->getUnusedPath($category->getStoreId(), $path, $this->generatePath('id', $product, $category));
+                return $this->getUnusedPath($category->getStoreId(), $path, $this->generateReviewPath('id', $product, $category));
             }
 
             // for product only
             $path = $urlKey . '/' . $reviewRewritePath . $productUrlSuffix;
             return $this->getUnusedPath($category->getStoreId(), $path,
-                $this->generatePath('id', $product)
+                $this->generateReviewPath('id', $product)
             );
         }
 

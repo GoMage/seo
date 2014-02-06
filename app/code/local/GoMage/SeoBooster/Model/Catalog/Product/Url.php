@@ -47,12 +47,13 @@ class GoMage_SeoBooster_Model_Catalog_Product_Url extends Mage_Catalog_Model_Pro
         $routeParams    = $params;
 
         $storeId    = $product->getStoreId();
+        $categoryId = null;
+
         if (isset($params['_ignore_category'])) {
             unset($params['_ignore_category']);
-            $categoryId = null;
-        } else {
-            $categoryId = $product->getCategoryId() && !$product->getDoNotUseCategoryId()
-                ? $product->getCategoryId() : null;
+        } elseif (!$product->getDoNotUseCategoryId()) {
+            $categoryId = isset($params['category']) ? $params['category'] : ($product->getCategoryId()
+                ? $product->getCategoryId() : null);
         }
 
         if ($product->hasUrlDataObject()) {
