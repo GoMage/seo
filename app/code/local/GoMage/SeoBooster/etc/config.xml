@@ -203,7 +203,7 @@
     </default>
     <modules>
         <GoMage_SeoBooster>
-            <version>1.0.6</version>
+            <version>1.0.7</version>
         </GoMage_SeoBooster>
     </modules>
 </config>

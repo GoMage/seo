@@ -26,7 +26,7 @@ try {
             'type'   => 'varchar'
         ),
         'exclude_from_sitemap' => array(
-            'label'  => 'Exclude From Sitemap',
+            'label'  => 'Exclude from XML Sitemap',
             'source' => 'eav/entity_attribute_source_boolean',
             'type'   => 'int'
         )

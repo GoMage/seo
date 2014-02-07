@@ -33,8 +33,7 @@ class GoMage_SeoBooster_Model_Catalog_Product extends Mage_Catalog_Model_Product
             $categories = $this->getCategoryCollection()
                 ->setStoreId($this->getStoreId())
                 ->addAttributeToSelect('is_active')
-                ->setOrder('level')
-                ->setOrder('entity_id', 'desc');
+                ->setOrder('level', 'desc');
             $category = $categories->getFirstItem();
             $this->setData('high_level_category', $category);
         }

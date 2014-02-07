@@ -79,4 +79,6 @@ class GoMage_SeoBooster_Helper_Sitemap extends Mage_Core_Helper_Data
     {
         return Mage::getStoreConfig('sitemap/extended_settings/paroduct_tags_priority');
     }
+
+
 }

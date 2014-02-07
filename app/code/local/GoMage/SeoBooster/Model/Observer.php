@@ -91,8 +91,8 @@ class GoMage_SeoBooster_Model_Observer
         ));
 
         $fieldset->addField('exclude_from_sitemap', 'select', array(
-            'label'     => Mage::helper('gomage_seobooster')->__('Exclude From Sitemap'),
-            'title'     => Mage::helper('gomage_seobooster')->__('Exclude From Sitemap'),
+            'label'     => Mage::helper('gomage_seobooster')->__('Exclude from XML Sitemap'),
+            'title'     => Mage::helper('gomage_seobooster')->__('Exclude from XML Sitemap'),
             'name'      => 'exclude_from_sitemap',
             'required'  => true,
             'options'   => Mage::getModel('eav/entity_attribute_source_boolean')->getOptionArray(),

@@ -32,10 +32,10 @@ class GoMage_SeoBooster_Model_Config_Source_Canonical_Catalog_Storeurl
         if (is_null($this->_options)) {
             $stores = Mage::getResourceModel('core/store_collection');
             $this->_options = array(array(
-                'label' => Mage::helper('gomage_seobooster')->__("Default"),
+                'label' => Mage::helper('gomage_seobooster')->__("Use Global"),
                 'value' => GoMage_SeoBooster_Helper_Data::CANONICAL_URL_DEFAULT_DOMAIN_VALUE
-            )
-            );
+            ));
+
             foreach ($stores as $_store) {
                 if (!$_store->getIsActive()) {
                     continue;
