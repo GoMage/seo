@@ -32,7 +32,7 @@ class GoMage_SeoBooster_Model_Config_Source_Canonical_Catalog_Product_Type
         if (is_null($this->_options)) {
             $this->_options = array(
                 array(
-                    'label' => Mage::helper('gomage_seobooster')->__('Use Config Settings'),
+                    'label' => Mage::helper('gomage_seobooster')->__('Use Global'),
                     'value' => 0
                 ),
                 array(

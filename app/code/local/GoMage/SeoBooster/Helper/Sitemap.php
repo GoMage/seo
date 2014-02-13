@@ -80,5 +80,60 @@ class GoMage_SeoBooster_Helper_Sitemap extends Mage_Core_Helper_Data
         return Mage::getStoreConfig('sitemap/extended_settings/paroduct_tags_priority');
     }
 
+    /**
+     * Return Additional links
+     *
+     * @return array
+     */
+    public function getAdditionalLinks()
+    {
+        $linksString = Mage::getStoreConfig('sitemap/extended_settings/additional_links');
+        $result = array();
+        if (!empty($linksString)) {
+            $links = explode("\n", $linksString);
+            foreach ($links as $_link) {
+                $explodedLink = explode(',', $_link);
+                if (isset($explodedLink[0])) {
+                    $urlPath = ltrim(ltrim($explodedLink[0]), '/');
+                    $link = array('url' => Mage::getUrl($urlPath));
+                    if (isset($explodedLink[1])) {
+                        $link['name'] = ltrim($explodedLink[1]);
+                    }
+                    $result[] = $link;
+                }
+            }
+        }
 
+        return $result;
+    }
+
+    /**
+     * Return additional links changefreq
+     *
+     * @return string
+     */
+    public function getAdditionalLinksChangefreq()
+    {
+        return Mage::getStoreConfig('sitemap/extended_settings/additional_links_changefreq');
+    }
+
+    /**
+     * Return additional links priority
+     *
+     * @return string
+     */
+    public function getAdditionalLinksPriority()
+    {
+        return Mage::getStoreConfig('sitemap/extended_settings/additional_links_priority');
+    }
+
+    /**
+     * Return link to additional links in sitemap
+     *
+     * @return string
+     */
+    public function getLinkToAdditionalUrls()
+    {
+        return Mage::getUrl('catalog/seo_sitemap/additional/');
+    }
 }

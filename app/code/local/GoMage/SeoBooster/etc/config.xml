@@ -152,6 +152,15 @@
                 </gomage_seobooster>
             </updates>
         </layout>
+        <routers>
+            <catalog>
+                <args>
+                    <modules>
+                        <gomage_seobooster before="Mage_Catalog">GoMage_SeoBooster_Catalog</gomage_seobooster>
+                    </modules>
+                </args>
+            </catalog>
+        </routers>
     </frontend>
     <adminhtml>
         <events>
@@ -198,6 +207,8 @@
                 <include_product_tags>0</include_product_tags>
                 <paroduct_tags_changefreq>daily</paroduct_tags_changefreq>
                 <paroduct_tags_priority>0.5</paroduct_tags_priority>
+                <additional_links_changefreq>daily</additional_links_changefreq>
+                <additional_links_priority>0.1</additional_links_priority>
             </extended_settings>
         </sitemap>
     </default>

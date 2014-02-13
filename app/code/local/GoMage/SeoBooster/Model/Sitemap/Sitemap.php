@@ -50,8 +50,11 @@ class GoMage_Seobooster_Model_Sitemap_Sitemap extends Mage_Sitemap_Model_Sitemap
          */
         $changefreq = (string)Mage::getStoreConfig('sitemap/category/changefreq', $storeId);
         $priority   = (string)Mage::getStoreConfig('sitemap/category/priority', $storeId);
-        $collection = Mage::getResourceModel('sitemap/catalog_category')->getCollection($storeId);
+        $collection = Mage::getResourceModel('gomage_seobooster/sitemap_catalog_category')->getCollection($storeId);
         foreach ($collection as $item) {
+            if ($item->getExcludeFromSitemap()) {
+                continue;
+            }
             $xml = sprintf('<url><loc>%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq><priority>%.1f</priority></url>',
                 htmlspecialchars($baseUrl . $item->getUrl()),
                 $date,
@@ -69,6 +72,9 @@ class GoMage_Seobooster_Model_Sitemap_Sitemap extends Mage_Sitemap_Model_Sitemap
         $priority   = (string)Mage::getStoreConfig('sitemap/product/priority', $storeId);
         $collection = Mage::getResourceModel('gomage_seobooster/sitemap_catalog_product')->getCollection($storeId);
         foreach ($collection as $item) {
+            if ($item->getExcludeFromSitemap()) {
+                continue;
+            }
             $images = $this->_getProductImages($item, $storeId);
             $xml = sprintf('<url><loc>%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq><priority>%.1f</priority>%s</url>',
                 htmlspecialchars($baseUrl . $item->getUrl()),
@@ -99,6 +105,9 @@ class GoMage_Seobooster_Model_Sitemap_Sitemap extends Mage_Sitemap_Model_Sitemap
         }
         unset($collection);
 
+        $this->_addTags($io, $storeId);
+        $this->_addAdditionalLinks($io, $storeId);
+
         $io->streamWrite('</urlset>');
         $io->streamClose();
 
@@ -128,17 +137,83 @@ class GoMage_Seobooster_Model_Sitemap_Sitemap extends Mage_Sitemap_Model_Sitemap
         $medialGallery = $product->getMediaGallery();
         if (is_array($medialGallery)) {
             foreach ($medialGallery as $image) {
-                if ($image['disabled'] != 1) {
-                    if ($imagesCount !=0 && $imagesInc >= $imagesCount) {
-                        return $images;
-                    }
-                    $path = Mage::getSingleton('catalog/product_media_config')->getMediaUrl($image['file']);
-                    $images .= '<image:image><image:loc>' . htmlspecialchars($path) . '</image:loc></image:image>';
+                if ($imagesCount !=0 && $imagesInc >= $imagesCount) {
+                    return $images;
                 }
+                $path = Mage::getSingleton('catalog/product_media_config')->getMediaUrl($image['file']);
+                $images .= '<image:image><image:loc>' . htmlspecialchars($path) . '</image:loc></image:image>';
                 $imagesInc++;
             }
         }
 
         return $images;
+    }
+
+    /**
+     * Add tags to sitemap
+     *
+     * @param Varien_Io_File $io      Input/Output Stream
+     * @param int            $storeId Store Id
+     * @return $this
+     */
+    protected function _addTags($io, $storeId)
+    {
+        if (!Mage::helper('gomage_seobooster/sitemap')->canAddProductTags()){
+            return $this;
+        }
+
+        $mageUrl = Mage::getBaseUrl();
+        $baseUrl = Mage::app()->getStore($storeId)->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK);
+        $date = Mage::getSingleton('core/date')->gmtDate('Y-m-d');
+        $changefreq = Mage::helper('gomage_seobooster/sitemap')->getProductTagsChangefreq();
+        $priority = Mage::helper('gomage_seobooster/sitemap')->getProductTagsPriority();
+
+        $tags = Mage::getModel('tag/tag')->getPopularCollection()
+            ->joinFields(Mage::app()->getStore()->getId())
+            ->load();
+
+        foreach ($tags as $tag) {
+            $url = str_replace($mageUrl, $baseUrl, $tag->getTaggedProductsUrl());
+            $xml = sprintf('<url><loc>%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq><priority>%.1f</priority></url>',
+                htmlspecialchars($url),
+                $date,
+                $changefreq,
+                $priority
+            );
+            $io->streamWrite($xml);
+        }
+        unset($collection);
+
+        return $this;
+    }
+
+    /**
+     * Add additional links to sitemap
+     *
+     * @param Varien_Io_File $io      Input/Output Stream
+     * @param int            $storeId Store Id
+     * @return $this
+     */
+    protected function _addAdditionalLinks($io, $storeId)
+    {
+        $mageUrl = Mage::getBaseUrl();
+        $baseUrl = Mage::app()->getStore($storeId)->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK);
+        $additionalLinks = Mage::helper('gomage_seobooster/sitemap')->getAdditionalLinks();
+        $date = Mage::getSingleton('core/date')->gmtDate('Y-m-d');
+        $changefreq = Mage::helper('gomage_seobooster/sitemap')->getAdditionalLinksChangefreq();
+        $priority = Mage::helper('gomage_seobooster/sitemap')->getAdditionalLinksPriority();
+
+        foreach ($additionalLinks as $link) {
+            $url = str_replace($mageUrl, $baseUrl, $link['url']);
+            $xml = sprintf('<url><loc>%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq><priority>%.1f</priority></url>',
+                htmlspecialchars($url),
+                $date,
+                $changefreq,
+                $priority
+            );
+            $io->streamWrite($xml);
+        }
+
+        return $this;
     }
 }
