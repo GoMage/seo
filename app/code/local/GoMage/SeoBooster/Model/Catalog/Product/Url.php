@@ -123,9 +123,10 @@ class GoMage_SeoBooster_Model_Catalog_Product_Url extends Mage_Catalog_Model_Pro
         }
 
         $idPath = sprintf('product/review/%d', $product->getEntityId());
-        if ($categoryId) {
-            $idPath = sprintf('%s/%d', $idPath, $categoryId);
-        }
+//        if ($categoryId) {
+//            $idPath = sprintf('%s/%d', $idPath, $categoryId);
+//        }
+
         $rewrite = $this->getUrlRewrite();
         $rewrite->setStoreId($storeId)
             ->loadByIdPath($idPath);

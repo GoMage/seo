@@ -209,6 +209,9 @@
                 <paroduct_tags_priority>0.5</paroduct_tags_priority>
                 <additional_links_changefreq>daily</additional_links_changefreq>
                 <additional_links_priority>0.1</additional_links_priority>
+                <allow_split_sitemap>0</allow_split_sitemap>
+                <max_links_count>50000</max_links_count>
+                <max_file_size>10240</max_file_size>
             </extended_settings>
         </sitemap>
     </default>

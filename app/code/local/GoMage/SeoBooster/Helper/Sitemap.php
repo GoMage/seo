@@ -136,4 +136,19 @@ class GoMage_SeoBooster_Helper_Sitemap extends Mage_Core_Helper_Data
     {
         return Mage::getUrl('catalog/seo_sitemap/additional/');
     }
+
+    public function canSplitSitemap()
+    {
+        return Mage::getStoreConfig('sitemap/extended_settings/allow_split_sitemap');
+    }
+
+    public function getMaxLinksCount()
+    {
+        return Mage::getStoreConfig('sitemap/extended_settings/max_links_count');
+    }
+
+    public function getMaxFileSize()
+    {
+        return Mage::getStoreConfig('sitemap/extended_settings/max_file_size');
+    }
 }

@@ -445,6 +445,37 @@
                            <show_in_store>1</show_in_store>
                            <comment>Valid values range: from 0.0 to 1.0.</comment>
                        </additional_links_priority>
+                       <allow_split_sitemap>
+                           <label>Allow to Split Sitemap</label>
+                           <frontend_type>select</frontend_type>
+                           <source_model>adminhtml/system_config_source_yesno</source_model>
+                           <sort_order>9</sort_order>
+                           <show_in_default>1</show_in_default>
+                           <show_in_website>1</show_in_website>
+                           <show_in_store>1</show_in_store>
+                       </allow_split_sitemap>
+                       <max_links_count>
+                           <label>Maximum URLs per Sitemap</label>
+                           <frontend_type>text</frontend_type>
+                           <sort_order>10</sort_order>
+                           <show_in_default>1</show_in_default>
+                           <show_in_website>1</show_in_website>
+                           <show_in_store>1</show_in_store>
+                           <depends>
+                               <allow_split_sitemap>1</allow_split_sitemap>
+                           </depends>
+                       </max_links_count>
+                       <max_file_size>
+                           <label>Sitemap Split Size Limit, KB</label>
+                           <frontend_type>text</frontend_type>
+                           <sort_order>11</sort_order>
+                           <show_in_default>1</show_in_default>
+                           <show_in_website>1</show_in_website>
+                           <show_in_store>1</show_in_store>
+                           <depends>
+                               <allow_split_sitemap>1</allow_split_sitemap>
+                           </depends>
+                       </max_file_size>
                    </fields>
                </extended_settings>
            </groups>
