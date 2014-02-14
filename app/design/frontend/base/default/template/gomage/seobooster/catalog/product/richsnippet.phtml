@@ -10,16 +10,44 @@
         <?php if ($category = $this->getCategory()): ?>
             <div itemprop="category" content="<?php echo $category?>"></div>
         <?php endif;?>
-        <div itemprop="offerDetails" itemscope itemtype="http://data-vocabulary.org/Offer">
-            <div itemprop="price" content="<?php echo $product->getFinalPrice(); ?>"></div>
-            <div itemprop="currency" content="<?php echo $this->getCurrencyCode(); ?>"></div>
-            <div itemprop="condition" content="used"></div>
-            <div itemprop="identifier" content="sku:<?php echo $product->getSku();?>"></div>
-            <div itemprop="availability" content="<?php echo $this->getStockStatus(); ?>"></div>
-            <?php if ($qty = $this->getQty()): ?>
-                <div itemprop="quantity" content="<?php echo $qty; ?>"></div>
-            <?php endif;?>
-        </div>
+        <?php if(($product->isGrouped() || $product->isConfigurable())
+            && ($product->getMinimalPrice() < $product->getFinalPrice())): ?>
+            <div itemprop="offerDetails" itemscope itemtype="http://data-vocabulary.org/Offer-aggregate">
+                <div itemprop="lowPrice" content="<?php echo $product->getMinimalPrice(); ?>"></div>
+                <div itemprop="highPrice" content="<?php echo $product->getFinalPrice(); ?>"></div>
+                <div itemprop="currency" content="<?php echo $this->getCurrencyCode(); ?>"></div>
+                <div itemprop="condition" content="used"></div>
+                <div itemprop="identifier" content="sku:<?php echo $product->getSku();?>"></div>
+                <div itemprop="availability" content="<?php echo $this->getStockStatus(); ?>"></div>
+                <?php if ($qty = $this->getQty()): ?>
+                    <div itemprop="quantity" content="<?php echo $qty; ?>"></div>
+                <?php endif;?>
+            </div>
+        <?php elseif($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_BUNDLE):?>
+            <?php list($_minimalPriceTax, $_maximalPriceTax) = $product->getPriceModel()->getTotalPrices($product, null, null, false) ?>
+            <div itemprop="offerDetails" itemscope itemtype="http://data-vocabulary.org/Offer-aggregate">
+                <div itemprop="lowPrice" content="<?php echo $_minimalPriceTax; ?>"></div>
+                <div itemprop="highPrice" content="<?php echo $_maximalPriceTax; ?>"></div>
+                <div itemprop="currency" content="<?php echo $this->getCurrencyCode(); ?>"></div>
+                <div itemprop="condition" content="used"></div>
+                <div itemprop="identifier" content="sku:<?php echo $product->getSku();?>"></div>
+                <div itemprop="availability" content="<?php echo $this->getStockStatus(); ?>"></div>
+                <?php if ($qty = $this->getQty()): ?>
+                    <div itemprop="quantity" content="<?php echo $qty; ?>"></div>
+                <?php endif;?>
+            </div>
+        <?php else: ?>
+            <div itemprop="offerDetails" itemscope itemtype="http://data-vocabulary.org/Offer">
+                <div itemprop="price" content="<?php echo $product->getFinalPrice(); ?>"></div>
+                <div itemprop="currency" content="<?php echo $this->getCurrencyCode(); ?>"></div>
+                <div itemprop="condition" content="used"></div>
+                <div itemprop="identifier" content="sku:<?php echo $product->getSku();?>"></div>
+                <div itemprop="availability" content="<?php echo $this->getStockStatus(); ?>"></div>
+                <?php if ($qty = $this->getQty()): ?>
+                    <div itemprop="quantity" content="<?php echo $qty; ?>"></div>
+                <?php endif;?>
+            </div>
+        <?php endif;?>
         <?php if ($this->getReviewsCount() > 0):?>
             <div itemprop="review" itemscope itemtype="http://data-vocabulary.org/Review-aggregate">
                 <div itemprop="rating" content="<?php echo $this->getRatingSummary(); ?>"></div>

@@ -5,9 +5,42 @@
             <block type="gomage_seobooster/page_html_head_opengraph" name="head.og.metadata" template="gomage/seobooster/page/html/head/opengraph.phtml"/>
         </reference>
     </default>
+
     <catalog_product_view>
         <reference name="content">
             <block type="gomage_seobooster/catalog_product_richSnippet" name="product.rich.snippet" template="gomage/seobooster/catalog/product/richsnippet.phtml" />
         </reference>
     </catalog_product_view>
+
+    <catalog_seo_sitemap_category>
+        <reference name="seo.sitemap.links">
+            <action method="addLink" translate="label title" module="gomage_seobooster"><label>Additional Links</label><url helper="gomage_seobooster/sitemap/getLinkToAdditionalUrls"/><title>Additional Links</title></action>
+        </reference>
+    </catalog_seo_sitemap_category>
+
+    <catalog_seo_sitemap_product>
+        <reference name="seo.sitemap.links">
+            <action method="addLink" translate="label title" module="gomage_seobooster"><label>Additional Links</label><url helper="gomage_seobooster/sitemap/getLinkToAdditionalUrls"/><title>Additional Links</title></action>
+        </reference>
+    </catalog_seo_sitemap_product>
+
+    <catalog_seo_sitemap_additional translate="label">
+        <label>Catalog Seo Sitemap (Product List)</label>
+        <reference name="head">
+            <action method="setTitle" translate="title" module="catalog"><title>Site Map</title></action>
+        </reference>
+        <update handle="catalog_seo_sitemap" />
+        <reference name="seo.sitemap.container">
+            <action method="setTitle" translate="title" module="gomage_seobooster"><title>Additional Links</title></action>
+            <block type="gomage_seobooster/catalog_seo_sitemap_additional" name="seo.sitemap.sitemap" as="sitemap" after="pager_top" template="catalog/seo/sitemap.phtml">
+                <action method="bindPager"><pager>seo.sitemap.pager.top</pager></action>
+                <action method="bindPager"><pager>seo.sitemap.pager.bottom</pager></action>
+                <action method="setItemsTitle" translate="title" module="gomage_seobooster"><title>Additional Links</title></action>
+            </block>
+        </reference>
+        <reference name="seo.sitemap.links">
+            <action method="addLink" translate="label title" module="catalog"><label>Categories Sitemap</label><url helper="catalog/map/getCategoryUrl"/><title>Categories Sitemap</title></action>
+            <action method="addLink" translate="label title" module="catalog"><label>Products Sitemap</label><url helper="catalog/map/getProductUrl"/><title>Products Sitemap</title></action>
+        </reference>
+    </catalog_seo_sitemap_additional>
 </layout>
