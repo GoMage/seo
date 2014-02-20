@@ -118,14 +118,16 @@ class GoMage_SeoBooster_Model_Catalog_Product_Url extends Mage_Catalog_Model_Pro
             unset($params['_ignore_category']);
             $categoryId = null;
         } else {
+            $categoryIds = $product->getCategoryIds();
             $categoryId = $product->getCategoryId() && !$product->getDoNotUseCategoryId()
+                && (in_array($product->getCategoryId(), $categoryIds))
                 ? $product->getCategoryId() : null;
         }
 
-        $idPath = sprintf('product/review/%d', $product->getEntityId());
-//        if ($categoryId) {
-//            $idPath = sprintf('%s/%d', $idPath, $categoryId);
-//        }
+        $idPath = sprintf('product/reviews/%d', $product->getEntityId());
+        if ($categoryId) {
+            $idPath = sprintf('%s/%d', $idPath, $categoryId);
+        }
 
         $rewrite = $this->getUrlRewrite();
         $rewrite->setStoreId($storeId)

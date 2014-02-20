@@ -64,6 +64,33 @@ class GoMage_SeoBooster_Model_Observer
         Mage::getModel('gomage_seobooster/tag_url')->refreshTagRewrite($tag);
     }
 
+    public function refreshReviewUrlRewrite(Varien_Event_Observer $observer)
+    {
+        $event = $observer->getEvent();
+        $review = $event->getDataObject();
+
+        if (!Mage::helper('gomage_seobooster')->canUseProductReviewsUrlRewrite()) {
+            return $this;
+        }
+
+        if ($review->isObjectNew()) {
+            Mage::getModel('gomage_seobooster/review_url')->refreshReviewRewrite($review);
+        }
+    }
+
+    public function removeReviewUrlRewrite(Varien_Event_Observer $observer)
+    {
+        $event = $observer->getEvent();
+        $review = $event->getDataObject();
+
+        if (!Mage::helper('gomage_seobooster')->canUseProductReviewsUrlRewrite()) {
+            return $this;
+        }
+
+        $review->isDeleted(true);
+        Mage::getModel('gomage_seobooster/review_url')->refreshReviewRewrite($review);
+    }
+
     /**
      * Add fields to meta tab of cms page
      *

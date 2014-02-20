@@ -43,6 +43,7 @@
             <review>
                 <rewrite>
                     <helper>GoMage_SeoBooster_Block_Review_Helper</helper>
+                    <product_view_list>GoMage_SeoBooster_Block_Review_Product_View_List</product_view_list>
                 </rewrite>
             </review>
             <rss>
@@ -142,6 +143,22 @@
                     </remove_tag_url_rewrite>
                 </observers>
             </tag_delete_after>
+            <review_save_after>
+                <observers>
+                    <refresh_review_url_rewrite>
+                        <class>gomage_seobooster/observer</class>
+                        <method>refreshReviewUrlRewrite</method>
+                    </refresh_review_url_rewrite>
+                </observers>
+            </review_save_after>
+            <review_delete_after>
+                <observers>
+                    <remove_review_url_rewrite>
+                        <class>gomage_seobooster/observer</class>
+                        <method>removeReviewUrlRewrite</method>
+                    </remove_review_url_rewrite>
+                </observers>
+            </review_delete_after>
         </events>
     </global>
     <frontend>
@@ -217,7 +234,7 @@
     </default>
     <modules>
         <GoMage_SeoBooster>
-            <version>1.0.7</version>
+            <version>1.0.8</version>
         </GoMage_SeoBooster>
     </modules>
 </config>
