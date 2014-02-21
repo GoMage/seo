@@ -191,4 +191,56 @@ class GoMage_SeoBooster_Helper_Data extends Mage_Core_Helper_Data
 
         return Mage::getStoreConfig('design/head/default_robots');
     }
+
+    public function getProductMaxPrice(Mage_Catalog_Model_Product $product)
+    {
+        if ($product->getTypeId() == Mage_Catalog_Model_Product_Type_Configurable::TYPE_CODE) {
+            return $this->_getConfigurableProductMaxPrice($product);
+        }
+
+        return $product->getFinalPrice();
+    }
+
+    protected function _getConfigurableProductMaxPrice(Mage_Catalog_Model_Product $product)
+    {
+        $productPrice = $product->getFinalPrice();
+        $attributes = $product->getTypeInstance()->getConfigurableAttributes($product);
+        $attributesPrice = 0.0;
+        foreach ($attributes as $attribute) {
+            $attributeMaxPrice = 0.0;
+            if ($prices = $attribute->getPrices()) {
+                foreach ($prices as $price) {
+                    if ($price['is_percent']) {
+                        $priceValue = $productPrice * $price['pricing_value'] / 100;
+                    } else {
+                        $priceValue = $price['pricing_value'];
+                    }
+                    $attributeMaxPrice = max($attributeMaxPrice, $priceValue);
+                }
+            }
+            $attributesPrice+=$attributeMaxPrice;
+        }
+
+        $productPrice += $attributesPrice;
+        return $productPrice;
+    }
+
+    public function getGroupedProductPrices(Mage_Catalog_Model_Product $product)
+    {
+
+        if ($product->getTypeId() == Mage_Catalog_Model_Product_Type_Grouped::TYPE_CODE) {
+            $maxPrice = 0.0;
+            $minPrice = $product->getMinimalPrice();
+            $associatedProducts = $product->getTypeInstance()->getAssociatedProducts($product);
+
+            foreach ($associatedProducts as $_product) {
+                $maxPrice = max($maxPrice, $_product->getFinalPrice());
+                $minPrice = min($minPrice, $_product->getFinalPrice());
+            }
+
+            return new Varien_Object(array('min_price' => $minPrice, 'max_price' => $maxPrice));
+        }
+
+        return new Varien_Object();
+    }
 }

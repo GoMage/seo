@@ -1,4 +1,6 @@
 <?php $product = $this->getProduct(); ?>
+<?php $_coreHelper = $this->helper('core');?>
+
 <div xmlns:v="http://rdf.data-vocabulary.org/#">
     <div itemscope itemtype="http://data-vocabulary.org/Product">
         <div itemprop="name" content="<?php echo $product->getName();?>"></div>
@@ -10,11 +12,23 @@
         <?php if ($category = $this->getCategory()): ?>
             <div itemprop="category" content="<?php echo $category?>"></div>
         <?php endif;?>
-        <?php if(($product->isGrouped() || $product->isConfigurable())
-            && ($product->getMinimalPrice() < $product->getFinalPrice())): ?>
+        <?php if($product->isConfigurable()): ?>
             <div itemprop="offerDetails" itemscope itemtype="http://data-vocabulary.org/Offer-aggregate">
-                <div itemprop="lowPrice" content="<?php echo $product->getMinimalPrice(); ?>"></div>
-                <div itemprop="highPrice" content="<?php echo $product->getFinalPrice(); ?>"></div>
+                <div itemprop="lowPrice" content="<?php echo $_coreHelper->currency($product->getFinalPrice(), false, false); ?>"></div>
+                <div itemprop="highPrice" content="<?php echo $_coreHelper->currency(Mage::helper('gomage_seobooster')->getProductMaxPrice($product), false, false); ?>"></div>
+                <div itemprop="currency" content="<?php echo $this->getCurrencyCode(); ?>"></div>
+                <div itemprop="condition" content="used"></div>
+                <div itemprop="identifier" content="sku:<?php echo $product->getSku();?>"></div>
+                <div itemprop="availability" content="<?php echo $this->getStockStatus(); ?>"></div>
+                <?php if ($qty = $this->getQty()): ?>
+                    <div itemprop="quantity" content="<?php echo $qty; ?>"></div>
+                <?php endif;?>
+            </div>
+        <?php elseif($product->isGrouped()):?>
+            <?php $_prices = Mage::helper('gomage_seobooster')->getGroupedProductPrices($product); ?>
+            <div itemprop="offerDetails" itemscope itemtype="http://data-vocabulary.org/Offer-aggregate">
+                <div itemprop="lowPrice" content="<?php echo $_coreHelper->currency($_prices->getMinPrice(), false, false); ?>"></div>
+                <div itemprop="highPrice" content="<?php echo $_coreHelper->currency($_prices->getMaxPrice(), false, false); ?>"></div>
                 <div itemprop="currency" content="<?php echo $this->getCurrencyCode(); ?>"></div>
                 <div itemprop="condition" content="used"></div>
                 <div itemprop="identifier" content="sku:<?php echo $product->getSku();?>"></div>
@@ -24,10 +38,10 @@
                 <?php endif;?>
             </div>
         <?php elseif($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_BUNDLE):?>
-            <?php list($_minimalPriceTax, $_maximalPriceTax) = $product->getPriceModel()->getTotalPrices($product, null, null, false) ?>
+            <?php list($_minimalPrice, $_maximalPrice) = $product->getPriceModel()->getTotalPrices($product, null, null, false) ?>
             <div itemprop="offerDetails" itemscope itemtype="http://data-vocabulary.org/Offer-aggregate">
-                <div itemprop="lowPrice" content="<?php echo $_minimalPriceTax; ?>"></div>
-                <div itemprop="highPrice" content="<?php echo $_maximalPriceTax; ?>"></div>
+                <div itemprop="lowPrice" content="<?php echo $_minimalPrice; ?>"></div>
+                <div itemprop="highPrice" content="<?php echo $_maximalPrice; ?>"></div>
                 <div itemprop="currency" content="<?php echo $this->getCurrencyCode(); ?>"></div>
                 <div itemprop="condition" content="used"></div>
                 <div itemprop="identifier" content="sku:<?php echo $product->getSku();?>"></div>
@@ -38,7 +52,7 @@
             </div>
         <?php else: ?>
             <div itemprop="offerDetails" itemscope itemtype="http://data-vocabulary.org/Offer">
-                <div itemprop="price" content="<?php echo $product->getFinalPrice(); ?>"></div>
+                <div itemprop="price" content="<?php echo $_coreHelper->currency($product->getFinalPrice(), false, false); ?>"></div>
                 <div itemprop="currency" content="<?php echo $this->getCurrencyCode(); ?>"></div>
                 <div itemprop="condition" content="used"></div>
                 <div itemprop="identifier" content="sku:<?php echo $product->getSku();?>"></div>

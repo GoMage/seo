@@ -113,7 +113,7 @@
             </tag>
             <sitemap>
                 <rewrite>
-                    <sitemap>GoMage_Seobooster_Model_Sitemap_Sitemap</sitemap>
+                    <sitemap>GoMage_SeoBooster_Model_Sitemap_Sitemap</sitemap>
                 </rewrite>
             </sitemap>
         </models>

@@ -19,7 +19,7 @@
  * @subpackage Model
  * @author     Roman Bublik <rb@gomage.com>
  */
-class GoMage_Seobooster_Model_Sitemap_Sitemap extends Mage_Sitemap_Model_Sitemap
+class GoMage_SeoBooster_Model_Sitemap_Sitemap extends Mage_Sitemap_Model_Sitemap
 {
     protected $_linksCount = 0;
 
@@ -272,5 +272,10 @@ class GoMage_Seobooster_Model_Sitemap_Sitemap extends Mage_Sitemap_Model_Sitemap
         }
 
         return $this->getData('sitemap_filename');
+    }
+
+    public function submitSitemap()
+    {
+
     }
 }
