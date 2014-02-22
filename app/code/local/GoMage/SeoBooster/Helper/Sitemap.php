@@ -21,6 +21,15 @@
  */
 class GoMage_SeoBooster_Helper_Sitemap extends Mage_Core_Helper_Data
 {
+    const SEARCH_ENGINE_GOOGLE = 'google';
+    const SEARCH_ENGINE_YAHOO  = 'yahoo';
+    const SEARCH_ENGINE_BING   = 'bing';
+    const SEARCH_ENGINE_ASK    = 'ask';
+
+    const SEARCH_ENGINE_GOOGLE_URL = 'http://www.google.com/webmasters/sitemaps/ping?sitemap=';
+    const SEARCH_ENGINE_YAHOO_URL  = 'http://www.bing.com/webmaster/ping.aspx?siteMap=';
+    const SEARCH_ENGINE_BING_URL   = 'http://www.bing.com/webmaster/ping.aspx?siteMap=';
+    const SEARCH_ENGINE_ASK_URL    = 'http://submissions.ask.com/ping?sitemap=';
     /**
      * Return module status
      *
@@ -150,5 +159,38 @@ class GoMage_SeoBooster_Helper_Sitemap extends Mage_Core_Helper_Data
     public function getMaxFileSize()
     {
         return Mage::getStoreConfig('sitemap/extended_settings/max_file_size');
+    }
+
+    public function isAutosubmitEnabled()
+    {
+        return Mage::getStoreConfig('sitemap/extended_settings/submit_sitemap_automatically');
+    }
+
+    public function getSearchEngines()
+    {
+        $engines = Mage::getStoreConfig('sitemap/extended_settings/submit_search_engines');
+        return explode(',', $engines);
+    }
+
+    public function  getSearchEngineUrl($engine)
+    {
+        switch ($engine) {
+            case self::SEARCH_ENGINE_GOOGLE:
+                $url = self::SEARCH_ENGINE_GOOGLE_URL;
+                break;
+            case self::SEARCH_ENGINE_YAHOO:
+                $url = self::SEARCH_ENGINE_YAHOO_URL;
+                break;
+            case self::SEARCH_ENGINE_BING:
+                $url = self::SEARCH_ENGINE_BING_URL;
+                break;
+            case self::SEARCH_ENGINE_ASK:
+                $url = self::SEARCH_ENGINE_ASK_URL;
+                break;
+            default:
+                return false;
+        }
+
+        return $url;
     }
 }

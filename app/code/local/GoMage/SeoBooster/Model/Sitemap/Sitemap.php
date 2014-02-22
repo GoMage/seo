@@ -117,6 +117,8 @@ class GoMage_SeoBooster_Model_Sitemap_Sitemap extends Mage_Sitemap_Model_Sitemap
         $this->setSitemapTime(Mage::getSingleton('core/date')->gmtDate('Y-m-d H:i:s'));
         $this->save();
 
+        $this->submitSitemap();
+
         return $this;
     }
 
@@ -276,6 +278,25 @@ class GoMage_SeoBooster_Model_Sitemap_Sitemap extends Mage_Sitemap_Model_Sitemap
 
     public function submitSitemap()
     {
+        if (!Mage::helper('gomage_seobooster/sitemap')->isAutosubmitEnabled() || !$this->getId()) {
+            return;
+        }
+
+        $fileName = preg_replace('/^\//', '', $this->getSitemapPath() . $this->getSitemapFilename());
+        $sitemapUrl = Mage::app()->getStore($this->getStoreId())->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB) . $fileName;
+        $engines = Mage::helper('gomage_seobooster/sitemap')->getSearchEngines();
+
+        foreach ($engines as $engine) {
+            $engineUrl = Mage::helper('gomage_seobooster/sitemap')->getSearchEngineUrl($engine);
+            $submitUrl = sprintf($engineUrl.'%s', urldecode($sitemapUrl));
+
+            $handle = curl_init();
+            curl_setopt($handle,CURLOPT_URL, $submitUrl);
+            curl_setopt($handle,CURLOPT_CONNECTTIMEOUT, 2);
+            curl_setopt($handle,CURLOPT_RETURNTRANSFER, 1);
+            curl_exec($handle);
+            curl_close($handle);
+        }
 
     }
 }

@@ -79,6 +79,7 @@
                     <template_filter>GoMage_SeoBooster_Model_Catalog_Template_Filter</template_filter>
                     <layer_filter_attribute>GoMage_SeoBooster_Model_Catalog_Layer_Filter_Attribute</layer_filter_attribute>
                     <url>GoMage_SeoBooster_Model_Catalog_Url</url>
+                    <layer_filter_price>GoMage_SeoBooster_Model_Catalog_Layer_Filter_Price</layer_filter_price>
                 </rewrite>
             </catalog>
             <cms>
