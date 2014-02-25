@@ -43,4 +43,26 @@
             <action method="addLink" translate="label title" module="catalog"><label>Products Sitemap</label><url helper="catalog/map/getProductUrl"/><title>Products Sitemap</title></action>
         </reference>
     </catalog_seo_sitemap_additional>
+
+    <gomage_seobooster_sitemap_index>
+        <label>Seo Sitemap</label>
+        <remove name="right"/>
+        <remove name="left"/>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="core/template" name="seo.sitemap.container" template="gomage/seobooster/sitemap/container.phtml">
+                <block type="gomage_seobooster/sitemap_catalog" name="seo.catalog.sitemap" as="catalog_sitemap" template="gomage/seobooster/sitemap/links/catalog.phtml">
+                    <action method="setTitle" translate="title" module="gomage_seobooster"><title>Catalog</title></action>
+                </block>
+                <block type="gomage_seobooster/sitemap_cms" name="seo.cms.sitemap" as="cms_sitemap" template="gomage/seobooster/sitemap/links.phtml">
+                    <action method="setTitle" translate="title" module="gomage_seobooster"><title>Pages</title></action>
+                </block>
+                <block type="gomage_seobooster/sitemap_additional" name="seo.additional.sitemap" as="additional_sitemap" template="gomage/seobooster/sitemap/links.phtml">
+                    <action method="setTitle" translate="title" module="gomage_seobooster"><title>Additional Pages</title></action>
+                </block>
+            </block>
+        </reference>
+    </gomage_seobooster_sitemap_index>
 </layout>

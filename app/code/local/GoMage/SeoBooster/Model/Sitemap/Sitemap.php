@@ -37,8 +37,8 @@ class GoMage_SeoBooster_Model_Sitemap_Sitemap extends Mage_Sitemap_Model_Sitemap
         $io->open(array('path' => $this->getPath()));
         $this->_openXmlFile($io);
 
-        if ($io->fileExists($this->getSitemapFilename()) && !$io->isWriteable($this->getSitemapFilename())) {
-            Mage::throwException(Mage::helper('sitemap')->__('File "%s" cannot be saved. Please, make sure the directory "%s" is writeable by web server.', $this->getSitemapFilename(), $this->getPath()));
+        if ($io->fileExists($this->getSitemapIndexFilename()) && !$io->isWriteable($this->getSitemapIndexFilename())) {
+            Mage::throwException(Mage::helper('sitemap')->__('File "%s" cannot be saved. Please, make sure the directory "%s" is writeable by web server.', $this->getSitemapIndexFilename(), $this->getPath()));
         }
 
         $storeId = $this->getStoreId();
@@ -114,12 +114,44 @@ class GoMage_SeoBooster_Model_Sitemap_Sitemap extends Mage_Sitemap_Model_Sitemap
         $io->streamWrite('</urlset>');
         $io->streamClose();
 
+        if (Mage::helper('gomage_seobooster/sitemap')->canSplitSitemap()) {
+            $this->generateIndexFile();
+        }
         $this->setSitemapTime(Mage::getSingleton('core/date')->gmtDate('Y-m-d H:i:s'));
         $this->save();
 
         $this->submitSitemap();
 
         return $this;
+    }
+
+    public function generateIndexFile()
+    {
+        $io = new Varien_Io_File();
+        $io->setAllowCreateFolders(true);
+        $io->open(array('path' => $this->getPath()));
+
+        $filename = $this->getData('sitemap_filename');
+        $extension = strrchr($filename, '.');
+        $filenameTemplate = str_replace($extension, '', $filename) .'_%d'.$extension;
+
+        if ($io->fileExists($filename) && !$io->isWriteable($filename)) {
+            Mage::throwException(Mage::helper('sitemap')->__('File "%s" cannot be saved. Please, make sure the directory "%s" is writeable by web server.', $this->getData('sitemap_filename'), $this->getPath()));
+        }
+
+        $date = Mage::getSingleton('core/date')->gmtDate('Y-m-d H:i:s');
+        $io->streamOpen($filename, 'w+');
+        $io->streamWrite('<?xml version="1.0" encoding="UTF-8"?>' . "\n");
+        $io->streamWrite('<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
+        for ($index = 1; $index <= $this->_filesCount; $index++) {
+            $xml = sprintf('<sitemap><loc>%s</loc><lastmod>%s</lastmod></sitemap>',
+                sprintf($filenameTemplate, $index),
+                $date
+            );
+            $io->streamWrite($xml);
+        }
+        $io->streamWrite('</sitemapindex>');
+        $io->streamClose();
     }
 
     /**
@@ -248,12 +280,12 @@ class GoMage_SeoBooster_Model_Sitemap_Sitemap extends Mage_Sitemap_Model_Sitemap
 
     protected function _openXmlFile($io, $append = false)
     {
-        if ($io->fileExists($this->getSitemapFilename()) && !$io->isWriteable($this->getSitemapFilename())) {
-            Mage::throwException(Mage::helper('sitemap')->__('File "%s" cannot be saved. Please, make sure the directory "%s" is writeable by web server.', $this->getSitemapFilename(), $this->getPath()));
+        if ($io->fileExists($this->getSitemapIndexFilename()) && !$io->isWriteable($this->getSitemapIndexFilename())) {
+            Mage::throwException(Mage::helper('sitemap')->__('File "%s" cannot be saved. Please, make sure the directory "%s" is writeable by web server.', $this->getSitemapIndexFilename(), $this->getPath()));
         }
         $mode = $append ? 'a+' : 'w+';
 
-        $io->streamOpen($this->getSitemapFilename(), $mode);
+        $io->streamOpen($this->getSitemapIndexFilename(), $mode);
 
         if (!$append) {
             $io->streamWrite('<?xml version="1.0" encoding="UTF-8"?>' . "\n");
@@ -261,10 +293,9 @@ class GoMage_SeoBooster_Model_Sitemap_Sitemap extends Mage_Sitemap_Model_Sitemap
         }
     }
 
-    public function getSitemapFilename()
+    public function getSitemapIndexFilename()
     {
-        if (Mage::helper('gomage_seobooster/sitemap')->canSplitSitemap() &&
-            $this->_filesCount > 1) {
+        if (Mage::helper('gomage_seobooster/sitemap')->canSplitSitemap()) {
             $filename = $this->getData('sitemap_filename');
             $extension = strrchr($filename, '.');
             $filename = str_replace($extension, '', $filename);
@@ -282,7 +313,7 @@ class GoMage_SeoBooster_Model_Sitemap_Sitemap extends Mage_Sitemap_Model_Sitemap
             return;
         }
 
-        $fileName = preg_replace('/^\//', '', $this->getSitemapPath() . $this->getSitemapFilename());
+        $fileName = preg_replace('/^\//', '', $this->getSitemapPath() . $this->getSitemapIndexFilename());
         $sitemapUrl = Mage::app()->getStore($this->getStoreId())->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB) . $fileName;
         $engines = Mage::helper('gomage_seobooster/sitemap')->getSearchEngines();
 

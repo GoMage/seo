@@ -44,6 +44,7 @@
                 <rewrite>
                     <helper>GoMage_SeoBooster_Block_Review_Helper</helper>
                     <product_view_list>GoMage_SeoBooster_Block_Review_Product_View_List</product_view_list>
+                    <view>GoMage_SeoBooster_Block_Review_View</view>
                 </rewrite>
             </review>
             <rss>
@@ -171,6 +172,13 @@
             </updates>
         </layout>
         <routers>
+            <gomage_seobooster>
+                <use>standard</use>
+                <args>
+                    <module>GoMage_SeoBooster</module>
+                    <frontName>seo</frontName>
+                </args>
+            </gomage_seobooster>
             <catalog>
                 <args>
                     <modules>

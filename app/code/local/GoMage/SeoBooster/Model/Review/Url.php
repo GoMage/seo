@@ -113,11 +113,21 @@ class GoMage_SeoBooster_Model_Review_Url
                 $productUrlKey = $this->_formatUrlKey($product->getUrlKey());
             }
 
-            $path = $productUrlKey . '/review/' . $review->getId() . $this->_reviewUrlSuffix;
+            $path = $productUrlKey . '/'. $this->_getProductReviewsRewritePath() . '/' . $review->getId() . $this->_reviewUrlSuffix;
             return $path;
         }
 
         return 'review/product/view/id/'. $review->getId();
+    }
+
+    /**
+     * Return product reviews rewrite path
+     *
+     * @return string
+     */
+    protected function _getProductReviewsRewritePath()
+    {
+        return Mage::helper('gomage_seobooster')->getProductReviewsUrlRewritePath();
     }
 
     /**
