@@ -13,10 +13,40 @@
  */
  -->
 <config>
+    <menu>
+        <report>
+            <children>
+                <gomage_seobooster translate="title" module="gomage_seobooster">
+                    <title>SEO Booster</title>
+                    <sort_order>10000</sort_order>
+                    <children>
+                        <products_analayzer translate="title" module="gomage_seobooster">
+                            <title>Products Analayzer</title>
+                            <action>adminhtml/report_seo_analyzer/products</action>
+                            <sort_order>1</sort_order>
+                        </products_analayzer>
+                    </children>
+                </gomage_seobooster>
+            </children>
+        </report>
+    </menu>
     <acl>
         <resources>
             <admin>
                 <children>
+                    <report>
+                        <children>
+                            <gomage_seobooster>
+                                <title>SEO Booster</title>
+                                <sort_order>10000</sort_order>
+                                <children>
+                                    <products_analayzer translate="title">
+                                        <title>Products Analyzer</title>
+                                    </products_analayzer>
+                                </children>
+                            </gomage_seobooster>
+                        </children>
+                    </report>
                     <system>
                         <children>
                             <config>

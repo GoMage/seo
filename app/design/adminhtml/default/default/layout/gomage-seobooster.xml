@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <adminhtml_report_seo_analyzer_products>
+        <reference name="content">
+            <block type="gomage_seobooster/adminhtml_analyzer_product" name="analyzer.product.container" as="products" template="gomage/seobooster/analyzer/product.phtml">
+                <block type="adminhtml/store_switcher" name="store_switcher" as="store_switcher">
+                    <action method="setUseConfirm"><params>0</params></action>
+                </block>
+            </block>
+        </reference>
+    </adminhtml_report_seo_analyzer_products>
+</layout>

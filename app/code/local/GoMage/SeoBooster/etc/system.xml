@@ -352,6 +352,107 @@
                   </rss_url_rewrite_path>
               </fields>
           </url_rewrite>
+          <seo_analayzer>
+              <label>SEO Analayzer</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>30</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <expanded>1</expanded>
+              <fields>
+                  <min_name_symbols>
+                      <label>Minimum Name Symbols</label>
+                      <frontend_type>text</frontend_type>
+                      <sort_order>1</sort_order>
+                      <show_in_default>1</show_in_default>
+                      <show_in_website>1</show_in_website>
+                      <show_in_store>1</show_in_store>
+                      <validate>required-entry</validate>
+                  </min_name_symbols>
+                  <name_symbols_limit>
+                      <label>Name Symbols Limit</label>
+                      <frontend_type>text</frontend_type>
+                      <sort_order>2</sort_order>
+                      <show_in_default>1</show_in_default>
+                      <show_in_website>1</show_in_website>
+                      <show_in_store>1</show_in_store>
+                      <validate>required-entry</validate>
+                  </name_symbols_limit>
+                  <min_desctiption_symbols>
+                      <label>Minimum Description Symbols</label>
+                      <frontend_type>text</frontend_type>
+                      <sort_order>3</sort_order>
+                      <show_in_default>1</show_in_default>
+                      <show_in_website>1</show_in_website>
+                      <show_in_store>1</show_in_store>
+                      <validate>required-entry</validate>
+                  </min_desctiption_symbols>
+                  <description_limit>
+                      <label>Description Symbols Limit</label>
+                      <frontend_type>text</frontend_type>
+                      <sort_order>4</sort_order>
+                      <show_in_default>1</show_in_default>
+                      <show_in_website>1</show_in_website>
+                      <show_in_store>1</show_in_store>
+                      <validate>required-entry</validate>
+                  </description_limit>
+                  <min_meta_title_symbols>
+                      <label>Minimum Meta Title Symbols</label>
+                      <frontend_type>text</frontend_type>
+                      <sort_order>5</sort_order>
+                      <show_in_default>1</show_in_default>
+                      <show_in_website>1</show_in_website>
+                      <show_in_store>1</show_in_store>
+                      <validate>required-entry</validate>
+                  </min_meta_title_symbols>
+                  <meta_title_limit>
+                      <label>Meta Title Symbols Limit</label>
+                      <frontend_type>text</frontend_type>
+                      <sort_order>6</sort_order>
+                      <show_in_default>1</show_in_default>
+                      <show_in_website>1</show_in_website>
+                      <show_in_store>1</show_in_store>
+                      <validate>required-entry</validate>
+                  </meta_title_limit>
+                  <min_meta_description_symbols>
+                      <label>Minimum Meta Description Symbols</label>
+                      <frontend_type>text</frontend_type>
+                      <sort_order>7</sort_order>
+                      <show_in_default>1</show_in_default>
+                      <show_in_website>1</show_in_website>
+                      <show_in_store>1</show_in_store>
+                      <validate>required-entry</validate>
+                  </min_meta_description_symbols>
+                  <meta_description_limit>
+                      <label>Meta Description Symbols Limit</label>
+                      <frontend_type>text</frontend_type>
+                      <sort_order>8</sort_order>
+                      <show_in_default>1</show_in_default>
+                      <show_in_website>1</show_in_website>
+                      <show_in_store>1</show_in_store>
+                      <validate>required-entry</validate>
+                  </meta_description_limit>
+                  <min_meta_keywords_qty>
+                      <label>Minimum Meta Keywords Qty</label>
+                      <frontend_type>text</frontend_type>
+                      <sort_order>9</sort_order>
+                      <show_in_default>1</show_in_default>
+                      <show_in_website>1</show_in_website>
+                      <show_in_store>1</show_in_store>
+                      <validate>required-entry</validate>
+                  </min_meta_keywords_qty>
+                  <keywords_qty_limit>
+                      <label>Meta Keywords Qty Limit</label>
+                      <frontend_type>text</frontend_type>
+                      <sort_order>10</sort_order>
+                      <show_in_default>1</show_in_default>
+                      <show_in_website>1</show_in_website>
+                      <show_in_store>1</show_in_store>
+                      <validate>required-entry</validate>
+                  </keywords_qty_limit>
+              </fields>
+          </seo_analayzer>
         </groups>
       </gomage_seobooster>
        <sitemap>

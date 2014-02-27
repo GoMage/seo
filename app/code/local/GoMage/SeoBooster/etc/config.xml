@@ -70,6 +70,14 @@
             </gomage_seobooster>
             <gomage_seobooster_resource>
                 <class>GoMage_SeoBooster_Model_Resource</class>
+                <entities>
+                    <analyzer_product>
+                        <table>gomage_seobooster_seo_product_report</table>
+                    </analyzer_product>
+                    <analyzer_product_duplicates>
+                        <table>gomage_seobooster_seo_duplicates_product_report</table>
+                    </analyzer_product_duplicates>
+                </entities>
             </gomage_seobooster_resource>
             <catalog>
                 <rewrite>
@@ -188,6 +196,17 @@
             </catalog>
         </routers>
     </frontend>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <gomage_seobooster before="Mage_Adminhtml">GoMage_SeoBooster_Adminhtml</gomage_seobooster>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
     <adminhtml>
         <events>
             <adminhtml_cms_page_edit_tab_meta_prepare_form>
@@ -199,6 +218,13 @@
                 </observers>
             </adminhtml_cms_page_edit_tab_meta_prepare_form>
         </events>
+        <layout>
+            <updates>
+                <gomage_seobooster>
+                    <file>gomage-seobooster.xml</file>
+                </gomage_seobooster>
+            </updates>
+        </layout>
     </adminhtml>
     <default>
         <gomage_seobooster>
@@ -225,6 +251,18 @@
                 <enable_rss_url_rewrite>0</enable_rss_url_rewrite>
                 <rss_url_rewrite_path>rss</rss_url_rewrite_path>
             </url_rewrite>
+            <seo_analayzer>
+                <min_name_symbols>0</min_name_symbols>
+                <name_symbols_limit>0</name_symbols_limit>
+                <min_desctiption_symbols>0</min_desctiption_symbols>
+                <description_limit>0</description_limit>
+                <min_meta_title_symbols>0</min_meta_title_symbols>
+                <meta_title_limit>70</meta_title_limit>
+                <min_meta_description_symbols>0</min_meta_description_symbols>
+                <meta_description_limit>155</meta_description_limit>
+                <min_meta_keywords_qty>0</min_meta_keywords_qty>
+                <keywords_qty_limit>25</keywords_qty_limit>
+            </seo_analayzer>
         </gomage_seobooster>
         <sitemap>
             <extended_settings>
@@ -243,7 +281,7 @@
     </default>
     <modules>
         <GoMage_SeoBooster>
-            <version>1.0.8</version>
+            <version>1.0.10</version>
         </GoMage_SeoBooster>
     </modules>
 </config>
