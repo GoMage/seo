@@ -42,7 +42,9 @@ class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Product extends Mage_Adminhtml_
 
     protected function _getAnalyzerUrl()
     {
-        return Mage::helper('adminhtml')->getUrl('*/*/analyze');
+        return Mage::helper('adminhtml')->getUrl('*/*/analyze', array(
+            'type' => GoMage_SeoBooster_Model_Analyzer::ANALYZER_PRODUCT
+        ));
     }
 
     /**

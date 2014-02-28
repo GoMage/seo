@@ -53,65 +53,41 @@ abstract class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Grid_Abstract extends 
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('entity_id', array(
-            'header' => $this->helper('gomage_seobooster')->__('ID'),
-            'index'  => 'entity_id',
-            'type'   => 'number',
-            'width'  => 20,
-        ));
-
-        $this->addColumn('name_analyze', array(
+        $this->addColumn('name_chars_count', array(
             'header' => $this->helper('gomage_seobooster')->__('Name'),
-            'index'  => 'name_analyze',
-            'type'   => 'options',
-            'options' => array()
+            'index'  => 'name_chars_count',
+            'options' => GoMage_SeoBooster_Model_Analyzer::getErrorsOptions(),
+            'renderer' => 'gomage_seobooster/adminhtml_analyzer_grid_renderer_options',
+            'analyze_field' => GoMage_SeoBooster_Helper_Analyzer::NAME_FIELD
         ));
 
-        $this->addColumn('description', array(
+        $this->addColumn('description_chars_count', array(
             'header' => $this->helper('gomage_seobooster')->__('Description'),
-            'index'  => 'description',
+            'index'  => 'description_chars_count',
             'type'   => 'options',
-            'options' => array()
+            'options' => GoMage_SeoBooster_Model_Analyzer::getErrorsOptions()
         ));
 
-        $this->addColumn('meta_title', array(
+        $this->addColumn('meta_title_chars_count', array(
             'header' => $this->helper('gomage_seobooster')->__('Title'),
-            'index'  => 'meta_title',
-            'type'   => 'options',
-            'options' => array()
+            'index'  => 'meta_title_chars_count',
+            'renderer' => 'gomage_seobooster/adminhtml_analyzer_grid_renderer_options',
+            'options' => GoMage_SeoBooster_Model_Analyzer::getErrorsOptions(),
         ));
 
-        $this->addColumn('meta_description', array(
+        $this->addColumn('meta_description_chars_count', array(
             'header' => $this->helper('gomage_seobooster')->__('Meta Description'),
-            'index'  => 'meta_description',
-            'type'   => 'options',
-            'options' => array()
+            'index'  => 'meta_description_chars_count',
+            'renderer' => 'gomage_seobooster/adminhtml_analyzer_grid_renderer_options',
+            'options' => GoMage_SeoBooster_Model_Analyzer::getErrorsOptions()
         ));
 
-        $this->addColumn('meta_keywords', array(
+        $this->addColumn('meta_keyword_qty', array(
             'header' => $this->helper('gomage_seobooster')->__('Meta Keywords'),
-            'index'  => 'meta_keywords',
-            'type'   => 'options',
-            'options' => array()
+            'index'  => 'meta_keyword_qty',
+            'renderer' => 'gomage_seobooster/adminhtml_analyzer_grid_renderer_options',
+            'options' => GoMage_SeoBooster_Model_Analyzer::getErrorsOptions()
         ));
-
-        $this->addColumn('action',
-            array(
-                'header'  => $this->helper('gomage_seobooster')->__('Action'),
-                'width'   => '100px',
-                'type'    => 'action',
-                'getter'  => 'getId',
-                'actions' => array(
-                    array(
-                        'caption' => $this->helper('gomage_seobooster')->__('Edit'),
-                        'url'     => array('base' => '*/catalog_product/edit'),
-                        'field'   => 'id',
-                    ),
-                ),
-                'filter'    => false,
-                'sortable'  => false,
-                'is_system' => true,
-            ));
 
         return parent::_prepareColumns();
     }

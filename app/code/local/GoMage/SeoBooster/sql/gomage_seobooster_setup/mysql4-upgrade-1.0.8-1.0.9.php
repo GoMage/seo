@@ -46,7 +46,11 @@ try {
             'unsigned' => true,
             'nullable' => false,
         ), 'Meta Description Chars count')
-        ->addColumn('meta_keywords_qty', Varien_Db_Ddl_Table::TYPE_INTEGER, 12, array(
+        ->addColumn('meta_keyword_chars_count', Varien_Db_Ddl_Table::TYPE_INTEGER, 12, array(
+            'unsigned' => true,
+            'nullable' => false,
+        ), 'Meta Keywords chars count')
+        ->addColumn('meta_keyword_qty', Varien_Db_Ddl_Table::TYPE_INTEGER, 12, array(
             'unsigned' => true,
             'nullable' => false,
         ), 'Meta Keywords qty');

@@ -21,5 +21,8 @@
  */
 abstract class GoMage_SeoBooster_Model_Analayzer_Abstract extends Mage_Core_Model_Abstract
 {
-    abstract public function generateReport();
+    public function generateReport()
+    {
+        $this->getResource()->generateReport();
+    }
 }

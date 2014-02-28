@@ -19,7 +19,8 @@
  * @subpackage Model
  * @author     Roman Bublik <rb@gomage.com>
  */
-class GoMage_SeoBooster_Model_Resource_Analayzer_Collection_Abstract
+abstract class GoMage_SeoBooster_Model_Resource_Analayzer_Collection_Abstract
     extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+    abstract public function prepareCollectionForReport();
 }

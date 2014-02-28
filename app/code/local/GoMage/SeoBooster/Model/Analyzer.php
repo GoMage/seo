@@ -23,6 +23,12 @@ class GoMage_SeoBooster_Model_Analyzer extends Mage_Core_Model_Abstract
 {
     const ANALYZER_PRODUCT = 'product';
 
+    const LONG_ERROR = 1;
+    const SHORT_ERROR = 2;
+    const DUPLICATE_ERROR = 3;
+    const MISSING = 4;
+
+
     public function generateReport($type)
     {
         self::factory($type)->generateReport();
@@ -32,7 +38,17 @@ class GoMage_SeoBooster_Model_Analyzer extends Mage_Core_Model_Abstract
     {
         switch ($type) {
             case self::ANALYZER_PRODUCT:
-                return Mage::getModel('gomage_seobooster/analyzer_product');
+                return Mage::getModel('gomage_seobooster/analayzer_product');
         }
+    }
+
+    static public function getErrorsOptions()
+    {
+        return array(
+            self::LONG_ERROR => Mage::helper('gomage_seobooster')->__('Long'),
+            self::SHORT_ERROR => Mage::helper('gomage_seobooster')->__('Short'),
+            self::DUPLICATE_ERROR => Mage::helper('gomage_seobooster')->__('Duplicate'),
+            self::MISSING => Mage::helper('gomage_seobooster')->__('Missing'),
+        );
     }
 }

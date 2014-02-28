@@ -29,6 +29,11 @@ class GoMage_SeoBooster_Adminhtml_Report_Seo_AnalyzerController extends Mage_Adm
 
     public function analyzeAction()
     {
+        $type = $this->getRequest()->getParam('type');
+        if ($type) {
+            Mage::getModel('gomage_seobooster/analyzer')->generateReport($type);
+        }
 
+        $this->_redirect('*/*/products');
     }
 }

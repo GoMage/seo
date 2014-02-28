@@ -24,4 +24,18 @@ abstract class GoMage_SeoBooster_Model_Resource_Analayzer_Abstract extends Mage_
     protected $_requiredAttributes = array('name', 'meta_title', 'meta_description', 'meta_keywords');
 
     abstract public function getEntities();
+
+    abstract public function prepareEntities($entities);
+
+    abstract protected function _getDuplicateEntities($entities);
+
+    abstract  public function generateReport();
+
+    protected function _getMetaKeywordsQty($string)
+    {
+        $string = preg_replace('/\s+/', '', $string);
+        $keywords = explode(',', $string);
+
+        return count($keywords);
+    }
 }

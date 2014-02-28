@@ -35,7 +35,9 @@ class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Product_Grid
 
     protected function _prepareCollection()
     {
-        $collection = new Varien_Data_Collection();
+        $collection = Mage::getModel('gomage_seobooster/analayzer_product')
+            ->getCollection()
+            ->prepareCollectionForReport();
         $this->setCollection($collection);
         return parent::_prepareCollection();
 
@@ -43,17 +45,40 @@ class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Product_Grid
 
     protected function _prepareColumns()
     {
+        $this->addColumn('product_id', array(
+            'header' => $this->helper('gomage_seobooster')->__('Product ID'),
+            'index'  => 'product_id',
+            'type'   => 'number',
+            'width'  => 20,
+        ));
         $this->addColumnAfter('name', array(
             'header' => $this->helper('gomage_seobooster')->__('Product Name'),
             'index'  => 'name',
             'type'   => 'text',
-        ), 'entity_id');
+        ), 'product_id');
 
         $this->addColumnAfter('sku', array(
             'header' => $this->helper('gomage_seobooster')->__('SKU'),
             'index'  => 'sku',
             'type'   => 'text',
         ), 'name');
+
+        $this->addColumnAfter('action', array(
+            'header'  => $this->helper('gomage_seobooster')->__('Action'),
+            'width'   => '100px',
+            'type'    => 'action',
+            'getter'  => 'getProductId',
+            'actions' => array(
+                array(
+                    'caption' => $this->helper('gomage_seobooster')->__('Edit'),
+                    'url'     => array('base' => '*/catalog_product/edit'),
+                    'field'   => 'id',
+                ),
+            ),
+            'filter'    => false,
+            'sortable'  => false,
+            'is_system' => true,
+        ), 'meta_keyword_qty');
 
         return parent::_prepareColumns();
     }

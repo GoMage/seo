@@ -25,9 +25,4 @@ class GoMage_SeoBooster_Model_Analayzer_Product extends GoMage_SeoBooster_Model_
     {
         $this->_init('gomage_seobooster/analayzer_product');
     }
-
-    public function generateReport()
-    {
-
-    }
 }
