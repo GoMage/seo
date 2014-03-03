@@ -39,7 +39,7 @@ class GoMage_SeoBooster_Model_Resource_Analayzer_Product_Collection
         )->joinInner(
             array('catalog_produt_name' => $attribute->getBackend()->getTable()),
             "main_table.product_id = catalog_produt_name.entity_id AND catalog_produt_name.attribute_id = {$nameAttribute->getId()}",
-            array('name' => 'catalog_produt_name.value')
+            array('product_name' => 'catalog_produt_name.value')
         )->joinLeft(
             array('duplicate_table' => $this->getResource()->getDuplicateTable()),
             'main_table.product_id = duplicate_table.product_id',
@@ -53,6 +53,85 @@ class GoMage_SeoBooster_Model_Resource_Analayzer_Product_Collection
             )
         );
 
+        if ($storeId = $this->_getStoreId()) {
+            $this->getSelect()->joinInner(
+                array('cat_index' => $this->getTable('catalog/category_product_index')),
+                "main_table.product_id = cat_index.product_id",
+                array()
+            )->where("cat_index.store_id = ?", $this->_getStoreId())
+            ->group('main_table.product_id');
+        }
+
         return $this;
+    }
+
+    protected function _afterLoad()
+    {
+        foreach ($this->getItems() as $item) {
+            foreach ($this->getFieldsMap() as $alias => $field) {
+                $value = $item->getData($field);
+                if ($value > Mage::helper('gomage_seobooster/analyzer')->getCharsCountLimit($alias)) {
+                    $item->setData($alias, array(GoMage_SeoBooster_Model_Analyzer::LONG_ERROR));
+                } elseif ($value < Mage::helper('gomage_seobooster/analyzer')->getMinCharsCountLimit($alias)) {
+                    $item->setData($alias, array(GoMage_SeoBooster_Model_Analyzer::SHORT_ERROR));
+                }
+
+                if ($duplicates = $item->getData('duplicate_'. $alias)) {
+                    $duplicates = unserialize($duplicates);
+                    if (is_array($duplicates) && count($duplicates) > 1) {
+                        $item->setData('duplicate_'. $alias, $duplicates);
+                        if ($value = $item->getData($alias)) {
+                            $value[] = GoMage_SeoBooster_Model_Analyzer::DUPLICATE_ERROR;
+                            $item->setData($alias, $value);
+                        } else {
+                            $item->setData($alias, array(GoMage_SeoBooster_Model_Analyzer::DUPLICATE_ERROR));
+                        }
+                    }
+                }
+
+                if (!$item->getData($alias)) {
+                    $item->setData($alias, GoMage_SeoBooster_Model_Analyzer::MISSING);
+                }
+            }
+        }
+
+        return $this;
+    }
+
+    public static function getFieldsMap()
+    {
+        return array(
+            GoMage_SeoBooster_Helper_Analyzer::NAME_FIELD => 'name_chars_count',
+            GoMage_SeoBooster_Helper_Analyzer::DESCRIPTION_FIELD => 'description_chars_count',
+            GoMage_SeoBooster_Helper_Analyzer::META_TITLE_FIELD => 'meta_title_chars_count',
+            GoMage_SeoBooster_Helper_Analyzer::META_DESCRIPTION_FIELD => 'meta_description_chars_count',
+            GoMage_SeoBooster_Helper_Analyzer::META_KEYWORD_FIELD => 'meta_keyword_qty'
+        );
+    }
+
+    protected function _getStoreId()
+    {
+        if ($storeId = Mage::app()->getRequest()->getParam('store')) {
+            return Mage::app()->getStore($storeId)->getId();
+        }
+
+        return false;
+    }
+
+    /**
+     * Return count sql select
+     *
+     * @return Varien_Db_Select
+     */
+    public function getSelectCountSql()
+    {
+        $select = clone $this->getSelect();
+        $select->reset(Zend_Db_Select::LIMIT_COUNT);
+        $select->reset(Zend_Db_Select::LIMIT_OFFSET);
+
+        $countSelect = clone $select;
+        $countSelect->reset();
+        $countSelect->from(array('count_table' => $select), 'COUNT(*)');
+        return $countSelect;
     }
 }

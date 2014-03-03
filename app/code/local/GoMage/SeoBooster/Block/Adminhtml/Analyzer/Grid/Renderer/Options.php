@@ -33,17 +33,30 @@ class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Grid_Renderer_Options
     public function render(Varien_Object $row)
     {
         $options = $this->getColumn()->getOptions();
+//        Zend_Debug::dump($row->getData());die;
         $showMissingOptionValues = (bool)$this->getColumn()->getShowMissingOptionValues();
+        $fieldsMap = GoMage_SeoBooster_Model_Resource_Analayzer_Product_Collection::getFieldsMap();
         if (!empty($options) && is_array($options)) {
             $value = $row->getData($this->getColumn()->getIndex());
             if (is_array($value)) {
                 $res = array();
                 foreach ($value as $item) {
                     if (isset($options[$item])) {
-                        $res[] = $this->escapeHtml($options[$item]);
-                    }
-                    elseif ($showMissingOptionValues) {
-                        $res[] = $this->escapeHtml($item);
+                        $label = $options[$item];
+                        if ($item == GoMage_SeoBooster_Model_Analyzer::LONG_ERROR ||
+                            $item == GoMage_SeoBooster_Model_Analyzer::SHORT_ERROR) {
+                            $countField = $fieldsMap[$this->getColumn()->getIndex()];
+                            $label .= " ({$row->getData($countField)})";
+                            $label = $this->escapeHtml($label);
+                        } elseif ($item == GoMage_SeoBooster_Model_Analyzer::DUPLICATE_ERROR) {
+                            if ($duplicates = $row->getData('duplicate_'. $this->getColumn()->getIndex())) {
+                                $duplicatesCount = count($duplicates);
+                                $duplicateEntityId = $row->getData('duplicate_entity_id');
+                                $label = $this->escapeHtml($label);
+                                $label .= " (<a href='". $this->_getDuplicateUrl($this->getColumn()->getIndex(), $duplicateEntityId) ."'>{$duplicatesCount}</a>)";
+                            }
+                        }
+                        $res[] = $label;
                     }
                 }
                 return implode(', ', $res);
@@ -53,5 +66,10 @@ class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Grid_Renderer_Options
                 return $this->escapeHtml($value);
             }
         }
+    }
+
+    protected function _getDuplicateUrl($field, $duplicateEntityId)
+    {
+        return Mage::helper('adminhtml')->getUrl('*/*/duplicates', array('entity_id' => $duplicateEntityId, 'type' => $field));
     }
 }

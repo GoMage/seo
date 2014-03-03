@@ -24,6 +24,10 @@
 class GoMage_SeoBooster_Helper_Analyzer extends Mage_Core_Helper_Data
 {
     const NAME_FIELD = 'name';
+    const DESCRIPTION_FIELD = 'description';
+    const META_TITLE_FIELD = 'meta_title';
+    const META_DESCRIPTION_FIELD = 'meta_description';
+    const META_KEYWORD_FIELD = 'meta_keyword';
 
     public function getNameMinCharsCount()
     {
@@ -40,6 +44,16 @@ class GoMage_SeoBooster_Helper_Analyzer extends Mage_Core_Helper_Data
         switch ($field) {
             case self::NAME_FIELD:
                 return $this->getNameMinCharsCount();
+            default:
+                return false;
+        }
+    }
+
+    public function getCharsCountLimit($field)
+    {
+        switch ($field) {
+            case self::NAME_FIELD:
+                return $this->getNameCharsCountLimit();
             default:
                 return false;
         }

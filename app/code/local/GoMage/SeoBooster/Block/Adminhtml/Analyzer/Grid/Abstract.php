@@ -14,8 +14,6 @@
 /**
  * Short description of the class
  *
- * Long description of the class (if any...)
- *
  * @category   GoMage
  * @package    GoMage_SeoBooster
  * @subpackage Block
@@ -32,7 +30,7 @@ abstract class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Grid_Abstract extends 
         $this->setId('things_grid');
         $this->setDefaultSort('entity_id');
         $this->setDefaultDir('ASC');
-        $this->setSaveParametersInSession(true);
+        $this->setSaveParametersInSession(false);
         $this->setUseAjax(false);
     }
 
@@ -53,42 +51,94 @@ abstract class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Grid_Abstract extends 
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('name_chars_count', array(
+        $this->addColumn('name', array(
             'header' => $this->helper('gomage_seobooster')->__('Name'),
-            'index'  => 'name_chars_count',
+            'index'  => 'name',
             'options' => GoMage_SeoBooster_Model_Analyzer::getErrorsOptions(),
-            'renderer' => 'gomage_seobooster/adminhtml_analyzer_grid_renderer_options',
-            'analyze_field' => GoMage_SeoBooster_Helper_Analyzer::NAME_FIELD
+            'type'    => 'options',
+            'renderer' => 'gomage_seobooster/adminhtml_analyzer_grid_renderer_options'
         ));
 
-        $this->addColumn('description_chars_count', array(
+        $this->addColumn('description', array(
             'header' => $this->helper('gomage_seobooster')->__('Description'),
-            'index'  => 'description_chars_count',
+            'index'  => 'description',
             'type'   => 'options',
-            'options' => GoMage_SeoBooster_Model_Analyzer::getErrorsOptions()
+            'options' => GoMage_SeoBooster_Model_Analyzer::getErrorsOptions(),
+            'renderer' => 'gomage_seobooster/adminhtml_analyzer_grid_renderer_options'
         ));
 
-        $this->addColumn('meta_title_chars_count', array(
+        $this->addColumn('meta_title', array(
             'header' => $this->helper('gomage_seobooster')->__('Title'),
-            'index'  => 'meta_title_chars_count',
+            'index'  => 'meta_title',
+            'type'    => 'options',
             'renderer' => 'gomage_seobooster/adminhtml_analyzer_grid_renderer_options',
             'options' => GoMage_SeoBooster_Model_Analyzer::getErrorsOptions(),
         ));
 
-        $this->addColumn('meta_description_chars_count', array(
+        $this->addColumn('meta_description', array(
             'header' => $this->helper('gomage_seobooster')->__('Meta Description'),
-            'index'  => 'meta_description_chars_count',
+            'index'  => 'meta_description',
+            'type'    => 'options',
             'renderer' => 'gomage_seobooster/adminhtml_analyzer_grid_renderer_options',
             'options' => GoMage_SeoBooster_Model_Analyzer::getErrorsOptions()
         ));
 
-        $this->addColumn('meta_keyword_qty', array(
+        $this->addColumn('meta_keyword', array(
             'header' => $this->helper('gomage_seobooster')->__('Meta Keywords'),
-            'index'  => 'meta_keyword_qty',
+            'index'  => 'meta_keyword',
+            'type'    => 'options',
             'renderer' => 'gomage_seobooster/adminhtml_analyzer_grid_renderer_options',
             'options' => GoMage_SeoBooster_Model_Analyzer::getErrorsOptions()
         ));
 
         return parent::_prepareColumns();
+    }
+
+    protected function _addColumnFilterToCollection($column)
+    {
+        if ($this->getCollection()) {
+            $field = ( $column->getFilterIndex() ) ? $column->getFilterIndex() : $column->getIndex();
+            if ($column->getFilterConditionCallback()) {
+                call_user_func($column->getFilterConditionCallback(), $this->getCollection(), $column);
+            } else {
+                $fieldsMap = GoMage_SeoBooster_Model_Resource_Analayzer_Product_Collection::getFieldsMap();
+                if (isset($fieldsMap[$field])) {
+                    switch ($column->getFilter()->getValue()) {
+                        case GoMage_SeoBooster_Model_Analyzer::LONG_ERROR:
+                            $condition = array('gt' => Mage::helper('gomage_seobooster/analyzer')->getCharsCountLimit($field));
+                            $field = $fieldsMap[$field];
+                            Zend_Debug::dump($field);
+                            break;
+                        case GoMage_SeoBooster_Model_Analyzer::SHORT_ERROR:
+                            $condition = array('lt' => Mage::helper('gomage_seobooster/analyzer')->getMinCharsCountLimit($field));
+                            $field = $fieldsMap[$field];
+                            break;
+                        case GoMage_SeoBooster_Model_Analyzer::MISSING:
+                            $condition = array(
+                                'to' => Mage::helper('gomage_seobooster/analyzer')->getCharsCountLimit($field),
+                                'from' => Mage::helper('gomage_seobooster/analyzer')->getMinCharsCountLimit($field)
+                            );
+                            $duplicateField = 'duplicate_table.'.$field;
+                            $field = $fieldsMap[$field];
+                            $this->getCollection()->addFieldToFilter($field , $condition);
+//                            $this->getCollection()->addFieldToFilter($duplicateField , array('null' => true));
+                            $this->getCollection()->addFieldToFilter($duplicateField , array('eq' =>''));
+                            return $this;
+                        case GoMage_SeoBooster_Model_Analyzer::DUPLICATE_ERROR:
+                            $field = 'duplicate_table.'.$field;
+                            $this->getCollection()->addFieldToFilter($field , array('notnull' => true));
+                            $this->getCollection()->addFieldToFilter($field , array('neq' =>''));
+                            return $this;
+                    }
+                } else {
+                    $condition = $column->getFilter()->getCondition();
+                }
+
+                if ($field && isset($condition)) {
+                    $this->getCollection()->addFieldToFilter($field , $condition);
+                }
+            }
+        }
+        return $this;
     }
 }

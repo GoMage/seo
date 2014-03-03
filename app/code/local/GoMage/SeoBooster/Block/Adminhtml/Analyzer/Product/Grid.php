@@ -51,9 +51,9 @@ class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Product_Grid
             'type'   => 'number',
             'width'  => 20,
         ));
-        $this->addColumnAfter('name', array(
+        $this->addColumnAfter('product_name', array(
             'header' => $this->helper('gomage_seobooster')->__('Product Name'),
-            'index'  => 'name',
+            'index'  => 'product_name',
             'type'   => 'text',
         ), 'product_id');
 
@@ -61,7 +61,7 @@ class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Product_Grid
             'header' => $this->helper('gomage_seobooster')->__('SKU'),
             'index'  => 'sku',
             'type'   => 'text',
-        ), 'name');
+        ), 'product_name');
 
         $this->addColumnAfter('action', array(
             'header'  => $this->helper('gomage_seobooster')->__('Action'),
@@ -78,7 +78,7 @@ class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Product_Grid
             'filter'    => false,
             'sortable'  => false,
             'is_system' => true,
-        ), 'meta_keyword_qty');
+        ), 'meta_keyword');
 
         return parent::_prepareColumns();
     }
