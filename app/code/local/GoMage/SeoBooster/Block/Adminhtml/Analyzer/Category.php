@@ -21,23 +21,23 @@
  * @subpackage Block
  * @author     Roman Bublik <rb@gomage.com>
  */
-class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Product extends GoMage_SeoBooster_Block_Adminhtml_Analyzer_Abstract
+class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Category extends GoMage_SeoBooster_Block_Adminhtml_Analyzer_Abstract
 {
     /**
      * Init grid container
      */
     public function __construct()
     {
-        $this->_controller = 'adminhtml_analyzer_product';
+        $this->_controller = 'adminhtml_analyzer_category';
         $this->_blockGroup = 'gomage_seobooster';
-        $this->_headerText = $this->helper('gomage_seobooster')->__('Products analyzer');
+        $this->_headerText = $this->helper('gomage_seobooster')->__('Categories analyzer');
         parent::__construct();
     }
 
     protected function _getAnalyzerUrl()
     {
         return Mage::helper('adminhtml')->getUrl('*/*/analyze', array(
-            'type' => GoMage_SeoBooster_Model_Analyzer::ANALYZER_PRODUCT
+            'type' => GoMage_SeoBooster_Model_Analyzer::ANALYZER_CATEGORY
         ));
     }
 }

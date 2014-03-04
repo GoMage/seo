@@ -21,7 +21,7 @@
  * @subpackage Block
  * @author     Roman Bublik <rb@gomage.com>
  */
-class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Product_Grid
+class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Category_Grid
     extends GoMage_SeoBooster_Block_Adminhtml_Analyzer_Grid_Abstract
 {
     /**
@@ -30,13 +30,13 @@ class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Product_Grid
     public function __construct()
     {
         parent::__construct();
-        $this->setId('products_grid');
-        $this->setDefaultSort('product_id');
+        $this->setId('categories_grid');
+        $this->setDefaultSort('category_id');
     }
 
     protected function _prepareCollection()
     {
-        $collection = Mage::getModel('gomage_seobooster/analyzer_product')
+        $collection = Mage::getModel('gomage_seobooster/analyzer_category')
             ->getCollection()
             ->prepareCollectionForReport();
         $this->setCollection($collection);
@@ -46,39 +46,27 @@ class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Product_Grid
 
     protected function _prepareColumns()
     {
-        $this->addColumn('product_id', array(
-            'header' => $this->helper('gomage_seobooster')->__('Product ID'),
-            'index'  => 'product_id',
+        $this->addColumn('category_id', array(
+            'header' => $this->helper('gomage_seobooster')->__('Category ID'),
+            'index'  => 'category_id',
             'type'   => 'number',
             'width'  => 20,
         ));
-        $this->addColumnAfter('product_name', array(
-            'header' => $this->helper('gomage_seobooster')->__('Product Name'),
-            'index'  => 'product_name',
+        $this->addColumnAfter('category_name', array(
+            'header' => $this->helper('gomage_seobooster')->__('Category Name'),
+            'index'  => 'category_name',
             'type'   => 'text',
-        ), 'product_id');
+        ), 'category_id');
 
-        $this->addColumnAfter('sku', array(
-            'header' => $this->helper('gomage_seobooster')->__('SKU'),
-            'index'  => 'sku',
-            'type'   => 'text',
-        ), 'product_name');
-
-        $this->addColumnAfter('product_type', array(
-            'header'=> Mage::helper('catalog')->__('Type'),
-            'index' => 'product_type',
-            'type'  => 'options',
-            'options' => Mage::getSingleton('catalog/product_type')->getOptionArray(),
-        ), 'sku');
         $this->addColumnAfter('action', array(
             'header'  => $this->helper('gomage_seobooster')->__('Action'),
             'width'   => '100px',
             'type'    => 'action',
-            'getter'  => 'getProductId',
+            'getter'  => 'getCategoryId',
             'actions' => array(
                 array(
                     'caption' => $this->helper('gomage_seobooster')->__('Edit'),
-                    'url'     => array('base' => '*/catalog_product/edit'),
+                    'url'     => array('base' => '*/catalog_category/edit'),
                     'field'   => 'id',
                 ),
             ),

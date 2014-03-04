@@ -33,9 +33,7 @@ class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Grid_Renderer_Options
     public function render(Varien_Object $row)
     {
         $options = $this->getColumn()->getOptions();
-//        Zend_Debug::dump($row->getData());die;
-        $showMissingOptionValues = (bool)$this->getColumn()->getShowMissingOptionValues();
-        $fieldsMap = GoMage_SeoBooster_Model_Resource_Analayzer_Product_Collection::getFieldsMap();
+        $fieldsMap = GoMage_SeoBooster_Model_Resource_Analyzer_Product_Collection::getFieldsMap();
         if (!empty($options) && is_array($options)) {
             $value = $row->getData($this->getColumn()->getIndex());
             if (is_array($value)) {
@@ -53,13 +51,13 @@ class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Grid_Renderer_Options
                                 $duplicatesCount = count($duplicates);
                                 $duplicateEntityId = $row->getData('duplicate_entity_id');
                                 $label = $this->escapeHtml($label);
-                                $label .= " (<a href='". $this->_getDuplicateUrl($this->getColumn()->getIndex(), $duplicateEntityId) ."'>{$duplicatesCount}</a>)";
+                                $label .= " (<a href='". $this->_getDuplicateUrl($this->getColumn()->getIndex(), $duplicateEntityId) ."' target='_blank'>{$duplicatesCount}</a>)";
                             }
                         }
                         $res[] = $label;
                     }
                 }
-                return implode(', ', $res);
+                return implode("\n", $res);
             } elseif (isset($options[$value])) {
                 return $this->escapeHtml($options[$value]);
             } elseif (in_array($value, $options)) {

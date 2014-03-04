@@ -31,12 +31,52 @@ class GoMage_SeoBooster_Helper_Analyzer extends Mage_Core_Helper_Data
 
     public function getNameMinCharsCount()
     {
-        return Mage::getStoreConfig('gomage_seobooster/seo_analayzer/min_name_symbols');
+        return Mage::getStoreConfig('gomage_seobooster/seo_analyzer/min_name_symbols');
     }
 
     public function getNameCharsCountLimit()
     {
-        return Mage::getStoreConfig('gomage_seobooster/seo_analayzer/name_symbols_limit');
+        return Mage::getStoreConfig('gomage_seobooster/seo_analyzer/name_symbols_limit');
+    }
+
+    public function getDescriptionMinCharsCount()
+    {
+        return Mage::getStoreConfig('gomage_seobooster/seo_analyzer/min_desctiption_symbols');
+    }
+
+    public function getDescriptionCharsCountLimit()
+    {
+        return Mage::getStoreConfig('gomage_seobooster/seo_analyzer/description_limit');
+    }
+
+    public function getMetaTitleMinCharsCount()
+    {
+        return Mage::getStoreConfig('gomage_seobooster/seo_analyzer/min_meta_title_symbols');
+    }
+
+    public function getMetaTitleCharsCountLimit()
+    {
+        return Mage::getStoreConfig('gomage_seobooster/seo_analyzer/meta_title_limit');
+    }
+
+    public function getMetaDescriptionMinCharsCount()
+    {
+        return Mage::getStoreConfig('gomage_seobooster/seo_analyzer/min_meta_description_symbols');
+    }
+
+    public function getMetaDescriptionCharsCountLimit()
+    {
+        return Mage::getStoreConfig('gomage_seobooster/seo_analyzer/meta_description_limit');
+    }
+
+    public function getMetaKeywordMinCharsCount()
+    {
+        return Mage::getStoreConfig('gomage_seobooster/seo_analyzer/min_meta_keywords_qty');
+    }
+
+    public function getMetaKeywordCharsCountLimit()
+    {
+        return Mage::getStoreConfig('gomage_seobooster/seo_analyzer/keywords_qty_limit');
     }
 
     public function getMinCharsCountLimit($field)
@@ -44,6 +84,14 @@ class GoMage_SeoBooster_Helper_Analyzer extends Mage_Core_Helper_Data
         switch ($field) {
             case self::NAME_FIELD:
                 return $this->getNameMinCharsCount();
+            case self::DESCRIPTION_FIELD:
+                return $this->getDescriptionMinCharsCount();
+            case self::META_TITLE_FIELD:
+                return $this->getMetaTitleMinCharsCount();
+            case self::META_DESCRIPTION_FIELD:
+                return $this->getMetaDescriptionMinCharsCount();
+            case self::META_KEYWORD_FIELD:
+                return $this->getMetaKeywordMinCharsCount();
             default:
                 return false;
         }
@@ -54,6 +102,14 @@ class GoMage_SeoBooster_Helper_Analyzer extends Mage_Core_Helper_Data
         switch ($field) {
             case self::NAME_FIELD:
                 return $this->getNameCharsCountLimit();
+            case self::DESCRIPTION_FIELD:
+                return $this->getDescriptionCharsCountLimit();
+            case self::META_TITLE_FIELD:
+                return $this->getMetaTitleCharsCountLimit();
+            case self::META_DESCRIPTION_FIELD:
+                return $this->getMetaDescriptionCharsCountLimit();
+            case self::META_KEYWORD_FIELD:
+                return $this->getMetaKeywordCharsCountLimit();
             default:
                 return false;
         }

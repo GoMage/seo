@@ -20,11 +20,16 @@
                     <title>SEO Booster</title>
                     <sort_order>10000</sort_order>
                     <children>
-                        <products_analayzer translate="title" module="gomage_seobooster">
-                            <title>Products Analayzer</title>
-                            <action>adminhtml/report_seo_analyzer/products</action>
+                        <products_analyzer translate="title" module="gomage_seobooster">
+                            <title>Products Analyzer</title>
+                            <action>adminhtml/report_seo_analyzer/product</action>
                             <sort_order>1</sort_order>
-                        </products_analayzer>
+                        </products_analyzer>
+                        <categories_analyzer translate="title" module="gomage_seobooster">
+                            <title>Categories Analyzer</title>
+                            <action>adminhtml/report_seo_analyzer/category</action>
+                            <sort_order>2</sort_order>
+                        </categories_analyzer>
                     </children>
                 </gomage_seobooster>
             </children>
@@ -40,9 +45,12 @@
                                 <title>SEO Booster</title>
                                 <sort_order>10000</sort_order>
                                 <children>
-                                    <products_analayzer translate="title">
+                                    <products_analyzer translate="title">
                                         <title>Products Analyzer</title>
-                                    </products_analayzer>
+                                    </products_analyzer>
+                                    <categories_analyzer translate="title">
+                                        <title>Categories Analyzer</title>
+                                    </categories_analyzer>
                                 </children>
                             </gomage_seobooster>
                         </children>

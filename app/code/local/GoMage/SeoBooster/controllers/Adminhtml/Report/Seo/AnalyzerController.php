@@ -21,9 +21,21 @@
  */
 class GoMage_SeoBooster_Adminhtml_Report_Seo_AnalyzerController extends Mage_Adminhtml_Controller_Action
 {
-    public function productsAction()
+    public function productAction()
     {
+        $this->_title($this->__('Reports'))->_title($this->__('SEO Booster'))->_title($this->__('Products Analyzer'));
+        $this->_showLastAnalyzeTime(GoMage_SeoBooster_Model_Analyzer::REPORT_PRODUCT_ANALYZER_FLAG_CODE);
         $this->loadLayout();
+        $this->_setActiveMenu('report/gomage_seobooster/products_analyzer');
+        $this->renderLayout();
+    }
+
+    public function categoryAction()
+    {
+        $this->_title($this->__('Reports'))->_title($this->__('SEO Booster'))->_title($this->__('Categories Analyzer'));
+        $this->_showLastAnalyzeTime(GoMage_SeoBooster_Model_Analyzer::REPORT_CATEGORY_ANALYZER_FLAG_CODE);
+        $this->loadLayout();
+        $this->_setActiveMenu('report/gomage_seobooster/categories_analyzer');
         $this->renderLayout();
     }
 
@@ -34,6 +46,19 @@ class GoMage_SeoBooster_Adminhtml_Report_Seo_AnalyzerController extends Mage_Adm
             Mage::getModel('gomage_seobooster/analyzer')->generateReport($type);
         }
 
-        $this->_redirect('*/*/products');
+        $this->_redirect('*/*/'.$type);
+    }
+
+    protected function _showLastAnalyzeTime($flagCode)
+    {
+        $flag = Mage::getModel('reports/flag')->setReportFlagCode($flagCode)->loadSelf();
+        $updatedAt = ($flag->hasData())
+            ? Mage::app()->getLocale()->storeDate(
+                0, new Zend_Date($flag->getLastUpdate(), Varien_Date::DATETIME_INTERNAL_FORMAT), true
+            )
+            : 'undefined';
+
+        Mage::getSingleton('adminhtml/session')->addNotice(Mage::helper('adminhtml')->__('Last updated: %s. To refresh last day\'s statistics, click Analyze.', $updatedAt));
+        return $this;
     }
 }

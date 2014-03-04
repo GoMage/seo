@@ -352,8 +352,8 @@
                   </rss_url_rewrite_path>
               </fields>
           </url_rewrite>
-          <seo_analayzer>
-              <label>SEO Analayzer</label>
+          <seo_analyzer>
+              <label>SEO Analyzer</label>
               <frontend_type>text</frontend_type>
               <sort_order>30</sort_order>
               <show_in_default>1</show_in_default>
@@ -452,7 +452,7 @@
                       <validate>required-entry</validate>
                   </keywords_qty_limit>
               </fields>
-          </seo_analayzer>
+          </seo_analyzer>
         </groups>
       </gomage_seobooster>
        <sitemap>

@@ -77,6 +77,12 @@
                     <analyzer_product_duplicates>
                         <table>gomage_seobooster_seo_duplicates_product_report</table>
                     </analyzer_product_duplicates>
+                    <analyzer_category>
+                        <table>gomage_seobooster_seo_category_report</table>
+                    </analyzer_category>
+                    <analyzer_category_duplicates>
+                        <table>gomage_seobooster_seo_duplicates_category_report</table>
+                    </analyzer_category_duplicates>
                 </entities>
             </gomage_seobooster_resource>
             <catalog>
@@ -251,7 +257,7 @@
                 <enable_rss_url_rewrite>0</enable_rss_url_rewrite>
                 <rss_url_rewrite_path>rss</rss_url_rewrite_path>
             </url_rewrite>
-            <seo_analayzer>
+            <seo_analyzer>
                 <min_name_symbols>0</min_name_symbols>
                 <name_symbols_limit>0</name_symbols_limit>
                 <min_desctiption_symbols>0</min_desctiption_symbols>
@@ -262,7 +268,7 @@
                 <meta_description_limit>155</meta_description_limit>
                 <min_meta_keywords_qty>0</min_meta_keywords_qty>
                 <keywords_qty_limit>25</keywords_qty_limit>
-            </seo_analayzer>
+            </seo_analyzer>
         </gomage_seobooster>
         <sitemap>
             <extended_settings>
@@ -281,7 +287,7 @@
     </default>
     <modules>
         <GoMage_SeoBooster>
-            <version>1.0.10</version>
+            <version>1.0.11</version>
         </GoMage_SeoBooster>
     </modules>
 </config>
