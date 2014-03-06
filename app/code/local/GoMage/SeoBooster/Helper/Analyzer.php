@@ -29,6 +29,10 @@ class GoMage_SeoBooster_Helper_Analyzer extends Mage_Core_Helper_Data
     const META_DESCRIPTION_FIELD = 'meta_description';
     const META_KEYWORD_FIELD = 'meta_keyword';
 
+    const PRODUCT_DUPLICATE_ACTION = 'productduplicate';
+    const CATEGORY_DUPLICATE_ACTION = 'categoryduplicate';
+    const PAGE_DUPLICATE_ACTION = 'pageduplicate';
+
     public function getNameMinCharsCount()
     {
         return Mage::getStoreConfig('gomage_seobooster/seo_analyzer/min_name_symbols');
@@ -113,5 +117,37 @@ class GoMage_SeoBooster_Helper_Analyzer extends Mage_Core_Helper_Data
             default:
                 return false;
         }
+    }
+
+    public function getAnalyzeFields()
+    {
+        return array(
+            self::NAME_FIELD,
+            self::DESCRIPTION_FIELD,
+            self::META_TITLE_FIELD,
+            self::META_DESCRIPTION_FIELD,
+            self::META_KEYWORD_FIELD
+        );
+    }
+
+    public function getAnalyzeFieldLabels()
+    {
+        return array(
+            self::NAME_FIELD => $this->__('Name'),
+            self::DESCRIPTION_FIELD => $this->__('Description'),
+            self::META_TITLE_FIELD => $this->__('Meta Title'),
+            self::META_DESCRIPTION_FIELD => $this->__('Meta Description'),
+            self::META_KEYWORD_FIELD => $this->__('Meta Keywords')
+        );
+    }
+
+    public function getAnalyzeFieldLabel($field)
+    {
+        $labels = $this->getAnalyzeFieldLabels();
+        if (isset($labels[$field])) {
+            return $labels[$field];
+        }
+
+        return '';
     }
 }

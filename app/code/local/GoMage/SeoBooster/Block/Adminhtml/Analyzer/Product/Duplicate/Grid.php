@@ -21,8 +21,8 @@
  * @subpackage Block
  * @author     Roman Bublik <rb@gomage.com>
  */
-class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Product_Grid
-    extends GoMage_SeoBooster_Block_Adminhtml_Analyzer_Grid_Abstract
+class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Product_Duplicate_Grid
+    extends GoMage_SeoBooster_Block_Adminhtml_Analyzer_Duplicate_Grid_Abstract
 {
     /**
      * Init the grid
@@ -30,16 +30,15 @@ class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Product_Grid
     public function __construct()
     {
         parent::__construct();
-        $this->setId('products_grid');
-        $this->setDefaultSort('product_id');
+        $this->setId('products_duplicate_grid');
+        $this->setDefaultSort('entity_id');
     }
 
     protected function _prepareCollection()
     {
+        $entityId = $this->getParam('duplicate_entity_id');
         $collection = Mage::getModel('gomage_seobooster/analyzer_product')
-            ->getCollection()
-            ->addErrors(true)
-            ->prepareCollectionForReport();
+            ->getCollection()->getDuplicateCollection($entityId);
         $this->setCollection($collection);
         return parent::_prepareCollection();
 
@@ -47,35 +46,36 @@ class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Product_Grid
 
     protected function _prepareColumns()
     {
-        $this->addColumn('product_id', array(
+        $this->addColumn('entity_id', array(
             'header' => $this->helper('gomage_seobooster')->__('Product ID'),
-            'index'  => 'product_id',
+            'index'  => 'entity_id',
             'type'   => 'number',
             'width'  => 20,
         ));
-        $this->addColumnAfter('product_name', array(
+        $this->addColumnAfter('name', array(
             'header' => $this->helper('gomage_seobooster')->__('Product Name'),
-            'index'  => 'product_name',
+            'index'  => 'name',
             'type'   => 'text',
-        ), 'product_id');
+        ), 'entity_id');
 
         $this->addColumnAfter('sku', array(
             'header' => $this->helper('gomage_seobooster')->__('SKU'),
             'index'  => 'sku',
             'type'   => 'text',
-        ), 'product_name');
+        ), 'name');
 
-        $this->addColumnAfter('product_type', array(
+        $this->addColumnAfter('type_id', array(
             'header'=> Mage::helper('catalog')->__('Type'),
-            'index' => 'product_type',
+            'index' => 'type_id',
             'type'  => 'options',
             'options' => Mage::getSingleton('catalog/product_type')->getOptionArray(),
         ), 'sku');
-        $this->addColumnAfter('action', array(
+
+        $actionColumnParams = array(
             'header'  => $this->helper('gomage_seobooster')->__('Action'),
             'width'   => '100px',
             'type'    => 'action',
-            'getter'  => 'getProductId',
+            'getter'  => 'getEntityId',
             'actions' => array(
                 array(
                     'caption' => $this->helper('gomage_seobooster')->__('Edit'),
@@ -86,13 +86,14 @@ class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Product_Grid
             'filter'    => false,
             'sortable'  => false,
             'is_system' => true,
-        ), GoMage_SeoBooster_Helper_Analyzer::META_KEYWORD_FIELD);
+        );
+
+        if ($this->_getDuplicateField() != GoMage_SeoBooster_Helper_Analyzer::NAME_FIELD) {
+            call_user_func(array($this, 'addColumnAfter'), 'action', $actionColumnParams, $this->_getDuplicateField());
+        } else {
+            call_user_func(array($this, 'addColumn'), 'action', $actionColumnParams);
+        }
 
         return parent::_prepareColumns();
-    }
-
-    protected function _getDuplicateAction()
-    {
-        return GoMage_SeoBooster_Helper_Analyzer::PRODUCT_DUPLICATE_ACTION;
     }
 }

@@ -21,8 +21,8 @@
  * @subpackage Block
  * @author     Roman Bublik <rb@gomage.com>
  */
-class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Category_Grid
-    extends GoMage_SeoBooster_Block_Adminhtml_Analyzer_Grid_Abstract
+class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Page_Duplicate_Grid
+    extends GoMage_SeoBooster_Block_Adminhtml_Analyzer_Duplicate_Grid_Abstract
 {
     /**
      * Init the grid
@@ -30,16 +30,15 @@ class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Category_Grid
     public function __construct()
     {
         parent::__construct();
-        $this->setId('categories_grid');
-        $this->setDefaultSort('category_id');
+        $this->setId('products_duplicate_grid');
+        $this->setDefaultSort('entity_id');
     }
 
     protected function _prepareCollection()
     {
-        $collection = Mage::getModel('gomage_seobooster/analyzer_category')
-            ->getCollection()
-            ->addErrors(true)
-            ->prepareCollectionForReport();
+        $entityId = $this->getParam('duplicate_entity_id');
+        $collection = Mage::getModel('gomage_seobooster/analyzer_page')
+            ->getCollection()->getDuplicateCollection($entityId);
         $this->setCollection($collection);
         return parent::_prepareCollection();
 
@@ -47,40 +46,41 @@ class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Category_Grid
 
     protected function _prepareColumns()
     {
-        $this->addColumn('category_id', array(
-            'header' => $this->helper('gomage_seobooster')->__('Category ID'),
-            'index'  => 'category_id',
+        $this->addColumn('page_id', array(
+            'header' => $this->helper('gomage_seobooster')->__('Page ID'),
+            'index'  => 'page_id',
             'type'   => 'number',
             'width'  => 20,
         ));
-        $this->addColumnAfter('category_name', array(
-            'header' => $this->helper('gomage_seobooster')->__('Category Name'),
-            'index'  => 'category_name',
+        $this->addColumnAfter('title', array(
+            'header' => $this->helper('gomage_seobooster')->__('Page Title'),
+            'index'  => 'title',
             'type'   => 'text',
-        ), 'category_id');
+        ), 'page_id');
 
-        $this->addColumnAfter('action', array(
+        $actionColumnParams = array(
             'header'  => $this->helper('gomage_seobooster')->__('Action'),
             'width'   => '100px',
             'type'    => 'action',
-            'getter'  => 'getCategoryId',
+            'getter'  => 'getPageId',
             'actions' => array(
                 array(
                     'caption' => $this->helper('gomage_seobooster')->__('Edit'),
-                    'url'     => array('base' => '*/catalog_category/edit'),
-                    'field'   => 'id',
+                    'url'     => array('base' => '*/cms_page/edit'),
+                    'field'   => 'page_id',
                 ),
             ),
             'filter'    => false,
             'sortable'  => false,
             'is_system' => true,
-        ), GoMage_SeoBooster_Helper_Analyzer::META_KEYWORD_FIELD);
+        );
+
+        if ($this->_getDuplicateField() != GoMage_SeoBooster_Helper_Analyzer::NAME_FIELD) {
+            call_user_func(array($this, 'addColumnAfter'), 'action', $actionColumnParams, $this->_getDuplicateField());
+        } else {
+            call_user_func(array($this, 'addColumn'), 'action', $actionColumnParams);
+        }
 
         return parent::_prepareColumns();
-    }
-
-    protected function _getDuplicateAction()
-    {
-        return GoMage_SeoBooster_Helper_Analyzer::CATEGORY_DUPLICATE_ACTION;
     }
 }

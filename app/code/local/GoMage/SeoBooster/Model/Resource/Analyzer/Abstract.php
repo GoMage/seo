@@ -55,6 +55,18 @@ abstract class GoMage_SeoBooster_Model_Resource_Analyzer_Abstract extends Mage_C
         return count($keywords);
     }
 
+    public function getDuplicateValues($entityId, $field)
+    {
+        $select = $this->_getWriteAdapter()->select()
+            ->from(array('main_table' => $this->getDuplicateTable()), array($field))
+            ->where("main_table.entity_id = ?", $entityId);
+
+        $duplicates = $this->_getWriteAdapter()->fetchOne($select);
+        $duplicates = unserialize($duplicates);
+
+        return $duplicates;
+    }
+
     /**
      * Retrive flag object
      *

@@ -21,23 +21,25 @@
  * @subpackage Block
  * @author     Roman Bublik <rb@gomage.com>
  */
-class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Product extends GoMage_SeoBooster_Block_Adminhtml_Analyzer_Abstract
+class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Duplicate_Category
+    extends GoMage_SeoBooster_Block_Adminhtml_Analyzer_Duplicate_Abstract
 {
     /**
      * Init grid container
      */
     public function __construct()
     {
-        $this->_controller = 'adminhtml_analyzer_product';
+        $this->_controller = 'adminhtml_analyzer_duplicate_category';
         $this->_blockGroup = 'gomage_seobooster';
-        $this->_headerText = $this->helper('gomage_seobooster')->__('Products Analyzer');
+        $this->_headerText = $this->helper('gomage_seobooster')->__('Categories Analyzer - View Duplicates');
         parent::__construct();
     }
 
-    protected function _getAnalyzerUrl()
+    protected function _prepareLayout()
     {
-        return Mage::helper('adminhtml')->getUrl('*/*/analyze', array(
-            'type' => GoMage_SeoBooster_Model_Analyzer::ANALYZER_PRODUCT
-        ));
+        $this->setChild( 'grid',
+            $this->getLayout()->createBlock( $this->_blockGroup.'/adminhtml_analyzer_category_duplicate_grid',
+                $this->_controller . '.grid')->setSaveParametersInSession(true));
+        return Mage_Adminhtml_Block_Widget_Container::_prepareLayout();
     }
 }

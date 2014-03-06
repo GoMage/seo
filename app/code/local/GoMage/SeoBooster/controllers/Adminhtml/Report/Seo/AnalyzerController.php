@@ -30,12 +30,45 @@ class GoMage_SeoBooster_Adminhtml_Report_Seo_AnalyzerController extends Mage_Adm
         $this->renderLayout();
     }
 
+    public function productduplicateAction()
+    {
+        $this->_title($this->__('Reports'))->_title($this->__('SEO Booster'))->_title($this->__('Products Analyzer - View Duplicates'));
+        $this->loadLayout();
+        $this->_setActiveMenu('report/gomage_seobooster/products_analyzer');
+        $this->renderLayout();
+    }
+
     public function categoryAction()
     {
         $this->_title($this->__('Reports'))->_title($this->__('SEO Booster'))->_title($this->__('Categories Analyzer'));
         $this->_showLastAnalyzeTime(GoMage_SeoBooster_Model_Analyzer::REPORT_CATEGORY_ANALYZER_FLAG_CODE);
         $this->loadLayout();
         $this->_setActiveMenu('report/gomage_seobooster/categories_analyzer');
+        $this->renderLayout();
+    }
+
+    public function categoryduplicateAction()
+    {
+        $this->_title($this->__('Reports'))->_title($this->__('SEO Booster'))->_title($this->__('Categories Analyzer - View Duplicates'));
+        $this->loadLayout();
+        $this->_setActiveMenu('report/gomage_seobooster/categories_analyzer');
+        $this->renderLayout();
+    }
+
+    public function pageAction()
+    {
+        $this->_title($this->__('Reports'))->_title($this->__('SEO Booster'))->_title($this->__('Pages Analyzer'));
+        $this->_showLastAnalyzeTime(GoMage_SeoBooster_Model_Analyzer::REPORT_PAGE_ANALYZER_FLAG_CODE);
+        $this->loadLayout();
+        $this->_setActiveMenu('report/gomage_seobooster/pages_analyzer');
+        $this->renderLayout();
+    }
+
+    public function pageduplicateAction()
+    {
+        $this->_title($this->__('Reports'))->_title($this->__('SEO Booster'))->_title($this->__('Pages Analyzer - View Duplicates'));
+        $this->loadLayout();
+        $this->_setActiveMenu('report/gomage_seobooster/pages_analyzer');
         $this->renderLayout();
     }
 

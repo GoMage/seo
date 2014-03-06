@@ -30,6 +30,11 @@
                             <action>adminhtml/report_seo_analyzer/category</action>
                             <sort_order>2</sort_order>
                         </categories_analyzer>
+                        <pages_analyzer translate="title" module="gomage_seobooster">
+                            <title>Pages Analyzer</title>
+                            <action>adminhtml/report_seo_analyzer/page</action>
+                            <sort_order>3</sort_order>
+                        </pages_analyzer>
                     </children>
                 </gomage_seobooster>
             </children>
@@ -51,6 +56,9 @@
                                     <categories_analyzer translate="title">
                                         <title>Categories Analyzer</title>
                                     </categories_analyzer>
+                                    <pages_analyzer translate="title">
+                                        <title>Pages Analyzer</title>
+                                    </pages_analyzer>
                                 </children>
                             </gomage_seobooster>
                         </children>

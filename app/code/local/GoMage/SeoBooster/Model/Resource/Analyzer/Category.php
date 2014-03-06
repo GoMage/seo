@@ -64,6 +64,8 @@ class GoMage_SeoBooster_Model_Resource_Analyzer_Category
         }
 
         $this->_setFlagData(GoMage_SeoBooster_Model_Analyzer::REPORT_CATEGORY_ANALYZER_FLAG_CODE);
+
+        return $this;
     }
 
     public function getEntities()

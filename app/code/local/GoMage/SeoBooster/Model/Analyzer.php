@@ -23,9 +23,11 @@ class GoMage_SeoBooster_Model_Analyzer extends Mage_Core_Model_Abstract
 {
     const ANALYZER_PRODUCT = 'product';
     const ANALYZER_CATEGORY = 'category';
+    const ANALYZER_PAGE = 'page';
 
     const REPORT_PRODUCT_ANALYZER_FLAG_CODE = 'report_product_analyzer';
     const REPORT_CATEGORY_ANALYZER_FLAG_CODE = 'report_category_analyzer';
+    const REPORT_PAGE_ANALYZER_FLAG_CODE = 'report_page_analyzer';
 
     const LONG_ERROR = 1;
     const SHORT_ERROR = 2;
@@ -46,13 +48,15 @@ class GoMage_SeoBooster_Model_Analyzer extends Mage_Core_Model_Abstract
                 return Mage::getModel('gomage_seobooster/analyzer_product');
             case self::ANALYZER_CATEGORY:
                 return  Mage::getModel('gomage_seobooster/analyzer_category');
+            case self::ANALYZER_PAGE:
+                return  Mage::getModel('gomage_seobooster/analyzer_page');
         }
     }
 
     static public function getErrorsOptions()
     {
         return array(
-            self::RESULT_OK  => Mage::helper('gomage_seobooster')->__('OK'),
+            self::RESULT_OK  => Mage::helper('gomage_seobooster')->__('Ok'),
             self::LONG_ERROR => Mage::helper('gomage_seobooster')->__('Long'),
             self::SHORT_ERROR => Mage::helper('gomage_seobooster')->__('Short'),
             self::DUPLICATE_ERROR => Mage::helper('gomage_seobooster')->__('Duplicate'),

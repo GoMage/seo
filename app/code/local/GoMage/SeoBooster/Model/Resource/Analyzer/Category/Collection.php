@@ -75,6 +75,9 @@ class GoMage_SeoBooster_Model_Resource_Analyzer_Category_Collection
 
     protected function _afterLoad()
     {
+        if (!$this->_addErrors) {
+            return $this;
+        }
         foreach ($this->getItems() as $item) {
             foreach ($this->getFieldsMap() as $alias => $field) {
                 $value = $item->getData($field);
@@ -92,6 +95,9 @@ class GoMage_SeoBooster_Model_Resource_Analyzer_Category_Collection
                     if (is_array($duplicates) && count($duplicates) > 1) {
                         $item->setData('duplicate_'. $alias, $duplicates);
                         if ($value = $item->getData($alias)) {
+                            if (!is_array($value)) {
+                                $value = (array) $value;
+                            }
                             $value[] = GoMage_SeoBooster_Model_Analyzer::DUPLICATE_ERROR;
                             $item->setData($alias, $value);
                         } else {
@@ -107,5 +113,31 @@ class GoMage_SeoBooster_Model_Resource_Analyzer_Category_Collection
         }
 
         return $this;
+    }
+
+    public function getDuplicateCollection($entityId)
+    {
+        $field = $this->_getDuplicateField();
+        $categoryIds = $this->getResource()->getDuplicateValues($entityId, $field);
+
+        if (!$categoryIds || !is_array($categoryIds)) {
+            return new Varien_Data_Collection();
+        }
+
+        $collection = Mage::getModel('catalog/category')->getCollection();
+        $collection->addAttributeToSelect('name');
+        if ($field != GoMage_SeoBooster_Helper_Analyzer::NAME_FIELD) {
+            $collection->addAttributeToSelect($field);
+        }
+        $collection->addFieldToFilter('entity_id', array('in' => $categoryIds));
+        if ($storeId = $this->_getStoreId()) {
+            $collection->getSelect()->joinInner(
+                array('cat_index' => $this->getTable('catalog/category_product_index')),
+                "e.entity_id = cat_index.category_id",
+                array()
+            )->where("cat_index.store_id = ?", $storeId)
+            ->group('e.entity_id');
+        }
+        return $collection;
     }
 }

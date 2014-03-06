@@ -21,23 +21,27 @@
  * @subpackage Block
  * @author     Roman Bublik <rb@gomage.com>
  */
-class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Product extends GoMage_SeoBooster_Block_Adminhtml_Analyzer_Abstract
+abstract class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Duplicate_Abstract extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
     /**
      * Init grid container
      */
     public function __construct()
     {
-        $this->_controller = 'adminhtml_analyzer_product';
-        $this->_blockGroup = 'gomage_seobooster';
-        $this->_headerText = $this->helper('gomage_seobooster')->__('Products Analyzer');
         parent::__construct();
+        $this->removeButton('add');
     }
 
-    protected function _getAnalyzerUrl()
+    /**
+     * Check whether it is single store mode
+     *
+     * @return bool
+     */
+    public function isSingleStoreMode()
     {
-        return Mage::helper('adminhtml')->getUrl('*/*/analyze', array(
-            'type' => GoMage_SeoBooster_Model_Analyzer::ANALYZER_PRODUCT
-        ));
+        if (!Mage::app()->isSingleStoreMode()) {
+            return false;
+        }
+        return true;
     }
 }

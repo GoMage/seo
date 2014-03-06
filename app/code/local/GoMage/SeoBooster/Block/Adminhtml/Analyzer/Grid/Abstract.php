@@ -19,7 +19,7 @@
  * @subpackage Block
  * @author     Roman Bublik <rb@gomage.com>
  */
-class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Grid_Abstract extends Mage_Adminhtml_Block_Widget_Grid
+abstract class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Grid_Abstract extends Mage_Adminhtml_Block_Widget_Grid
 {
     /**
      * Init the grid
@@ -44,7 +44,8 @@ class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Grid_Abstract extends Mage_Admi
             'index'  => GoMage_SeoBooster_Helper_Analyzer::NAME_FIELD,
             'options' => GoMage_SeoBooster_Model_Analyzer::getErrorsOptions(),
             'type'    => 'options',
-            'renderer' => 'gomage_seobooster/adminhtml_analyzer_grid_renderer_options'
+            'renderer' => 'gomage_seobooster/adminhtml_analyzer_grid_renderer_options',
+            'duplicate_action' => $this->_getDuplicateAction()
         ));
 
         $this->addColumn(GoMage_SeoBooster_Helper_Analyzer::DESCRIPTION_FIELD, array(
@@ -52,7 +53,8 @@ class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Grid_Abstract extends Mage_Admi
             'index'  => GoMage_SeoBooster_Helper_Analyzer::DESCRIPTION_FIELD,
             'type'   => 'options',
             'options' => GoMage_SeoBooster_Model_Analyzer::getErrorsOptions(),
-            'renderer' => 'gomage_seobooster/adminhtml_analyzer_grid_renderer_options'
+            'renderer' => 'gomage_seobooster/adminhtml_analyzer_grid_renderer_options',
+            'duplicate_action' => $this->_getDuplicateAction()
         ));
 
         $this->addColumn(GoMage_SeoBooster_Helper_Analyzer::META_TITLE_FIELD, array(
@@ -61,6 +63,7 @@ class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Grid_Abstract extends Mage_Admi
             'type'    => 'options',
             'renderer' => 'gomage_seobooster/adminhtml_analyzer_grid_renderer_options',
             'options' => GoMage_SeoBooster_Model_Analyzer::getErrorsOptions(),
+            'duplicate_action' => $this->_getDuplicateAction()
         ));
 
         $this->addColumn(GoMage_SeoBooster_Helper_Analyzer::META_DESCRIPTION_FIELD, array(
@@ -68,7 +71,8 @@ class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Grid_Abstract extends Mage_Admi
             'index'  => GoMage_SeoBooster_Helper_Analyzer::META_DESCRIPTION_FIELD,
             'type'    => 'options',
             'renderer' => 'gomage_seobooster/adminhtml_analyzer_grid_renderer_options',
-            'options' => GoMage_SeoBooster_Model_Analyzer::getErrorsOptions()
+            'options' => GoMage_SeoBooster_Model_Analyzer::getErrorsOptions(),
+            'duplicate_action' => $this->_getDuplicateAction()
         ));
 
         $this->addColumn(GoMage_SeoBooster_Helper_Analyzer::META_KEYWORD_FIELD, array(
@@ -76,7 +80,8 @@ class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Grid_Abstract extends Mage_Admi
             'index'  => GoMage_SeoBooster_Helper_Analyzer::META_KEYWORD_FIELD,
             'type'    => 'options',
             'renderer' => 'gomage_seobooster/adminhtml_analyzer_grid_renderer_options',
-            'options' => GoMage_SeoBooster_Model_Analyzer::getErrorsOptions()
+            'options' => GoMage_SeoBooster_Model_Analyzer::getErrorsOptions(),
+            'duplicate_action' => $this->_getDuplicateAction()
         ));
 
         return parent::_prepareColumns();
@@ -128,4 +133,6 @@ class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Grid_Abstract extends Mage_Admi
         }
         return $this;
     }
+
+    abstract protected function _getDuplicateAction();
 }

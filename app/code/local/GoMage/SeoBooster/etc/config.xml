@@ -83,6 +83,12 @@
                     <analyzer_category_duplicates>
                         <table>gomage_seobooster_seo_duplicates_category_report</table>
                     </analyzer_category_duplicates>
+                    <analyzer_page>
+                        <table>gomage_seobooster_seo_page_report</table>
+                    </analyzer_page>
+                    <analyzer_page_duplicates>
+                        <table>gomage_seobooster_seo_duplicates_page_report</table>
+                    </analyzer_page_duplicates>
                 </entities>
             </gomage_seobooster_resource>
             <catalog>
@@ -259,15 +265,15 @@
             </url_rewrite>
             <seo_analyzer>
                 <min_name_symbols>0</min_name_symbols>
-                <name_symbols_limit>0</name_symbols_limit>
+                <name_symbols_limit>70</name_symbols_limit>
                 <min_desctiption_symbols>0</min_desctiption_symbols>
-                <description_limit>0</description_limit>
+                <description_limit>2560</description_limit>
                 <min_meta_title_symbols>0</min_meta_title_symbols>
-                <meta_title_limit>70</meta_title_limit>
+                <meta_title_limit>65</meta_title_limit>
                 <min_meta_description_symbols>0</min_meta_description_symbols>
                 <meta_description_limit>155</meta_description_limit>
                 <min_meta_keywords_qty>0</min_meta_keywords_qty>
-                <keywords_qty_limit>25</keywords_qty_limit>
+                <keywords_qty_limit>256</keywords_qty_limit>
             </seo_analyzer>
         </gomage_seobooster>
         <sitemap>
@@ -287,7 +293,7 @@
     </default>
     <modules>
         <GoMage_SeoBooster>
-            <version>1.0.11</version>
+            <version>1.0.12</version>
         </GoMage_SeoBooster>
     </modules>
 </config>

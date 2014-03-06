@@ -19,35 +19,26 @@
  * @subpackage Model
  * @author     Roman Bublik <rb@gomage.com>
  */
-class GoMage_SeoBooster_Model_Resource_Analyzer_Product_Collection
+class GoMage_SeoBooster_Model_Resource_Analyzer_Page_Collection
     extends GoMage_SeoBooster_Model_Resource_Analyzer_Collection_Abstract
 {
     protected function _construct()
     {
-        $this->_init('gomage_seobooster/analyzer_product');
+        $this->_init('gomage_seobooster/analyzer_page');
     }
 
     public function prepareCollectionForReport()
     {
-        $nameAttribute = $attribute = Mage::getSingleton('eav/config')
-            ->getAttribute(Mage_Catalog_Model_Product::ENTITY, 'name');
-
         $this->getSelect()->joinInner(
-            array('catalog_product' => $this->getTable('catalog/product')),
-            'main_table.product_id = catalog_product.entity_id',
-            array('sku', 'product_type' => 'catalog_product.type_id')
-        )->joinInner(
-            array('catalog_product_name' => $attribute->getBackend()->getTable()),
-            "main_table.product_id = catalog_product_name.entity_id AND catalog_product_name.attribute_id = {$nameAttribute->getId()}",
-            array('product_name' => 'catalog_product_name.value')
+            array('cms_page' => $this->getTable('cms/page')),
+            'main_table.page_id = cms_page.page_id',
+            array('page_name' => 'cms_page.title')
         )->joinLeft(
             array('duplicate_table' => $this->getResource()->getDuplicateTable()),
-            'main_table.product_id = duplicate_table.product_id',
+            'main_table.page_id = duplicate_table.page_id',
             array(
                 'duplicate_entity_id' => 'duplicate_table.entity_id',
                 'duplicate_name' => 'duplicate_table.name',
-                'duplicate_description' => 'duplicate_table.description',
-                'duplicate_meta_title' => 'duplicate_table.meta_title',
                 'duplicate_meta_description' => 'duplicate_table.meta_description',
                 'duplicate_meta_keyword' => 'duplicate_table.meta_keyword'
             )
@@ -55,19 +46,16 @@ class GoMage_SeoBooster_Model_Resource_Analyzer_Product_Collection
 
         if ($storeId = $this->_getStoreId()) {
             $this->getSelect()->joinInner(
-                array('cat_index' => $this->getTable('catalog/category_product_index')),
-                "main_table.product_id = cat_index.product_id",
+                array('store_table' => $this->getTable('cms/page_store')),
+                'main_table.page_id=store_table.page_id',
                 array()
-            )->where("cat_index.store_id = ?", $storeId)
-            ->group('main_table.product_id');
+            )->where('store_table.store_id IN (?)', array(0, $storeId))
+            ->group('main_table.page_id');
         }
 
-        $this->addFilterToMap('product_id', 'main_table.product_id');
-        $this->addFilterToMap('product_name', 'catalog_product_name.value');
-        $this->addFilterToMap('product_type', 'catalog_product.type_id');
+        $this->addFilterToMap('page_id', 'main_table.page_id');
+        $this->addFilterToMap('name', 'main_table.title');
         $this->addFilterToMap('duplicate_name', 'duplicate_table.name');
-        $this->addFilterToMap('duplicate_description', 'duplicate_table.description');
-        $this->addFilterToMap('duplicate_meta_title', 'duplicate_table.meta_title');
         $this->addFilterToMap('duplicate_meta_description', 'duplicate_table.meta_description');
         $this->addFilterToMap('duplicate_meta_keyword', 'duplicate_table.meta_keyword');
 
@@ -126,16 +114,27 @@ class GoMage_SeoBooster_Model_Resource_Analyzer_Product_Collection
             return new Varien_Data_Collection();
         }
 
-        $collection = Mage::getModel('catalog/product')->getCollection();
-        $collection->addAttributeToSelect('name');
-        if ($field != GoMage_SeoBooster_Helper_Analyzer::NAME_FIELD) {
-            $collection->addAttributeToSelect($field);
-        }
-        $collection->addFieldToFilter('entity_id', array('in' => $productIds));
+        $collection = Mage::getModel('cms/page')->getCollection();
+        $collection->addFieldToFilter('page_id', array('in' => $productIds));
+        $collection->getSelect()->columns(array('meta_keyword' => 'main_table.meta_keywords'));
+        $collection->addFilterToMap('meta_keyword', 'main_table.meta_keywords');
 
         if ($storeId = $this->_getStoreId()) {
-            $collection->addStoreFilter($storeId);
+            $collection->getSelect()->joinInner(
+                array('store_table' => $this->getTable('cms/page_store')),
+                'main_table.page_id=store_table.page_id',
+                array()
+            )->where('store_table.store_id IN (?)', array(0, $storeId))
+            ->group('main_table.page_id');
         }
         return $collection;
+    }
+
+    public static function getFieldsMap()
+    {
+        $fields = parent::getFieldsMap();
+        unset($fields[GoMage_SeoBooster_Helper_Analyzer::META_TITLE_FIELD]);
+        unset($fields[GoMage_SeoBooster_Helper_Analyzer::DESCRIPTION_FIELD]);
+        return $fields;
     }
 }

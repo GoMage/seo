@@ -41,8 +41,8 @@ class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Grid_Renderer_Options
                 foreach ($value as $item) {
                     if (isset($options[$item])) {
                         $label = $options[$item];
-                        if ($item == GoMage_SeoBooster_Model_Analyzer::LONG_ERROR ||
-                            $item == GoMage_SeoBooster_Model_Analyzer::SHORT_ERROR) {
+                        if ($item === GoMage_SeoBooster_Model_Analyzer::LONG_ERROR ||
+                            $item === GoMage_SeoBooster_Model_Analyzer::SHORT_ERROR) {
                             $countField = $fieldsMap[$this->getColumn()->getIndex()];
                             $label .= " ({$row->getData($countField)})";
                             $label = $this->escapeHtml($label);
@@ -57,8 +57,13 @@ class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Grid_Renderer_Options
                         $res[] = $label;
                     }
                 }
-                return implode("\n", $res);
+                return implode("<br/>", $res);
             } elseif (isset($options[$value])) {
+                if ($value === GoMage_SeoBooster_Model_Analyzer::RESULT_OK) {
+                    $label = $this->escapeHtml($options[$value]);
+                    $label = "<span style='color:#eb5e00; font-weight: bold'>". $label ."</span>";
+                    return $label;
+                }
                 return $this->escapeHtml($options[$value]);
             } elseif (in_array($value, $options)) {
                 return $this->escapeHtml($value);
@@ -68,6 +73,7 @@ class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Grid_Renderer_Options
 
     protected function _getDuplicateUrl($field, $duplicateEntityId)
     {
-        return Mage::helper('adminhtml')->getUrl('*/*/duplicates', array('entity_id' => $duplicateEntityId, 'type' => $field));
+        $action = $this->getColumn()->getData('duplicate_action');
+        return Mage::helper('adminhtml')->getUrl('*/*/'. $action, array('duplicate_entity_id' => $duplicateEntityId, 'duplicate_field' => $field));
     }
 }

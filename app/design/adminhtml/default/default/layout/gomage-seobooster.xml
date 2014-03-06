@@ -9,6 +9,15 @@
             </block>
         </reference>
     </adminhtml_report_seo_analyzer_product>
+    <adminhtml_report_seo_analyzer_productduplicate>
+        <reference name="content">
+            <block type="gomage_seobooster/adminhtml_analyzer_duplicate_product" name="analyzer.duplicate.product.container" as="products" template="gomage/seobooster/analyzer.phtml">
+                <block type="adminhtml/store_switcher" name="store_switcher" as="store_switcher">
+                    <action method="setUseConfirm"><params>0</params></action>
+                </block>
+            </block>
+        </reference>
+    </adminhtml_report_seo_analyzer_productduplicate>
     <adminhtml_report_seo_analyzer_category>
         <reference name="content">
             <block type="gomage_seobooster/adminhtml_analyzer_category" name="analyzer.category.container" as="categories" template="gomage/seobooster/analyzer.phtml">
@@ -18,4 +27,31 @@
             </block>
         </reference>
     </adminhtml_report_seo_analyzer_category>
+    <adminhtml_report_seo_analyzer_categoryduplicate>
+        <reference name="content">
+            <block type="gomage_seobooster/adminhtml_analyzer_duplicate_category" name="analyzer.duplicate.category.container" as="categories" template="gomage/seobooster/analyzer.phtml">
+                <block type="adminhtml/store_switcher" name="store_switcher" as="store_switcher">
+                    <action method="setUseConfirm"><params>0</params></action>
+                </block>
+            </block>
+        </reference>
+    </adminhtml_report_seo_analyzer_categoryduplicate>
+    <adminhtml_report_seo_analyzer_page>
+        <reference name="content">
+            <block type="gomage_seobooster/adminhtml_analyzer_page" name="analyzer.page.container" as="pages" template="gomage/seobooster/analyzer.phtml">
+                <block type="adminhtml/store_switcher" name="store_switcher" as="store_switcher">
+                    <action method="setUseConfirm"><params>0</params></action>
+                </block>
+            </block>
+        </reference>
+    </adminhtml_report_seo_analyzer_page>
+    <adminhtml_report_seo_analyzer_pageduplicate>
+        <reference name="content">
+            <block type="gomage_seobooster/adminhtml_analyzer_duplicate_page" name="analyzer.duplicate.page.container" as="pages" template="gomage/seobooster/analyzer.phtml">
+                <block type="adminhtml/store_switcher" name="store_switcher" as="store_switcher">
+                    <action method="setUseConfirm"><params>0</params></action>
+                </block>
+            </block>
+        </reference>
+    </adminhtml_report_seo_analyzer_pageduplicate>
 </layout>

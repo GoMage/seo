@@ -30,7 +30,7 @@ class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Category extends GoMage_SeoBoos
     {
         $this->_controller = 'adminhtml_analyzer_category';
         $this->_blockGroup = 'gomage_seobooster';
-        $this->_headerText = $this->helper('gomage_seobooster')->__('Categories analyzer');
+        $this->_headerText = $this->helper('gomage_seobooster')->__('Categories Analyzer');
         parent::__construct();
     }
 

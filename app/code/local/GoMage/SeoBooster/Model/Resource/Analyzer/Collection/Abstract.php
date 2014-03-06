@@ -22,7 +22,11 @@
 abstract class GoMage_SeoBooster_Model_Resource_Analyzer_Collection_Abstract
     extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
+    protected $_addErrors = false;
+
     abstract public function prepareCollectionForReport();
+
+    abstract public function getDuplicateCollection($entityId);
 
     public static function getFieldsMap()
     {
@@ -31,7 +35,7 @@ abstract class GoMage_SeoBooster_Model_Resource_Analyzer_Collection_Abstract
             GoMage_SeoBooster_Helper_Analyzer::DESCRIPTION_FIELD => 'description_chars_count',
             GoMage_SeoBooster_Helper_Analyzer::META_TITLE_FIELD => 'meta_title_chars_count',
             GoMage_SeoBooster_Helper_Analyzer::META_DESCRIPTION_FIELD => 'meta_description_chars_count',
-            GoMage_SeoBooster_Helper_Analyzer::META_KEYWORD_FIELD => 'meta_keyword_qty'
+            GoMage_SeoBooster_Helper_Analyzer::META_KEYWORD_FIELD => 'meta_keyword_chars_count'
         );
     }
 
@@ -59,5 +63,16 @@ abstract class GoMage_SeoBooster_Model_Resource_Analyzer_Collection_Abstract
         $countSelect->reset();
         $countSelect->from(array('count_table' => $select), 'COUNT(*)');
         return $countSelect;
+    }
+
+    public function addErrors($value)
+    {
+        $this->_addErrors = $value;
+        return $this;
+    }
+
+    protected function _getDuplicateField()
+    {
+        return Mage::app()->getRequest()->getParam('duplicate_field');
     }
 }
