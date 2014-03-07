@@ -32,7 +32,7 @@ abstract class GoMage_SeoBooster_Model_Resource_Analyzer_Abstract extends Mage_C
 
     abstract public function getEntities();
 
-    abstract public function prepareEntities($entities);
+    abstract public function prepareEntities($entities, $duplicates);
 
     abstract protected function _getDuplicateEntities($entities);
 

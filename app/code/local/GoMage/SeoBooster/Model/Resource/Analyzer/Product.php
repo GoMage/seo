@@ -34,7 +34,7 @@ class GoMage_SeoBooster_Model_Resource_Analyzer_Product extends GoMage_SeoBooste
     {
         $entities = $this->getEntities();
         $duplicates = $this->_getDuplicateEntities($entities);
-        $entities = $this->prepareEntities($entities);
+        $entities = $this->prepareEntities($entities, $duplicates);
 
         $this->_getWriteAdapter()->truncateTable($this->getMainTable());
         $this->_getWriteAdapter()->truncateTable($this->getDuplicateTable());
@@ -84,12 +84,24 @@ class GoMage_SeoBooster_Model_Resource_Analyzer_Product extends GoMage_SeoBooste
         return $entities;
     }
 
-    public function prepareEntities($entities)
+    public function prepareEntities($entities, $duplicates)
     {
-        foreach ($entities as &$entity) {
+        foreach ($entities as $_key => &$entity) {
+            $isOk = true;
             $entity['meta_keyword_qty'] = $this->_getMetaKeywordsQty($entity['meta_keyword']);
             foreach ($this->_requiredAttributes as $attribute) {
+                if (($entity[$attribute. '_chars_count'] > Mage::helper('gomage_seobooster/analyzer')->getCharsCountLimit($attribute))
+                    || ($entity[$attribute. '_chars_count'] < Mage::helper('gomage_seobooster/analyzer')->getMinCharsCountLimit($attribute)
+                    || ($entity[$attribute. '_chars_count'] == 0))) {
+                    $isOk = false;
+                }
+                if (isset($duplicates[$entity['product_id']]) && $duplicates[$entity['product_id']][$attribute]) {
+                    $isOk = false;
+                }
                 unset($entity[$attribute]);
+            }
+            if ($isOk === true) {
+                unset($entities[$_key]);
             }
         }
 

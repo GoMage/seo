@@ -21,6 +21,19 @@
  */
 class GoMage_SeoBooster_Adminhtml_Report_Seo_AnalyzerController extends Mage_Adminhtml_Controller_Action
 {
+    /**
+     * Dispatch action method
+     *
+     * @param $action
+     */
+    public function dispatch($action)
+    {
+        if (!Mage::helper('gomage_seobooster')->isEnabled()) {
+            $action = 'noRoute';
+        }
+        parent::dispatch($action);
+    }
+
     public function productAction()
     {
         $this->_title($this->__('Reports'))->_title($this->__('SEO Booster'))->_title($this->__('Products Analyzer'));
