@@ -28,6 +28,22 @@ class GoMage_SeoBooster_Model_Catalog_Layer_Filter_Price extends Mage_Catalog_Mo
      */
     protected function _getItemsData()
     {
+        if (Mage::helper('gomage_seobooster')->getIsAnymoreVersion(1, 6)) {
+            $range      = $this->getPriceRange();
+            $dbRanges   = $this->getRangeItemCounts($range);
+            $data       = array();
+
+            foreach ($dbRanges as $index => $count) {
+                $data[] = array(
+                    'label' => $this->_renderItemLabel($range, $index),
+                    'value' => $index . ',' . $range,
+                    'count' => $count,
+                );
+            }
+
+            return $data;
+        }
+
         if (Mage::app()->getStore()->getConfig(self::XML_PATH_RANGE_CALCULATION) == self::RANGE_CALCULATION_IMPROVED) {
             return $this->_getCalculatedItemsData();
         } elseif ($this->getInterval()) {

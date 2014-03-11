@@ -43,6 +43,25 @@ class GoMage_SeoBooster_Helper_Data extends Mage_Core_Helper_Data
         return Zend_Json::decode(base64_decode(Mage::helper('core')->decrypt(Mage::getStoreConfig('gomage_activation/designer/ar'))));
     }
 
+    public function getIsAnymoreVersion($major, $minor, $revision = 0)
+    {
+        $version_info = Mage::getVersionInfo();
+
+        if ($version_info['major'] > $major) {
+            return true;
+        } elseif ($version_info['major'] == $major) {
+            if ($version_info['minor'] > $minor) {
+                return true;
+            } elseif ($version_info['minor'] == $minor) {
+                if ($version_info['revision'] >= $revision) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     /**
      * Return url by route
      *
