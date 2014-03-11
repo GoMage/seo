@@ -44,4 +44,57 @@ class GoMage_SeoBooster_Block_Adminhtml_Widget_Form_Element_Dependence extends M
         }
         return Mage::helper('core')->jsonEncode($result);
     }
+
+    /**
+     * HTML output getter
+     * @return string
+     */
+    protected function _toHtml()
+    {
+        if (!Mage::helper('gomage_seobooster')->getIsAnymoreVersion(1, 6)) {
+            return parent::_toHtml();
+        }
+
+        if (!$this->_depends) {
+            return '';
+        }
+        return "<script type=\"text/javascript\">
+        FormElementDependenceController.prototype.trackChange = function(e, idTo, valuesFrom) {
+            var shouldShowUp = true;
+            for (var idFrom in valuesFrom) {
+                var from = $(idFrom);
+                if (valuesFrom[idFrom] instanceof Array) {
+                    if (!from || valuesFrom[idFrom].indexOf(from.value) == -1) {
+                        shouldShowUp = false;
+                    }
+                } else {
+                    if (!from || from.value != valuesFrom[idFrom]) {
+                        shouldShowUp = false;
+                    }
+                }
+            }
+
+            if (shouldShowUp) {
+                var currentConfig = this._config;
+                $(idTo).up(this._config.levels_up).select('input', 'select', 'td').each(function (item) {
+                    if ((!item.type || item.type != 'hidden') && !($(item.id+'_inherit') && $(item.id+'_inherit').checked)
+                        && !(currentConfig.can_edit_price != undefined && !currentConfig.can_edit_price)) {
+                        item.disabled = false;
+                    }
+                });
+                $(idTo).up(this._config.levels_up).show();
+            } else {
+                $(idTo).up(this._config.levels_up).select('input', 'select', 'td').each(function (item){
+                if ((!item.type || item.type != 'hidden') && !($(item.id+'_inherit') && $(item.id+'_inherit').checked)) {
+                    item.disabled = true;
+                }
+                });
+                $(idTo).up(this._config.levels_up).hide();
+            }
+        }
+        new FormElementDependenceController("
+        . $this->_getDependsJson()
+        . ($this->_configOptions ? ", " . Mage::helper('core')->jsonEncode($this->_configOptions) : '')
+        . "); </script>";
+    }
 }
