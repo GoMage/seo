@@ -1,4 +1,4 @@
-<?php
+<?php 
 /**
  * GoMage Seo Booster Extension
  *
@@ -12,44 +12,23 @@
  */
 
 /**
- * Product view block
+ * Short description of the class
+ *
+ * Long description of the class (if any...)
  *
  * @category   GoMage
  * @package    GoMage_SeoBooster
  * @subpackage Block
  * @author     Roman Bublik <rb@gomage.com>
  */
-class GoMage_SeoBooster_Block_Catalog_Product_View extends Mage_Catalog_Block_Product_View
+class GoMage_SeoBooster_Block_Catalog_Product_View_Head extends Mage_Core_Block_Template
 {
-    /**
-     * Add meta information from product to head block
-     *
-     * @return Mage_Catalog_Block_Product_View
-     */
     protected function _prepareLayout()
     {
-
         $headBlock = $this->getLayout()->getBlock('head');
         if ($headBlock) {
             $product = $this->getProduct();
-            $title = $product->getMetaTitle();
-            if ($title) {
-                $headBlock->setTitle($title);
-            }
-            $keyword = $product->getMetaKeyword();
-            $currentCategory = Mage::registry('current_category');
-            if ($keyword) {
-                $headBlock->setKeywords($keyword);
-            } elseif($currentCategory) {
-                $headBlock->setKeywords($product->getName());
-            }
-            $description = $product->getMetaDescription();
-            if ($description) {
-                $headBlock->setDescription( ($description) );
-            } else {
-                $headBlock->setDescription(Mage::helper('core/string')->substr($product->getDescription(), 0, 255));
-            }
-            if (Mage::helper('gomage_seobooster/product')->canUseCanonicalTag()) {
+            if (Mage::helper('gomage_seobooster/product')->canUseCanonicalUrl()) {
                 if ($url = Mage::helper('gomage_seobooster/product')->getCanonicalUrl($product)) {
                     $headBlock->addLinkRel('canonical', $url);
                 }
@@ -62,7 +41,19 @@ class GoMage_SeoBooster_Block_Catalog_Product_View extends Mage_Catalog_Block_Pr
             }
             $headBlock->setRobots(Mage::helper('gomage_seobooster')->getRobots($product));
         }
+    }
 
-        return Mage_Catalog_Block_Product_Abstract::_prepareLayout();
+    /**
+     * Retrieve current product model
+     *
+     * @return Mage_Catalog_Model_Product
+     */
+    public function getProduct()
+    {
+        if (!Mage::registry('product') && $this->getProductId()) {
+            $product = Mage::getModel('catalog/product')->load($this->getProductId());
+            Mage::register('product', $product);
+        }
+        return Mage::registry('product');
     }
 }

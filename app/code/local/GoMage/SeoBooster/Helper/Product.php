@@ -29,7 +29,7 @@ class GoMage_SeoBooster_Helper_Product extends GoMage_SeoBooster_Helper_Canonica
      *
      * @return bool
      */
-    public function canUseCanonicalTag()
+    public function canUseCanonicalUrl()
     {
         if (!$this->_moduleEnabled()) {
             return false;

@@ -44,7 +44,7 @@ class GoMage_SeoBooster_Block_Catalog_Category_View extends Mage_Catalog_Block_C
             if ($keywords = $category->getMetaKeywords()) {
                 $headBlock->setKeywords($keywords);
             }
-            if (Mage::helper('gomage_seobooster/category')->canUseCanonicalTag()) {
+            if (Mage::helper('gomage_seobooster/category')->canUseCanonicalUrl()) {
                 if ($url = Mage::helper('gomage_seobooster/category')->getCanonicalUrl($category)){
                     $headBlock->addLinkRel('canonical', $url);
                 }

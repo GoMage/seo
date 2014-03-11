@@ -35,7 +35,7 @@ class GoMage_SeoBooster_Block_Cms_Page extends Mage_Cms_Block_Page
         $head = $this->getLayout()->getBlock('head');
         if ($head) {
             $head->setRobots(Mage::helper('gomage_seobooster')->getRobots($page));
-            if (Mage::helper('gomage_seobooster/canonical_cms')->canUseCanonicalTag()) {
+            if (Mage::helper('gomage_seobooster/canonical_cms')->canUseCanonicalUrl()) {
                 $head->addLinkRel('canonical', Mage::helper('gomage_seobooster/canonical_cms')->getCanonicalUrl($page));
             }
         }

@@ -25,7 +25,6 @@
             </adminhtml>
             <catalog>
                 <rewrite>
-                    <product_view>GoMage_SeoBooster_Block_Catalog_Product_View</product_view>
                     <category_view>GoMage_SeoBooster_Block_Catalog_Category_View</category_view>
                     <layer_state>GoMage_SeoBooster_Block_Catalog_Layer_State</layer_state>
                     <product_list_toolbar>GoMage_SeoBooster_Block_Catalog_Product_List_Toolbar</product_list_toolbar>
@@ -62,6 +61,11 @@
             <gomage_seobooster>
                 <class>GoMage_SeoBooster_Helper</class>
             </gomage_seobooster>
+            <catalog>
+                <rewrite>
+                    <product>GoMage_SeoBooster_Helper_Mage_Catalog_Product</product>
+                </rewrite>
+            </catalog>
         </helpers>
         <models>
             <gomage_seobooster>

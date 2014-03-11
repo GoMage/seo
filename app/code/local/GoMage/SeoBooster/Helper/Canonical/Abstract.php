@@ -26,7 +26,7 @@ abstract class GoMage_SeoBooster_Helper_Canonical_Abstract extends Mage_Core_Hel
      *
      * @return bool
      */
-    abstract public function canUseCanonicalTag();
+    abstract public function canUseCanonicalUrl();
 
     /**
      * Return canonical url

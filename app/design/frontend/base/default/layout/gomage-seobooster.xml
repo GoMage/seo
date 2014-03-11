@@ -9,6 +9,7 @@
     <catalog_product_view>
         <reference name="content">
             <block type="gomage_seobooster/catalog_product_richSnippet" name="product.rich.snippet" template="gomage/seobooster/catalog/product/richsnippet.phtml" />
+            <block type="gomage_seobooster/catalog_product_view_head" name="product.view.head"/>
         </reference>
     </catalog_product_view>
 

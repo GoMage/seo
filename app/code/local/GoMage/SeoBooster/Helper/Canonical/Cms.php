@@ -26,7 +26,7 @@ class GoMage_SeoBooster_Helper_Canonical_Cms extends GoMage_SeoBooster_Helper_Ca
      *
      * @return bool
      */
-    public function canUseCanonicalTag()
+    public function canUseCanonicalUrl()
     {
         if (!$this->_moduleEnabled()) {
             return false;
