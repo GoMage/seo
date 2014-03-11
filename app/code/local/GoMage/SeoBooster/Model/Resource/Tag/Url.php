@@ -30,7 +30,7 @@ class GoMage_SeoBooster_Model_Resource_Tag_Url extends Mage_Core_Model_Resource_
      */
     public function _construct()
     {
-        $this->_init('core/url_rewrite', 'url_rewrite_id');
+        $this->_init('core_url_rewrite', 'url_rewrite_id');
     }
 
     /**
@@ -42,6 +42,7 @@ class GoMage_SeoBooster_Model_Resource_Tag_Url extends Mage_Core_Model_Resource_
      */
     public function checkUrlKeyUnique($urlKey, $tagId = null)
     {
+
         $adapter = $this->_getReadAdapter();
         $select = $adapter->select();
 

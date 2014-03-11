@@ -28,10 +28,10 @@ class GoMage_SeoBooster_Model_Catalog_Product_Url extends Mage_Catalog_Model_Pro
      */
     public function getUrlInstance()
     {
-        if (!self::$_url) {
-            self::$_url = Mage::getModel('gomage_seobooster/url');
+        if (!$this->_url) {
+            $this->_url = Mage::getModel('gomage_seobooster/url');
         }
-        return self::$_url;
+        return $this->_url;
     }
 
     /**

@@ -35,6 +35,7 @@ class GoMage_SeoBooster_Model_Sitemap_Sitemap extends Mage_Sitemap_Model_Sitemap
         $io = new Varien_Io_File();
         $io->setAllowCreateFolders(true);
         $io->open(array('path' => $this->getPath()));
+        $this->_removeOldFiles();
         $this->_openXmlFile($io);
 
         if ($io->fileExists($this->getSitemapIndexFilename()) && !$io->isWriteable($this->getSitemapIndexFilename())) {
@@ -328,6 +329,18 @@ class GoMage_SeoBooster_Model_Sitemap_Sitemap extends Mage_Sitemap_Model_Sitemap
             curl_exec($handle);
             curl_close($handle);
         }
+    }
 
+    protected function _removeOldFiles()
+    {
+        $filename = $this->getData('sitemap_filename');
+        $extension = strrchr($filename, '.');
+        $filename = str_replace($extension, '', $filename);
+        $mask = $this->getPath(). '{'. $filename .'}_*'. $extension;
+        array_map(function($path){
+            if (file_exists($path)) {
+                unlink($path);
+            }
+        }, glob($mask, GLOB_BRACE));
     }
 }

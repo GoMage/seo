@@ -49,7 +49,7 @@ class GoMage_SeoBooster_Model_Tag_Url
      */
     protected function _getResourceModel()
     {
-        return Mage::getResourceModel('gomage_seobooster/tag_url');
+        return Mage::getResourceSingleton('gomage_seobooster/tag_url');
     }
 
     /**
@@ -96,16 +96,14 @@ class GoMage_SeoBooster_Model_Tag_Url
                     $urlRewriteModel->delete();
                     return $this;
                 }
-
                 $urlRewriteModel->addData($rewriteData);
                 $urlRewriteModel->save();
             }
         } else {
             $urlRewriteModel->setData($rewriteData)->save();
             $tag->setData('url_rewrite_id', $urlRewriteModel->getId());
+            $tag->save();
         }
-
-        $tag->save();
 
         return $this;
     }
@@ -140,9 +138,10 @@ class GoMage_SeoBooster_Model_Tag_Url
             return 'tag' . '/' . $tag->getId();
         } elseif ($type == 'request') {
             $urlKey = $this->_formatUrlKey($tag->getName());
-            if ($this->_getResourceModel()->checkUrlKeyUnique($urlKey, $tag->getId())) {
-                $urlKey .= '-'. $tag->getId();
-            }
+//            Zend_Debug::dump($urlKey);
+//            if ($this->_getResourceModel()->checkUrlKeyUnique($urlKey, $tag->getId())) {
+//                $urlKey .= '-'. $tag->getId();
+//            }
             if ($urlKey != $tag->getUrlKey()) {
                 $tag->setUrlKey($urlKey);
             }

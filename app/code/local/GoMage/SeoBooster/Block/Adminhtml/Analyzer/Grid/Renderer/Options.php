@@ -61,7 +61,7 @@ class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Grid_Renderer_Options
             } elseif (isset($options[$value])) {
                 if ($value === GoMage_SeoBooster_Model_Analyzer::RESULT_OK) {
                     $label = $this->escapeHtml($options[$value]);
-                    $label = "<span style='color:#eb5e00; font-weight: bold'>". $label ."</span>";
+                    $label = "<span style='color:#629632; font-weight: bold'>". $label ."</span>";
                     return $label;
                 }
                 return $this->escapeHtml($options[$value]);
