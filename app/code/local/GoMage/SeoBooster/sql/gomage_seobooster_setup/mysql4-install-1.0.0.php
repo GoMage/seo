@@ -28,7 +28,7 @@ try {
             'source' => 'gomage_seobooster/config_source_canonical_catalog_product_type',
         ),
         'canonical_url_store' => array(
-            'label' => 'Cross Domain Canonical URL',
+            'label' => 'Cross-Domain Canonical URL',
             'source' => 'gomage_seobooster/config_source_canonical_catalog_storeurl',
         )
     );

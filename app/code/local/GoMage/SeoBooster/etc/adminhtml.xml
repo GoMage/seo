@@ -17,7 +17,7 @@
         <report>
             <children>
                 <gomage_seobooster translate="title" module="gomage_seobooster">
-                    <title>SEO Booster</title>
+                    <title>SEO Analyzer</title>
                     <sort_order>10000</sort_order>
                     <children>
                         <products_analyzer translate="title" module="gomage_seobooster">
@@ -47,7 +47,7 @@
                     <report>
                         <children>
                             <gomage_seobooster>
-                                <title>SEO Booster</title>
+                                <title>SEO Analyzer</title>
                                 <sort_order>10000</sort_order>
                                 <children>
                                     <products_analyzer translate="title">

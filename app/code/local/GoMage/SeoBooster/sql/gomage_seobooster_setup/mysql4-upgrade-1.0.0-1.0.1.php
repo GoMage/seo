@@ -24,7 +24,7 @@ try {
      */
     $installer->addAttribute(Mage_Catalog_Model_Category::ENTITY, 'canonical_url_store', array(
         'type' => 'int',
-        'label' => "Cross Domain Canonical URL",
+        'label' => "Cross-Domain Canonical URL",
         'input' => 'select',
         'source' => 'gomage_seobooster/config_source_canonical_catalog_storeurl',
         'global' => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,

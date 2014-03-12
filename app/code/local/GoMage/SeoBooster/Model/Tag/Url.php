@@ -98,6 +98,9 @@ class GoMage_SeoBooster_Model_Tag_Url
                 }
                 $urlRewriteModel->addData($rewriteData);
                 $urlRewriteModel->save();
+                if ($tag->dataHasChangedFor('url_key')) {
+                    $tag->save();
+                }
             }
         } else {
             $urlRewriteModel->setData($rewriteData)->save();
@@ -115,8 +118,8 @@ class GoMage_SeoBooster_Model_Tag_Url
      */
     public function refreshTagsRewrites()
     {
-        $tags = Mage::getModel('tag/tag')->getCollection();
-
+//        $tags = Mage::getModel('tag/tag')->getCollection()->addStoresVisibility();
+        $tags = $this->_getTagsCollection();
         foreach ($tags as $tag) {
             $this->refreshTagRewrite($tag);
         }
@@ -138,10 +141,9 @@ class GoMage_SeoBooster_Model_Tag_Url
             return 'tag' . '/' . $tag->getId();
         } elseif ($type == 'request') {
             $urlKey = $this->_formatUrlKey($tag->getName());
-//            Zend_Debug::dump($urlKey);
-//            if ($this->_getResourceModel()->checkUrlKeyUnique($urlKey, $tag->getId())) {
-//                $urlKey .= '-'. $tag->getId();
-//            }
+            if ($this->_checkUrlKeyUnique($urlKey, $tag->getId())) {
+                $urlKey .= '-'. $tag->getId();
+            }
             if ($urlKey != $tag->getUrlKey()) {
                 $tag->setUrlKey($urlKey);
             }
@@ -215,5 +217,35 @@ class GoMage_SeoBooster_Model_Tag_Url
             self::$_urlRewrite = Mage::getModel('core/url_rewrite');
         }
         return self::$_urlRewrite;
+    }
+
+    protected function _getTagsCollection()
+    {
+        $tags = Mage::getModel('tag/tag')->getCollection();
+        $tags->getSelect()->group('main_table.tag_id');
+
+        return $tags;
+    }
+
+    /**
+     * Check tag url key unique
+     *
+     * @param string $urlKey Url Key
+     * @param int    $tagId  Tag Id
+     * @return string
+     */
+    protected function _checkUrlKeyUnique($urlKey, $tagId = null)
+    {
+        $resource = Mage::getSingleton('core/resource');
+        $adapter = $resource->getConnection('core_read');
+        $select = $adapter->select();
+
+        $select->from($resource->getTableName('tag/tag'))
+            ->where("url_key = ?", $urlKey);
+        if (!is_null($tagId)) {
+            $select->where("tag_id != ?", $tagId);
+        }
+
+        return $adapter->fetchOne($select);
     }
 }

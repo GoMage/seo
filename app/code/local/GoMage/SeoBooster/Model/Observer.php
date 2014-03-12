@@ -103,8 +103,8 @@ class GoMage_SeoBooster_Model_Observer
         $fieldset = $form->getElement('meta_fieldset');
 
         $fieldset->addField('canonical_url_store', 'select', array(
-            'label'     => Mage::helper('gomage_seobooster')->__('Cross Domain Canonical URL'),
-            'title'     => Mage::helper('gomage_seobooster')->__('Cross Domain Canonical URL'),
+            'label'     => Mage::helper('gomage_seobooster')->__('Cross-Domain Canonical URL'),
+            'title'     => Mage::helper('gomage_seobooster')->__('Cross-Domain Canonical URL'),
             'name'      => 'canonical_url_store',
             'required'  => true,
             'options'   => Mage::getModel('gomage_seobooster/config_source_canonical_catalog_storeurl')->getOptionArray(),
