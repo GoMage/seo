@@ -32,8 +32,8 @@ class GoMage_SeoBooster_Block_Adminhtml_System_Config_Fieldset_Help
      */
     protected function _getHeaderHtml($element)
     {
-        if (method_exists(parent, '_getHeaderTitleHtml')) {
-            return static::_getHeaderHtml($element);
+        if (method_exists(get_parent_class($this), '_getHeaderTitleHtml')) {
+            return parent::_getHeaderHtml($element);
         }
 
         $default = !$this->getRequest()->getParam('website') && !$this->getRequest()->getParam('store');
