@@ -89,22 +89,18 @@ class GoMage_SeoBooster_Model_Tag_Url
         );
 
         $urlRewriteModel = Mage::getModel('core/url_rewrite');
-        if ($urlRewriteId = $tag->getUrlRewriteId()) {
-            $urlRewriteModel->load($urlRewriteId);
-            if ($urlRewriteModel->getId()) {
-                if ($tag->isDeleted()) {
-                    $urlRewriteModel->delete();
-                    return $this;
-                }
-                $urlRewriteModel->addData($rewriteData);
-                $urlRewriteModel->save();
-                if ($tag->dataHasChangedFor('url_key')) {
-                    $tag->save();
-                }
+        $urlRewriteModel->load('tag/'.$tag->getId(), 'id_path');
+        if ($urlRewriteModel->getId()) {
+            if ($tag->isDeleted()) {
+                $urlRewriteModel->delete();
+                return $this;
             }
+            $urlRewriteModel->addData($rewriteData);
+            $urlRewriteModel->save();
         } else {
             $urlRewriteModel->setData($rewriteData)->save();
-            $tag->setData('url_rewrite_id', $urlRewriteModel->getId());
+        }
+        if ($tag->dataHasChangedFor('url_key')) {
             $tag->save();
         }
 
