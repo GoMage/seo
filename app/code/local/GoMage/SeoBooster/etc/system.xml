@@ -129,6 +129,7 @@
           <general translate="label">
             <label>General</label>
             <frontend_type>text</frontend_type>
+            <frontend_model>gomage_seobooster/adminhtml_system_config_fieldset_help</frontend_model>
             <sort_order>10</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
@@ -219,12 +220,21 @@
           <url_rewrite>
               <label>URL Rewrite Settings</label>
               <frontend_type>text</frontend_type>
+              <frontend_model>gomage_seobooster/adminhtml_system_config_fieldset_help</frontend_model>
               <sort_order>20</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
               <expanded>1</expanded>
               <fields>
+                <url_rewrite_path_notice>
+                    <label>Notice</label>
+                    <frontend_model>gomage_seobooster/adminhtml_config_form_renderer_notice</frontend_model>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                </url_rewrite_path_notice>
                 <enable_layered_url_rewrite>
                     <label>Enable Layered Navigation URL Rewrite</label>
                     <frontend_type>select</frontend_type>
@@ -301,7 +311,6 @@
                       <show_in_website>1</show_in_website>
                       <show_in_store>1</show_in_store>
                       <validate>required-entry</validate>
-                      <comment>Catalog url reindex process needed</comment>
                       <depends>
                           <enable_product_review_url_rewrite>1</enable_product_review_url_rewrite>
                       </depends>
@@ -460,6 +469,7 @@
                <extended_settings translate="label">
                    <label>Extended Settings</label>
                    <frontend_type>text</frontend_type>
+                   <frontend_model>gomage_seobooster/adminhtml_system_config_fieldset_help</frontend_model>
                    <sort_order>60</sort_order>
                    <show_in_default>1</show_in_default>
                    <show_in_website>1</show_in_website>

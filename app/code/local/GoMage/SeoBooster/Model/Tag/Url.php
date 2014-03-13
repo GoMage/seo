@@ -114,7 +114,6 @@ class GoMage_SeoBooster_Model_Tag_Url
      */
     public function refreshTagsRewrites()
     {
-//        $tags = Mage::getModel('tag/tag')->getCollection()->addStoresVisibility();
         $tags = $this->_getTagsCollection();
         foreach ($tags as $tag) {
             $this->refreshTagRewrite($tag);

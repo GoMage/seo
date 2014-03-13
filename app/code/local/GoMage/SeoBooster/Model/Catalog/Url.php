@@ -22,6 +22,19 @@
 class GoMage_SeoBooster_Model_Catalog_Url extends Mage_Catalog_Model_Url
 {
     /**
+     * Retrieve resource model
+     *
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Url
+     */
+    public function getResource()
+    {
+        if (is_null($this->_resourceModel)) {
+            $this->_resourceModel = Mage::getResourceModel('gomage_seobooster/catalog_url');
+        }
+        return $this->_resourceModel;
+    }
+
+    /**
      * Refresh all rewrite urls for some store or for all stores
      * Used to make full reindexing of url rewrites
      *
