@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * GoMage Seo Booster Extension
  *
@@ -32,27 +32,28 @@ class GoMage_SeoBooster_Block_Adminhtml_System_Config_Fieldset_Help
      */
     protected function _getHeaderHtml($element)
     {
-        if ($element->getIsNested()) {
-            $html = '<tr class="nested"><td colspan="4"><div class="' . $this->_getFrontendClass($element) . '">';
-        } else {
-            $html = '<div class="' . $this->_getFrontendClass($element) . '">';
+        if (method_exists(parent, '_getHeaderTitleHtml')) {
+            return static::_getHeaderHtml($element);
         }
 
-        $html .= $this->_getHeaderTitleHtml($element);
+        $default = !$this->getRequest()->getParam('website') && !$this->getRequest()->getParam('store');
 
-        $html .= '<input id="'.$element->getHtmlId() . '-state" name="config_state[' . $element->getId()
-            . ']" type="hidden" value="' . (int)$this->_getCollapseState($element) . '" />';
-        $html .= '<fieldset class="' . $this->_getFieldsetCss($element) . '" id="' . $element->getHtmlId() . '">';
-        $html .= '<legend>' . $element->getLegend() . '</legend>';
+        $html = '<div  class="entry-edit-head collapseable" >
+        <button style="margin-right:25px; float: right;" onclick="window.open(\''. $this->_getHelpUrl() .'\', \'_blank\')" class="scalable go" type="button" id="glc_help"><span>'.$this->__('GoMage SEO Booster Wiki').'</span></button>
+        <a id="'.$element->getHtmlId().'-head" href="#" onclick="Fieldset.toggleCollapse(\''.$element->getHtmlId().'\', \''.$this->getUrl('*/*/state').'\'); return false;">'.$element->getLegend().'</a></div>';
+        $html.= '<input id="'.$element->getHtmlId().'-state" name="config_state['.$element->getId().']" type="hidden" value="'.(int)$this->_getCollapseState($element).'" />';
+        $html.= '<fieldset class="'.$this->_getFieldsetCss().'" id="'.$element->getHtmlId().'">';
+        $html.= '<legend>'.$element->getLegend().'</legend>';
 
-        $html .= $this->_getHeaderCommentHtml($element);
-
+        if ($element->getComment()) {
+            $html .= '<div class="comment">'.$element->getComment().'</div>';
+        }
         // field label column
-        $html .= '<table cellspacing="0" class="form-list"><colgroup class="label" /><colgroup class="value" />';
-        if ($this->getRequest()->getParam('website') || $this->getRequest()->getParam('store')) {
-            $html .= '<colgroup class="use-default" />';
+        $html.= '<table cellspacing="0" class="form-list"><colgroup class="label" /><colgroup class="value" />';
+        if (!$default) {
+            $html.= '<colgroup class="use-default" />';
         }
-        $html .= '<colgroup class="scope-label" /><colgroup class="" /><tbody>';
+        $html.= '<colgroup class="scope-label" /><colgroup class="" /><tbody>';
 
         return $html;
     }
