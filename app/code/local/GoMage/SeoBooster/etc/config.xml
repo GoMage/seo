@@ -186,6 +186,9 @@
                 </observers>
             </review_delete_after>
         </events>
+        <request_rewrite>
+            <model>gomage_seobooster/url_rewrite_request</model>
+        </request_rewrite>
     </global>
     <frontend>
         <layout>

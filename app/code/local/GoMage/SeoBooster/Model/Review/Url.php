@@ -163,7 +163,7 @@ class GoMage_SeoBooster_Model_Review_Url
                 'is_system'     => 0
             );
 
-            Mage::getResourceModel('catalog/url')->saveRewrite($rewriteData, null);
+            Mage::getResourceModel('gomage_seobooster/catalog_url')->saveRewrite($rewriteData, null);
         }
 
         return $this;

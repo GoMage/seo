@@ -261,10 +261,14 @@ class GoMage_SeoBooster_Helper_Layered extends Mage_Core_Helper_Data
             $collection = $this->_getProductAttributeCollection();
             $params = array();
             $queryParams = $this->getRequest()->getParams();
+            Mage::log($queryParams);
             foreach ($collection as $item) {
                 if (isset($queryParams[$item->getAttributeCode()])) {
                     $params[$item->getAttributeCode()] = $queryParams[$item->getAttributeCode()];
                 }
+            }
+            if (isset($queryParams['cat'])) {
+                $params['cat'] = $queryParams['cat'];
             }
             $this->_filterableParams = $params;
         }

@@ -28,7 +28,7 @@ class GoMage_SeoBooster_Model_Catalog_Layer_Filter_Price extends Mage_Catalog_Mo
      */
     protected function _getItemsData()
     {
-        if (Mage::helper('gomage_seobooster')->getIsAnymoreVersion(1, 6)) {
+        if (!Mage::helper('gomage_seobooster')->getIsAnymoreVersion(1, 7)) {
             $range      = $this->getPriceRange();
             $dbRanges   = $this->getRangeItemCounts($range);
             $data       = array();
