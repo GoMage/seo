@@ -32,7 +32,7 @@ class GoMage_SeoBooster_Block_Adminhtml_Config_Form_Renderer_Notice
      */
     public function render(Varien_Data_Form_Element_Abstract $element)
     {
-        $html = '<td colspan="4"><span style="color: #FBDB0C; padding-left: 5px">'.
+        $html = '<td colspan="4"><span style="color: red; padding-left: 5px">'.
             $this->__('After enabling or changing any Rewrite Path you need to rebuild required indexes in <a href="%s">Index Management</a>', $this->_getIndexUrl()) .'</span></td>';
 
         if (method_exists($this, '_decorateRowHtml')) {
