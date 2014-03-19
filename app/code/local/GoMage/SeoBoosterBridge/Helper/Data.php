@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+<?php
 /**
  * GoMage Seo Booster Extension
  *
@@ -11,12 +10,7 @@
  * @version      Release: 1.0.0
  * @since        Available since Release 1.0.0
  */
--->
-<config>
-    <modules>
-        <GoMage_SeoBooster>
-            <active>true</active>
-            <codePool>local</codePool>
-        </GoMage_SeoBooster>
-    </modules>
-</config>
+class GoMage_SeoBoosterBridge_Helper_Data extends Mage_Core_Helper_Abstract
+{
+}
+	 

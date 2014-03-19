@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"?>
 <!--
 /**
  * GoMage Seo Booster Extension
@@ -14,9 +14,13 @@
 -->
 <config>
     <modules>
-        <GoMage_SeoBooster>
+        <GoMage_SeoBoosterBridge>
             <active>true</active>
             <codePool>local</codePool>
-        </GoMage_SeoBooster>
+            <depends>
+                <GoMage_Navigation/>
+                <GoMage_SeoBooster/>
+            </depends>
+        </GoMage_SeoBoosterBridge>
     </modules>
 </config>

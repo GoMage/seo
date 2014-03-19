@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+<?php
 /**
  * GoMage Seo Booster Extension
  *
@@ -11,12 +10,16 @@
  * @version      Release: 1.0.0
  * @since        Available since Release 1.0.0
  */
--->
-<config>
-    <modules>
-        <GoMage_SeoBooster>
-            <active>true</active>
-            <codePool>local</codePool>
-        </GoMage_SeoBooster>
-    </modules>
-</config>
+
+class GoMage_SeoBoosterBridge_Block_Page_Html_Pager extends GoMage_Navigation_Block_Html_Pager
+{
+    /**
+     * Returns url model class name
+     *
+     * @return string
+     */
+    protected function _getUrlModelClass()
+    {
+        return 'gomage_seobooster/url';
+    }
+}

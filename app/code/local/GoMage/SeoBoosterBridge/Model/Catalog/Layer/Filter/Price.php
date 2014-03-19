@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+<?php
 /**
  * GoMage Seo Booster Extension
  *
@@ -11,12 +10,16 @@
  * @version      Release: 1.0.0
  * @since        Available since Release 1.0.0
  */
--->
-<config>
-    <modules>
-        <GoMage_SeoBooster>
-            <active>true</active>
-            <codePool>local</codePool>
-        </GoMage_SeoBooster>
-    </modules>
-</config>
+
+/**
+ * Short description of the class
+ *
+ * @category   GoMage
+ * @package    GoMage_SeoBooster
+ * @subpackage Model
+ * @author     Roman Bublik <rb@gomage.com>
+ */
+class GoMage_SeoBoosterBridge_Model_Catalog_Layer_Filter_Price extends GoMage_Navigation_Model_Layer_Filter_Price
+{
+
+}
