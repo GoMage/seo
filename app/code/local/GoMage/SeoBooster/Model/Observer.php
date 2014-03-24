@@ -11,14 +11,6 @@
  * @since        Available since Release 1.0.0
  */
 
-/**
- * Observer model
- *
- * @category   GoMage
- * @package    GoMage_Seobooster
- * @subpackage Model
- * @author     Roman Bublik <rb@gomage.com>
- */
 class GoMage_SeoBooster_Model_Observer
 {
     /**
@@ -30,9 +22,9 @@ class GoMage_SeoBooster_Model_Observer
     public function refreshTagUrlRewrite(Varien_Event_Observer $observer)
     {
         $event = $observer->getEvent();
-        $tag = $event->getDataObject();
+        $tag   = $event->getDataObject();
 
-        if (!Mage::helper('gomage_seobooster')->canUseTagUrlRewrite()){
+        if (!Mage::helper('gomage_seobooster')->canUseTagUrlRewrite()) {
             return $this;
         }
 
@@ -54,9 +46,9 @@ class GoMage_SeoBooster_Model_Observer
     public function removeTagUrlRewrite(Varien_Event_Observer $observer)
     {
         $event = $observer->getEvent();
-        $tag = $event->getDataObject();
+        $tag   = $event->getDataObject();
 
-        if (!Mage::helper('gomage_seobooster')->canUseTagUrlRewrite()){
+        if (!Mage::helper('gomage_seobooster')->canUseTagUrlRewrite()) {
             return $this;
         }
 
@@ -66,7 +58,7 @@ class GoMage_SeoBooster_Model_Observer
 
     public function refreshReviewUrlRewrite(Varien_Event_Observer $observer)
     {
-        $event = $observer->getEvent();
+        $event  = $observer->getEvent();
         $review = $event->getDataObject();
 
         if (!Mage::helper('gomage_seobooster')->canUseProductReviewsUrlRewrite()) {
@@ -80,7 +72,7 @@ class GoMage_SeoBooster_Model_Observer
 
     public function removeReviewUrlRewrite(Varien_Event_Observer $observer)
     {
-        $event = $observer->getEvent();
+        $event  = $observer->getEvent();
         $review = $event->getDataObject();
 
         if (!Mage::helper('gomage_seobooster')->canUseProductReviewsUrlRewrite()) {
@@ -98,31 +90,41 @@ class GoMage_SeoBooster_Model_Observer
      */
     public function addCmsPageMetaFields(Varien_Event_Observer $observer)
     {
-        $event = $observer->getEvent();
-        $form = $event->getForm();
+        $event    = $observer->getEvent();
+        $form     = $event->getForm();
         $fieldset = $form->getElement('meta_fieldset');
 
         $fieldset->addField('canonical_url_store', 'select', array(
-            'label'     => Mage::helper('gomage_seobooster')->__('Cross-Domain Canonical URL'),
-            'title'     => Mage::helper('gomage_seobooster')->__('Cross-Domain Canonical URL'),
-            'name'      => 'canonical_url_store',
-            'required'  => true,
-            'options'   => Mage::getModel('gomage_seobooster/config_source_canonical_catalog_storeurl')->getOptionArray(),
-        ));
+                'label'    => Mage::helper('gomage_seobooster')->__('Cross-Domain Canonical URL'),
+                'title'    => Mage::helper('gomage_seobooster')->__('Cross-Domain Canonical URL'),
+                'name'     => 'canonical_url_store',
+                'required' => true,
+                'options'  => Mage::getModel('gomage_seobooster/config_source_canonical_catalog_storeurl')->getOptionArray(),
+            )
+        );
         $fieldset->addField('robots', 'select', array(
-            'label'     => Mage::helper('gomage_seobooster')->__('Robots'),
-            'title'     => Mage::helper('gomage_seobooster')->__('Robots'),
-            'name'      => 'robots',
-            'required'  => true,
-            'options'   => Mage::getModel('gomage_seobooster/config_source_robots')->getOptionArray(),
-        ));
+                'label'    => Mage::helper('gomage_seobooster')->__('Robots'),
+                'title'    => Mage::helper('gomage_seobooster')->__('Robots'),
+                'name'     => 'robots',
+                'required' => true,
+                'options'  => Mage::getModel('gomage_seobooster/config_source_robots')->getOptionArray(),
+            )
+        );
 
         $fieldset->addField('exclude_from_sitemap', 'select', array(
-            'label'     => Mage::helper('gomage_seobooster')->__('Exclude from XML Sitemap'),
-            'title'     => Mage::helper('gomage_seobooster')->__('Exclude from XML Sitemap'),
-            'name'      => 'exclude_from_sitemap',
-            'required'  => true,
-            'options'   => Mage::getModel('eav/entity_attribute_source_boolean')->getOptionArray(),
-        ));
+                'label'    => Mage::helper('gomage_seobooster')->__('Exclude from XML Sitemap'),
+                'title'    => Mage::helper('gomage_seobooster')->__('Exclude from XML Sitemap'),
+                'name'     => 'exclude_from_sitemap',
+                'required' => true,
+                'options'  => Mage::getModel('eav/entity_attribute_source_boolean')->getOptionArray(),
+            )
+        );
     }
+
+    static public function checkK(Varien_Event_Observer $event)
+    {
+        $key = Mage::getStoreConfig('gomage_activation/seobooster/key');
+        Mage::helper('gomage_seobooster')->a($key);
+    }
+
 }

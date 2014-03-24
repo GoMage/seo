@@ -22,9 +22,9 @@
  */
 class GoMage_SeoBooster_Helper_Data extends Mage_Core_Helper_Data
 {
-    const CANONICAL_URL_DISABLED = 0;
-    const CANONICAL_URL_PRODUCTS = 1;
-    const CANONICAL_URL_CATEGORIES = 2;
+    const CANONICAL_URL_DISABLED            = 0;
+    const CANONICAL_URL_PRODUCTS            = 1;
+    const CANONICAL_URL_CATEGORIES          = 2;
     const CANONICAL_URL_PRODUCTS_CATEGORIES = 3;
 
     const CANONICAL_URL_DEFAULT_DOMAIN_VALUE = 0;
@@ -36,11 +36,8 @@ class GoMage_SeoBooster_Helper_Data extends Mage_Core_Helper_Data
      */
     public function isEnabled()
     {
-        return Mage::getStoreConfig('gomage_seobooster/general/enabled');
-    }
-    public function ga()
-    {
-        return Zend_Json::decode(base64_decode(Mage::helper('core')->decrypt(Mage::getStoreConfig('gomage_activation/designer/ar'))));
+        return Mage::getStoreConfig('gomage_seobooster/general/enabled') &&
+        in_array(Mage::app()->getStore()->getWebsiteId(), $this->getAvailableWebsites());
     }
 
     public function getIsAnymoreVersion($major, $minor, $revision = 0)
@@ -65,9 +62,9 @@ class GoMage_SeoBooster_Helper_Data extends Mage_Core_Helper_Data
     /**
      * Return url by route
      *
-     * @param string      $route   Route
-     * @param array       $params  Route params
-     * @param int|null    $storeId Store Id
+     * @param string $route   Route
+     * @param array $params  Route params
+     * @param int|null $storeId Store Id
      * @return string
      */
     public function getUrl($route, $params = array(), $storeId = null)
@@ -93,14 +90,15 @@ class GoMage_SeoBooster_Helper_Data extends Mage_Core_Helper_Data
 
     public function canAddTrailingSlash()
     {
-        return $this->isEnabled() &&  Mage::getStoreConfig('gomage_seobooster/general/add_trailing_slash');
+        return $this->isEnabled() && Mage::getStoreConfig('gomage_seobooster/general/add_trailing_slash');
     }
 
     public function addTrailingSlash($routePath)
     {
         if ($this->canAddTrailingSlash()) {
             if ((preg_match('/\.[a-z]{2,4}$/', $routePath) === 0)
-                && (substr($routePath, -1, 1) !== '/')) {
+                && (substr($routePath, -1, 1) !== '/')
+            ) {
                 return $routePath . '/';
             }
         }
@@ -116,7 +114,7 @@ class GoMage_SeoBooster_Helper_Data extends Mage_Core_Helper_Data
     public function canUseProductReviewsUrlRewrite()
     {
         return $this->isEnabled() &&
-            Mage::getStoreConfig('gomage_seobooster/url_rewrite/enable_product_review_url_rewrite');
+        Mage::getStoreConfig('gomage_seobooster/url_rewrite/enable_product_review_url_rewrite');
     }
 
     /**
@@ -222,8 +220,8 @@ class GoMage_SeoBooster_Helper_Data extends Mage_Core_Helper_Data
 
     protected function _getConfigurableProductMaxPrice(Mage_Catalog_Model_Product $product)
     {
-        $productPrice = $product->getFinalPrice();
-        $attributes = $product->getTypeInstance()->getConfigurableAttributes($product);
+        $productPrice    = $product->getFinalPrice();
+        $attributes      = $product->getTypeInstance()->getConfigurableAttributes($product);
         $attributesPrice = 0.0;
         foreach ($attributes as $attribute) {
             $attributeMaxPrice = 0.0;
@@ -237,7 +235,7 @@ class GoMage_SeoBooster_Helper_Data extends Mage_Core_Helper_Data
                     $attributeMaxPrice = max($attributeMaxPrice, $priceValue);
                 }
             }
-            $attributesPrice+=$attributeMaxPrice;
+            $attributesPrice += $attributeMaxPrice;
         }
 
         $productPrice += $attributesPrice;
@@ -248,8 +246,8 @@ class GoMage_SeoBooster_Helper_Data extends Mage_Core_Helper_Data
     {
 
         if ($product->getTypeId() == Mage_Catalog_Model_Product_Type_Grouped::TYPE_CODE) {
-            $maxPrice = 0.0;
-            $minPrice = $product->getMinimalPrice();
+            $maxPrice           = 0.0;
+            $minPrice           = $product->getMinimalPrice();
             $associatedProducts = $product->getTypeInstance()->getAssociatedProducts($product);
 
             foreach ($associatedProducts as $_product) {
@@ -262,4 +260,190 @@ class GoMage_SeoBooster_Helper_Data extends Mage_Core_Helper_Data
 
         return new Varien_Object();
     }
+
+    public function ga()
+    {
+        return Zend_Json::decode(base64_decode(Mage::helper('core')->decrypt(Mage::getStoreConfig('gomage_activation/seobooster/ar'))));
+    }
+
+    public function getAvailableWebsites()
+    {
+        return $this->_w();
+    }
+
+    protected function _w()
+    {
+        if (!Mage::getStoreConfig('gomage_activation/seobooster/installed') ||
+            (intval(Mage::getStoreConfig('gomage_activation/seobooster/count')) > 10)
+        ) {
+            return array();
+        }
+
+        $time_to_update = 60 * 60 * 24 * 15;
+
+        $r = Mage::getStoreConfig('gomage_activation/seobooster/ar');
+        $t = Mage::getStoreConfig('gomage_activation/seobooster/time');
+        $s = Mage::getStoreConfig('gomage_activation/seobooster/websites');
+
+        $last_check = str_replace($r, '', Mage::helper('core')->decrypt($t));
+
+        $allsites = explode(',', str_replace($r, '', Mage::helper('core')->decrypt($s)));
+        $allsites = array_diff($allsites, array(""));
+
+        if (($last_check + $time_to_update) < time()) {
+            $this->a(Mage::getStoreConfig('gomage_activation/seobooster/key'),
+                intval(Mage::getStoreConfig('gomage_activation/seobooster/count')),
+                implode(',', $allsites)
+            );
+        }
+
+        return $allsites;
+
+    }
+
+    public function a($k, $c = 0, $s = '')
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, sprintf('https://www.gomage.com/index.php/gomage_downloadable/key/check'));
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, 'key=' . urlencode($k) . '&sku=seo-booster&domains=' . urlencode(implode(',', $this->getAllStoreDomains())) . '&ver=' . urlencode('1.0'));
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+
+        $content = curl_exec($ch);
+
+        $r = Zend_Json::decode($content);
+        $e = Mage::helper('core');
+        if (empty($r)) {
+
+            $value1 = Mage::getStoreConfig('gomage_activation/seobooster/ar');
+
+            $groups = array(
+                'seobooster' => array(
+                    'fields' => array(
+                        'ar'       => array(
+                            'value' => $value1
+                        ),
+                        'websites' => array(
+                            'value' => (string)Mage::getStoreConfig('gomage_activation/seobooster/websites')
+                        ),
+                        'time'     => array(
+                            'value' => (string)$e->encrypt($value1 . (time() - (60 * 60 * 24 * 15 - 1800)) . $value1)
+                        ),
+                        'count'    => array(
+                            'value' => $c + 1)
+                    )
+                )
+            );
+
+            Mage::getModel('adminhtml/config_data')
+                ->setSection('gomage_activation')
+                ->setGroups($groups)
+                ->save();
+
+            Mage::getConfig()->reinit();
+            Mage::app()->reinitStores();
+
+            return;
+        }
+
+        $value1 = '';
+        $value2 = '';
+
+        if (isset($r['d']) && isset($r['c'])) {
+            $value1 = $e->encrypt(base64_encode(Zend_Json::encode($r)));
+
+
+            if (!$s) {
+                $s = Mage::getStoreConfig('gomage_activation/seobooster/websites');
+            }
+
+            $s = array_slice(explode(',', $s), 0, $r['c']);
+
+            $value2 = $e->encrypt($value1 . implode(',', $s) . $value1);
+
+        }
+        $groups = array(
+            'seobooster' => array(
+                'fields' => array(
+                    'ar'        => array(
+                        'value' => $value1
+                    ),
+                    'websites'  => array(
+                        'value' => (string)$value2
+                    ),
+                    'time'      => array(
+                        'value' => (string)$e->encrypt($value1 . time() . $value1)
+                    ),
+                    'installed' => array(
+                        'value' => 1
+                    ),
+                    'count'     => array(
+                        'value' => 0)
+
+                )
+            )
+        );
+
+        Mage::getModel('adminhtml/config_data')
+            ->setSection('gomage_activation')
+            ->setGroups($groups)
+            ->save();
+
+        Mage::getConfig()->reinit();
+        Mage::app()->reinitStores();
+
+    }
+
+    public function notify()
+    {
+        $frequency = intval(Mage::app()->loadCache('gomage_notifications_frequency'));
+        if (!$frequency) {
+            $frequency = 24;
+        }
+        $last_update = intval(Mage::app()->loadCache('gomage_notifications_last_update'));
+
+        if (($frequency * 60 * 60 + $last_update) > time()) {
+            return false;
+        }
+
+        $timestamp = $last_update;
+        if (!$timestamp) {
+            $timestamp = time();
+        }
+
+        try {
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, sprintf('https://www.gomage.com/index.php/gomage_notification/index/data'));
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, 'sku=seo-booster&timestamp=' . $timestamp . '&ver=' . urlencode('1.0'));
+            curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+
+            $content = curl_exec($ch);
+
+            $result = Zend_Json::decode($content);
+
+            if ($result && isset($result['frequency']) && ($result['frequency'] != $frequency)) {
+                Mage::app()->saveCache($result['frequency'], 'gomage_notifications_frequency');
+            }
+
+            if ($result && isset($result['data'])) {
+                if (!empty($result['data'])) {
+                    Mage::getModel('adminnotification/inbox')->parse($result['data']);
+                }
+            }
+        } catch (Exception $e) {
+        }
+
+        Mage::app()->saveCache(time(), 'gomage_notifications_last_update');
+
+    }
+
 }
