@@ -3,7 +3,7 @@
  * GoMage Seo Booster Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2013 GoMage (http://www.gomage.com)
+ * @copyright    Copyright (c) 2013-2014 GoMage (http://www.gomage.com)
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use/
@@ -11,15 +11,6 @@
  * @since        Available since Release 1.0.0
  */
 
-/**
- * Website element renderer
- *
- *
- * @category   GoMage
- * @package    GoMage_SeoBooster
- * @subpackage Block
- * @author     Roman Bublik <rb@gomage.com>
- */
 class GoMage_SeoBooster_Block_Adminhtml_Config_Form_Renderer_Website
     extends Mage_Adminhtml_Block_System_Config_Form_Field
 {

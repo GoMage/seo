@@ -3,7 +3,7 @@
  * GoMage Seo Booster Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2013 GoMage (http://www.gomage.com)
+ * @copyright    Copyright (c) 2013-2014 GoMage (http://www.gomage.com)
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use/
@@ -11,14 +11,6 @@
  * @since        Available since Release 1.0.0
  */
 
-/**
- * Canonical product url type source model
- *
- * @category   GoMage
- * @package    GoMage_SeoBooster
- * @subpackage Model
- * @author     Roman Bublik <rb@gomage.com>
- */
 class GoMage_SeoBooster_Model_Config_Source_Canonical_Catalog_Product_Type
     extends Mage_Eav_Model_Entity_Attribute_Source_Abstract
 {
