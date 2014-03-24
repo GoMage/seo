@@ -42,7 +42,7 @@ abstract class GoMage_SeoBooster_Helper_Opengraph_Abstract extends Mage_Core_Hel
     public function canAddOpengraphMetaData()
     {
         return Mage::helper('gomage_seobooster')->isEnabled() &&
-            Mage::getStoreConfig('gomage_seobooster/general/enable_opengraph_metadata');
+        Mage::getStoreConfig('gomage_seobooster/general/enable_opengraph_metadata');
     }
 
     /**
@@ -59,17 +59,17 @@ abstract class GoMage_SeoBooster_Helper_Opengraph_Abstract extends Mage_Core_Hel
 
         if ($entity && $entity->getId() && isset($ogMetaBlock)) {
             if ($title = $entity->getName()) {
-                $ogMetaBlock->addItem('og:title', strip_tags($title));
+                $ogMetaBlock->addItem('og:title', addslashes(strip_tags($title)));
             }
             if ($description = $entity->getDescription()) {
-                $ogMetaBlock->addItem('og:description', strip_tags($description));
+                $ogMetaBlock->addItem('og:description', addslashes(strip_tags($description)));
             }
             if ($url = $this->getCanonicalUrl()) {
                 $ogMetaBlock->addItem('og:url', $url);
             }
 
             if ($storeName = $this->_getStoreName()) {
-                $ogMetaBlock->addItem('og:site_name', $storeName);
+                $ogMetaBlock->addItem('og:site_name', addslashes($storeName));
             }
 
             $ogMetaBlock->addItem('og:type', 'website');
@@ -109,9 +109,11 @@ abstract class GoMage_SeoBooster_Helper_Opengraph_Abstract extends Mage_Core_Hel
                 $ogMetaBlock->addItem('og:image:type', $image['type']);
                 $ogMetaBlock->addItem('og:image:width', $image['width']);
                 $ogMetaBlock->addItem('og:image:height', $image['height']);
-            } else if (is_string($image)) {
-                $ogMetaBlock->addItem('og:image', $image);
-                $ogMetaBlock->addItem('og:image:url', $image);
+            } else {
+                if (is_string($image)) {
+                    $ogMetaBlock->addItem('og:image', $image);
+                    $ogMetaBlock->addItem('og:image:url', $image);
+                }
             }
         }
     }
@@ -142,12 +144,12 @@ abstract class GoMage_SeoBooster_Helper_Opengraph_Abstract extends Mage_Core_Hel
 
     public function getStoresLocale()
     {
-        $locales = array();
+        $locales        = array();
         $currentStoreId = Mage::app()->getStore()->getId();
-        $stores = Mage::app()->getStores();
+        $stores         = Mage::app()->getStores();
         foreach ($stores as $store) {
             if ($store->getId() != $currentStoreId) {
-                $locale = $this->getStoreLocale($store->getId());
+                $locale           = $this->getStoreLocale($store->getId());
                 $locales[$locale] = $locale;
             }
         }
@@ -158,8 +160,8 @@ abstract class GoMage_SeoBooster_Helper_Opengraph_Abstract extends Mage_Core_Hel
     protected function _getImageInfo($_image, $entity)
     {
         $imageFile = is_string($_image) ? $_image : $_image->getFile();
-        $baseDir = Mage::getSingleton('catalog/product_media_config')->getBaseMediaPath();
-        $image = Mage::helper('catalog/image')->init($entity, 'image', $imageFile);
+        $baseDir   = Mage::getSingleton('catalog/product_media_config')->getBaseMediaPath();
+        $image     = Mage::helper('catalog/image')->init($entity, 'image', $imageFile);
 
         if (($imageFile) && (0 !== strpos($imageFile, '/', 0))) {
             $imageFile = '/' . $imageFile;
