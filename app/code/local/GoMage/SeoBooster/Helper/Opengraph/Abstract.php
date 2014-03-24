@@ -106,6 +106,9 @@ abstract class GoMage_SeoBooster_Helper_Opengraph_Abstract extends Mage_Core_Hel
             if (is_array($image)) {
                 $ogMetaBlock->addItem('og:image', $image['image']);
                 $ogMetaBlock->addItem('og:image:url', $image['image']);
+                if (isset($image['image_secure']) && $image['image'] != $image['image_secure']) {
+                    $ogMetaBlock->addItem('og:image:secure_url', $image['image_secure']);
+                }
                 $ogMetaBlock->addItem('og:image:type', $image['type']);
                 $ogMetaBlock->addItem('og:image:width', $image['width']);
                 $ogMetaBlock->addItem('og:image:height', $image['height']);
@@ -168,11 +171,19 @@ abstract class GoMage_SeoBooster_Helper_Opengraph_Abstract extends Mage_Core_Hel
         }
         $imageFile = $baseDir . $imageFile;
 
+        $image_url      = $image_url_secure = $image->__toString();
+        $media_unsecure = Mage::getBaseUrl('media');
+        $media_secure   = Mage::getBaseUrl('media', true);
+        if ($media_unsecure != $media_secure) {
+            $image_url_secure = str_replace($media_unsecure, $media_secure, $image_url_secure);
+        }
+
         return array(
-            'image'  => $image->__toString(),
-            'width'  => $image->getOriginalHeight(),
-            'height' => $image->getOriginalWidth(),
-            'type'   => mime_content_type($imageFile)
+            'image'        => $image_url,
+            'image_secure' => $image_url_secure,
+            'width'        => $image->getOriginalHeight(),
+            'height'       => $image->getOriginalWidth(),
+            'type'         => mime_content_type($imageFile)
         );
     }
 }

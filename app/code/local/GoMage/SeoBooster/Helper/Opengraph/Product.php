@@ -60,8 +60,8 @@ class GoMage_SeoBooster_Helper_Opengraph_Product extends GoMage_SeoBooster_Helpe
      */
     public function getImages()
     {
-        $product  = $this->getEntity();
-        $images = array();
+        $product          = $this->getEntity();
+        $images           = array();
         $imagesCollection = $product->getMediaGalleryImages();
 
         foreach ($imagesCollection as $_image) {
@@ -83,6 +83,9 @@ class GoMage_SeoBooster_Helper_Opengraph_Product extends GoMage_SeoBooster_Helpe
         foreach ($images as $image) {
             $ogMetaBlock->addItem('og:image', $image['image']);
             $ogMetaBlock->addItem('og:image:url', $image['image']);
+            if (isset($image['image_secure']) && $image['image'] != $image['image_secure']) {
+                $ogMetaBlock->addItem('og:image:secure_url', $image['image_secure']);
+            }
             $ogMetaBlock->addItem('og:image:type', $image['type']);
             $ogMetaBlock->addItem('og:image:width', $image['width']);
             $ogMetaBlock->addItem('og:image:height', $image['height']);
