@@ -252,6 +252,24 @@ class GoMage_SeoBooster_Helper_Data extends Mage_Core_Helper_Data
         return new Varien_Object();
     }
 
+    public function getAllStoreDomains()
+    {
+        $domains = array();
+        foreach (Mage::app()->getWebsites() as $website) {
+            $url = $website->getConfig('web/unsecure/base_url');
+            if ($domain = trim(preg_replace('/^.*?\\/\\/(.*)?\\//', '$1', $url))) {
+                $domains[] = $domain;
+            }
+            $url = $website->getConfig('web/secure/base_url');
+
+            if ($domain = trim(preg_replace('/^.*?\\/\\/(.*)?\\//', '$1', $url))) {
+                $domains[] = $domain;
+            }
+        }
+
+        return array_unique($domains);
+    }
+
     public function ga()
     {
         return Zend_Json::decode(base64_decode(Mage::helper('core')->decrypt(Mage::getStoreConfig('gomage_activation/seobooster/ar'))));
