@@ -13,6 +13,11 @@
  */
 -->
 <config>
+    <modules>
+        <GoMage_SeoBooster>
+            <version>1.0.0</version>
+        </GoMage_SeoBooster>
+    </modules>
     <global>
         <blocks>
             <gomage_seobooster>
@@ -298,10 +303,5 @@
             </extended_settings>
         </sitemap>
     </default>
-    <modules>
-        <GoMage_SeoBooster>
-            <version>1.0.12</version>
-        </GoMage_SeoBooster>
-    </modules>
 </config>
 
