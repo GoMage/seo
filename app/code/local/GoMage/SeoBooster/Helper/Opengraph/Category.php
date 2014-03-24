@@ -46,10 +46,31 @@ class GoMage_SeoBooster_Helper_Opengraph_Category extends GoMage_SeoBooster_Help
     public function getImage()
     {
         $entity = $this->getEntity();
-        if ($entity && $entity->getId()) {
-            return $entity->getImageUrl();
+        if ($entity && $entity->getId() && $entity->getImage()) {
+            return $this->_getImageInfo($entity->getImage());
         }
 
         return '';
     }
+
+    protected function _getImageInfo($_image)
+    {
+        $imageFile = is_string($_image) ? $_image : $_image->getFile();
+        $baseDir   = Mage::getBaseDir('media') . DS . 'catalog' . DS . 'category';
+
+        $imagePath = $baseDir . DS . $imageFile;
+        $processor = new Varien_Image($imagePath);
+
+        $image_url        = Mage::getBaseUrl('media') . 'catalog/category/' . $imageFile;
+        $image_url_secure = Mage::getBaseUrl('media', true) . 'catalog/category/' . $imageFile;
+
+        return array(
+            'image'        => $image_url,
+            'image_secure' => $image_url_secure,
+            'width'        => $processor->getOriginalHeight(),
+            'height'       => $processor->getOriginalWidth(),
+            'type'         => mime_content_type($imagePath)
+        );
+    }
+
 }

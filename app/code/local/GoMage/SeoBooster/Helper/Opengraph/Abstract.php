@@ -30,7 +30,7 @@ abstract class GoMage_SeoBooster_Helper_Opengraph_Abstract extends Mage_Core_Hel
     /**
      * Return entity image url
      *
-     * @return string
+     * @return string|array
      */
     abstract public function getImage();
 
@@ -160,30 +160,4 @@ abstract class GoMage_SeoBooster_Helper_Opengraph_Abstract extends Mage_Core_Hel
         return $locales;
     }
 
-    protected function _getImageInfo($_image, $entity)
-    {
-        $imageFile = is_string($_image) ? $_image : $_image->getFile();
-        $baseDir   = Mage::getSingleton('catalog/product_media_config')->getBaseMediaPath();
-        $image     = Mage::helper('catalog/image')->init($entity, 'image', $imageFile);
-
-        if (($imageFile) && (0 !== strpos($imageFile, '/', 0))) {
-            $imageFile = '/' . $imageFile;
-        }
-        $imageFile = $baseDir . $imageFile;
-
-        $image_url      = $image_url_secure = $image->__toString();
-        $media_unsecure = Mage::getBaseUrl('media');
-        $media_secure   = Mage::getBaseUrl('media', true);
-        if ($media_unsecure != $media_secure) {
-            $image_url_secure = str_replace($media_unsecure, $media_secure, $image_url_secure);
-        }
-
-        return array(
-            'image'        => $image_url,
-            'image_secure' => $image_url_secure,
-            'width'        => $image->getOriginalHeight(),
-            'height'       => $image->getOriginalWidth(),
-            'type'         => mime_content_type($imageFile)
-        );
-    }
 }
