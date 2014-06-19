@@ -134,7 +134,6 @@
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
-                    <expanded>1</expanded>
                     <fields>
                         <enabled translate="label comment">
                             <label>Enable SEO Booster</label>
@@ -225,7 +224,6 @@
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
-                    <expanded>1</expanded>
                     <fields>
                         <url_rewrite_path_notice>
                             <label>Notice</label>
@@ -368,7 +366,6 @@
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
-                    <expanded>1</expanded>
                     <fields>
                         <min_name_symbols>
                             <label>Minimum Name Symbols</label>
