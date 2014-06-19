@@ -13,604 +13,604 @@
  */
  -->
 <config>
-   <tabs>
-      <gomage translate="label">
-         <label>GoMage</label>
-         <sort_order>200</sort_order>
-      </gomage>
-   </tabs>
-   <sections>
-       <gomage_activation>
-           <label>Activation</label>
-           <tab>gomage</tab>
-           <frontend_type>text</frontend_type>
-           <sort_order>1000</sort_order>
-           <show_in_default>1</show_in_default>
-           <show_in_website>1</show_in_website>
-           <show_in_store>1</show_in_store>
-           <groups>
-               <seobooster translate="label">
-                   <label>GoMage Seo Booster v.1.0</label>
-                   <frontend_type>text</frontend_type>
-                   <sort_order>20</sort_order>
-                   <show_in_default>1</show_in_default>
-                   <show_in_website>1</show_in_website>
-                   <show_in_store>1</show_in_store>
-                   <fields>
-                       <key>
-                           <label>Activation Key</label>
-                           <frontend_type>text</frontend_type>
-                           <sort_order>5</sort_order>
-                           <show_in_default>1</show_in_default>
-                           <show_in_website>0</show_in_website>
-                           <show_in_store>0</show_in_store>
-                       </key>
-                       <websites translate="label">
-                           <label>Select Websites</label>
-                           <frontend_type>checkbox</frontend_type>
-                           <source_model>adminhtml/system_config_source_website</source_model>
-                           <frontend_model>gomage_seobooster/adminhtml_config_form_renderer_website</frontend_model>
-                           <sort_order>20</sort_order>
-                           <show_in_default>1</show_in_default>
-                           <show_in_website>0</show_in_website>
-                           <show_in_store>0</show_in_store>
-                       </websites>
-                       <ar>
-                           <frontend_type>hidden</frontend_type>
-                           <sort_order>25</sort_order>
-                           <show_in_default>0</show_in_default>
-                           <show_in_website>0</show_in_website>
-                           <show_in_store>0</show_in_store>
-                       </ar>
-                       <time>
-                           <frontend_type>hidden</frontend_type>
-                           <sort_order>25</sort_order>
-                           <show_in_default>0</show_in_default>
-                           <show_in_website>0</show_in_website>
-                           <show_in_store>0</show_in_store>
-                       </time>
-                       <installed>
-                           <frontend_type>hidden</frontend_type>
-                           <sort_order>25</sort_order>
-                           <show_in_default>0</show_in_default>
-                           <show_in_website>0</show_in_website>
-                           <show_in_store>0</show_in_store>
-                       </installed>
-                       <count>
-                           <frontend_type>hidden</frontend_type>
-                           <sort_order>25</sort_order>
-                           <show_in_default>0</show_in_default>
-                           <show_in_website>0</show_in_website>
-                           <show_in_store>0</show_in_store>
-                       </count>
-                   </fields>
-               </seobooster>
-           </groups>
-       </gomage_activation>
-       <gomage_notification>
-           <label>Notifications</label>
-           <tab>gomage</tab>
-           <frontend_type>text</frontend_type>
-           <sort_order>1100</sort_order>
-           <show_in_default>1</show_in_default>
-           <show_in_website>0</show_in_website>
-           <show_in_store>0</show_in_store>
-           <groups>
-               <notification>
-                   <label>Notifications</label>
-                   <frontend_type>text</frontend_type>
-                   <sort_order>10</sort_order>
-                   <show_in_default>1</show_in_default>
-                   <show_in_website>0</show_in_website>
-                   <show_in_store>0</show_in_store>
-                   <fields>
-                       <enable>
-                           <label>I'd like to get advertising by GoMage</label>
-                           <frontend_type>select</frontend_type>
-                           <source_model>adminhtml/system_config_source_yesno</source_model>
-                           <sort_order>10</sort_order>
-                           <show_in_default>1</show_in_default>
-                           <show_in_website>0</show_in_website>
-                           <show_in_store>0</show_in_store>
-                       </enable>
-                   </fields>
-               </notification>
-           </groups>
-      </gomage_notification>
-      <gomage_seobooster>
-        <label>SEO Booster</label>
-        <tab>gomage</tab>
-        <frontend_type>text</frontend_type>
-        <sort_order>300</sort_order>
-        <show_in_default>1</show_in_default>
-        <show_in_website>1</show_in_website>
-        <show_in_store>1</show_in_store>
-        <groups>
-          <general translate="label">
-            <label>General</label>
+    <tabs>
+        <gomage translate="label">
+            <label>GoMage</label>
+            <sort_order>200</sort_order>
+        </gomage>
+    </tabs>
+    <sections>
+        <gomage_activation>
+            <label>Activation</label>
+            <tab>gomage</tab>
             <frontend_type>text</frontend_type>
-            <frontend_model>gomage_seobooster/adminhtml_system_config_fieldset_help</frontend_model>
-            <sort_order>10</sort_order>
+            <sort_order>1000</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
             <show_in_store>1</show_in_store>
-            <expanded>1</expanded>
-            <fields>
-                <enabled translate="label comment">
-                    <label>Enable SEO Booster</label>
-                    <frontend_type>select</frontend_type>
-                    <source_model>adminhtml/system_config_source_enabledisable</source_model>
-                    <frontend_model>gomage_seobooster/adminhtml_config_form_renderer_enabledisable</frontend_model>
-                    <sort_order>1</sort_order>
+            <groups>
+                <seobooster translate="label">
+                    <label>GoMage Seo Booster v.1.0</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
-                </enabled>
-                <enable_canonical_url>
-                  <label>Add Canonical URL Meta Header</label>
-                  <frontend_type>select</frontend_type>
-                  <source_model>gomage_seobooster/config_source_canonical</source_model>
-                  <sort_order>2</sort_order>
-                  <show_in_default>1</show_in_default>
-                  <show_in_website>1</show_in_website>
-                  <show_in_store>1</show_in_store>
-                </enable_canonical_url>
-                <cross_domain_canonical_url>
-                    <label>Cross-Domain Canonical URL</label>
-                    <frontend_type>select</frontend_type>
-                    <source_model>gomage_seobooster/config_source_storeurl</source_model>
-                    <sort_order>3</sort_order>
+                    <fields>
+                        <key>
+                            <label>Activation Key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </key>
+                        <websites translate="label">
+                            <label>Select Websites</label>
+                            <frontend_type>checkbox</frontend_type>
+                            <source_model>adminhtml/system_config_source_website</source_model>
+                            <frontend_model>gomage_seobooster/adminhtml_config_form_renderer_website</frontend_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </websites>
+                        <ar>
+                            <frontend_type>hidden</frontend_type>
+                            <sort_order>25</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </ar>
+                        <time>
+                            <frontend_type>hidden</frontend_type>
+                            <sort_order>25</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </time>
+                        <installed>
+                            <frontend_type>hidden</frontend_type>
+                            <sort_order>25</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </installed>
+                        <count>
+                            <frontend_type>hidden</frontend_type>
+                            <sort_order>25</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </count>
+                    </fields>
+                </seobooster>
+            </groups>
+        </gomage_activation>
+        <gomage_notification>
+            <label>Notifications</label>
+            <tab>gomage</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>1100</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>0</show_in_website>
+            <show_in_store>0</show_in_store>
+            <groups>
+                <notification>
+                    <label>Notifications</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <enable>
+                            <label>I'd like to get advertising by GoMage</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </enable>
+                    </fields>
+                </notification>
+            </groups>
+        </gomage_notification>
+        <gomage_seobooster>
+            <label>SEO Booster</label>
+            <tab>gomage</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>300</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general translate="label">
+                    <label>General</label>
+                    <frontend_type>text</frontend_type>
+                    <frontend_model>gomage_seobooster/adminhtml_system_config_fieldset_help</frontend_model>
+                    <sort_order>10</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
-                    <depends>
-                        <enable_canonical_url>multiple-1-2-3</enable_canonical_url>
-                    </depends>
-                </cross_domain_canonical_url>
-                <product_canonical_url>
-                    <label>Product Canonical URL</label>
-                    <frontend_type>select</frontend_type>
-                    <source_model>gomage_seobooster/config_source_canonical_type</source_model>
-                    <sort_order>4</sort_order>
+                    <expanded>1</expanded>
+                    <fields>
+                        <enabled translate="label comment">
+                            <label>Enable SEO Booster</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <frontend_model>gomage_seobooster/adminhtml_config_form_renderer_enabledisable
+                            </frontend_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+                        <enable_canonical_url>
+                            <label>Add Canonical URL Meta Header</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>gomage_seobooster/config_source_canonical</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable_canonical_url>
+                        <cross_domain_canonical_url>
+                            <label>Cross-Domain Canonical URL</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>gomage_seobooster/config_source_storeurl</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable_canonical_url>multiple-1-2-3</enable_canonical_url>
+                            </depends>
+                        </cross_domain_canonical_url>
+                        <product_canonical_url>
+                            <label>Product Canonical URL</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>gomage_seobooster/config_source_canonical_type</source_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable_canonical_url>multiple-1-3</enable_canonical_url>
+                            </depends>
+                        </product_canonical_url>
+                        <add_trailing_slash>
+                            <label>Add Trailing Slash</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </add_trailing_slash>
+                        <enable_next_prev_link_rel>
+                            <label>Enable Link Rel</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable_next_prev_link_rel>
+                        <enable_opengraph_metadata>
+                            <label>Enable Open Graph Protocol</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable_opengraph_metadata>
+                        <enable_rich_snippets>
+                            <label>Enable Rich Snippets</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable_rich_snippets>
+                    </fields>
+                </general>
+                <url_rewrite>
+                    <label>URL Rewrite Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
-                    <depends>
-                        <enable_canonical_url>multiple-1-3</enable_canonical_url>
-                    </depends>
-                </product_canonical_url>
-                <add_trailing_slash>
-                    <label>Add Trailing Slash</label>
-                    <frontend_type>select</frontend_type>
-                    <source_model>adminhtml/system_config_source_yesno</source_model>
-                    <sort_order>5</sort_order>
+                    <expanded>1</expanded>
+                    <fields>
+                        <url_rewrite_path_notice>
+                            <label>Notice</label>
+                            <frontend_model>gomage_seobooster/adminhtml_config_form_renderer_notice</frontend_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </url_rewrite_path_notice>
+                        <enable_layered_url_rewrite>
+                            <label>Enable Layered Navigation URL Rewrite</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable_layered_url_rewrite>
+                        <layered_friendly_urls>
+                            <label>Use Layered Navigation Friendly URLs</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable_layered_url_rewrite>1</enable_layered_url_rewrite>
+                            </depends>
+                        </layered_friendly_urls>
+                        <layered_separator>
+                            <label>Layered Navigation Separator</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>gomage_seobooster/config_source_layered_separator</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable_layered_url_rewrite>1</enable_layered_url_rewrite>
+                            </depends>
+                        </layered_separator>
+                        <enable_layered_rewrite_path>
+                            <label>Enable Layered Navigation Rewrite Path</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable_layered_url_rewrite>1</enable_layered_url_rewrite>
+                            </depends>
+                        </enable_layered_rewrite_path>
+                        <layered_rewrite_path>
+                            <label>Layered Navigation Rewrite Path</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
+                            <depends>
+                                <enable_layered_rewrite_path>1</enable_layered_rewrite_path>
+                                <enable_layered_url_rewrite>1</enable_layered_url_rewrite>
+                            </depends>
+                        </layered_rewrite_path>
+                        <enable_product_review_url_rewrite>
+                            <label>Enable Product Reviews URL Rewrite</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable_product_review_url_rewrite>
+                        <product_review_rewrite_path>
+                            <label>Review Rewrite Path</label>
+                            <frontend_type>text</frontend_type>
+                            <backend_model>gomage_seobooster/config_backend_review_rewrite</backend_model>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
+                            <depends>
+                                <enable_product_review_url_rewrite>1</enable_product_review_url_rewrite>
+                            </depends>
+                        </product_review_rewrite_path>
+                        <enable_tag_url_rewrite>
+                            <label>Enable Product Tags URL Rewrite</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable_tag_url_rewrite>
+                        <tag_url_rewrite_path>
+                            <label>Tags Rewrite Path</label>
+                            <frontend_type>text</frontend_type>
+                            <backend_model>gomage_seobooster/config_backend_tag_rewrite</backend_model>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
+                            <depends>
+                                <enable_tag_url_rewrite>1</enable_tag_url_rewrite>
+                            </depends>
+                        </tag_url_rewrite_path>
+                        <enable_rss_url_rewrite>
+                            <label>Enable RSS URL Rewrite</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable_rss_url_rewrite>
+                        <rss_url_rewrite_path>
+                            <label>RSS Rewrite Path</label>
+                            <frontend_type>text</frontend_type>
+                            <backend_model>gomage_seobooster/config_backend_rss_rewrite</backend_model>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
+                            <depends>
+                                <enable_rss_url_rewrite>1</enable_rss_url_rewrite>
+                            </depends>
+                        </rss_url_rewrite_path>
+                    </fields>
+                </url_rewrite>
+                <seo_analyzer>
+                    <label>SEO Analyzer</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>30</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
-                </add_trailing_slash>
-                <enable_next_prev_link_rel>
-                    <label>Enable Link Rel</label>
-                    <frontend_type>select</frontend_type>
-                    <source_model>adminhtml/system_config_source_enabledisable</source_model>
-                    <sort_order>6</sort_order>
+                    <expanded>1</expanded>
+                    <fields>
+                        <min_name_symbols>
+                            <label>Minimum Name Symbols</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
+                        </min_name_symbols>
+                        <name_symbols_limit>
+                            <label>Name Symbols Limit</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
+                        </name_symbols_limit>
+                        <min_desctiption_symbols>
+                            <label>Minimum Description Symbols</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
+                        </min_desctiption_symbols>
+                        <description_limit>
+                            <label>Description Symbols Limit</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
+                        </description_limit>
+                        <min_meta_title_symbols>
+                            <label>Minimum Meta Title Symbols</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
+                        </min_meta_title_symbols>
+                        <meta_title_limit>
+                            <label>Meta Title Symbols Limit</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
+                        </meta_title_limit>
+                        <min_meta_description_symbols>
+                            <label>Minimum Meta Description Symbols</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
+                        </min_meta_description_symbols>
+                        <meta_description_limit>
+                            <label>Meta Description Symbols Limit</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
+                        </meta_description_limit>
+                        <min_meta_keywords_qty>
+                            <label>Minimum Meta Keywords Qty</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
+                        </min_meta_keywords_qty>
+                        <keywords_qty_limit>
+                            <label>Meta Keywords Qty Limit</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>required-entry</validate>
+                        </keywords_qty_limit>
+                    </fields>
+                </seo_analyzer>
+            </groups>
+        </gomage_seobooster>
+        <sitemap>
+            <groups>
+                <extended_settings translate="label">
+                    <label>Extended Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <frontend_model>gomage_seobooster/adminhtml_system_config_fieldset_help</frontend_model>
+                    <sort_order>60</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
-                </enable_next_prev_link_rel>
-                <enable_opengraph_metadata>
-                    <label>Enable Open Graph Protocol</label>
-                    <frontend_type>select</frontend_type>
-                    <source_model>adminhtml/system_config_source_enabledisable</source_model>
-                    <sort_order>7</sort_order>
-                    <show_in_default>1</show_in_default>
-                    <show_in_website>1</show_in_website>
-                    <show_in_store>1</show_in_store>
-                </enable_opengraph_metadata>
-                <enable_rich_snippets>
-                    <label>Enable Rich Snippets</label>
-                    <frontend_type>select</frontend_type>
-                    <source_model>adminhtml/system_config_source_enabledisable</source_model>
-                    <sort_order>8</sort_order>
-                    <show_in_default>1</show_in_default>
-                    <show_in_website>1</show_in_website>
-                    <show_in_store>1</show_in_store>
-                </enable_rich_snippets>
-            </fields>
-          </general>
-          <url_rewrite>
-              <label>URL Rewrite Settings</label>
-              <frontend_type>text</frontend_type>
-              <frontend_model>gomage_seobooster/adminhtml_system_config_fieldset_help</frontend_model>
-              <sort_order>20</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-              <expanded>1</expanded>
-              <fields>
-                <url_rewrite_path_notice>
-                    <label>Notice</label>
-                    <frontend_model>gomage_seobooster/adminhtml_config_form_renderer_notice</frontend_model>
-                    <sort_order>0</sort_order>
-                    <show_in_default>1</show_in_default>
-                    <show_in_website>1</show_in_website>
-                    <show_in_store>1</show_in_store>
-                </url_rewrite_path_notice>
-                <enable_layered_url_rewrite>
-                    <label>Enable Layered Navigation URL Rewrite</label>
-                    <frontend_type>select</frontend_type>
-                    <source_model>adminhtml/system_config_source_enabledisable</source_model>
-                    <sort_order>1</sort_order>
-                    <show_in_default>1</show_in_default>
-                    <show_in_website>1</show_in_website>
-                    <show_in_store>1</show_in_store>
-                </enable_layered_url_rewrite>
-                  <layered_friendly_urls>
-                      <label>Use Layered Navigation Friendly URLs</label>
-                      <frontend_type>select</frontend_type>
-                      <source_model>adminhtml/system_config_source_yesno</source_model>
-                      <sort_order>2</sort_order>
-                      <show_in_default>1</show_in_default>
-                      <show_in_website>1</show_in_website>
-                      <show_in_store>1</show_in_store>
-                      <depends>
-                          <enable_layered_url_rewrite>1</enable_layered_url_rewrite>
-                      </depends>
-                  </layered_friendly_urls>
-                  <layered_separator>
-                      <label>Layered Navigation Separator</label>
-                      <frontend_type>select</frontend_type>
-                      <source_model>gomage_seobooster/config_source_layered_separator</source_model>
-                      <sort_order>3</sort_order>
-                      <show_in_default>1</show_in_default>
-                      <show_in_website>1</show_in_website>
-                      <show_in_store>1</show_in_store>
-                      <depends>
-                          <enable_layered_url_rewrite>1</enable_layered_url_rewrite>
-                      </depends>
-                  </layered_separator>
-                  <enable_layered_rewrite_path>
-                      <label>Enable Layered Navigation Rewrite Path</label>
-                      <frontend_type>select</frontend_type>
-                      <source_model>adminhtml/system_config_source_enabledisable</source_model>
-                      <sort_order>4</sort_order>
-                      <show_in_default>1</show_in_default>
-                      <show_in_website>1</show_in_website>
-                      <show_in_store>1</show_in_store>
-                      <depends>
-                          <enable_layered_url_rewrite>1</enable_layered_url_rewrite>
-                      </depends>
-                  </enable_layered_rewrite_path>
-                  <layered_rewrite_path>
-                      <label>Layered Navigation Rewrite Path</label>
-                      <frontend_type>text</frontend_type>
-                      <sort_order>5</sort_order>
-                      <show_in_default>1</show_in_default>
-                      <show_in_website>1</show_in_website>
-                      <show_in_store>1</show_in_store>
-                      <validate>required-entry</validate>
-                      <depends>
-                          <enable_layered_rewrite_path>1</enable_layered_rewrite_path>
-                          <enable_layered_url_rewrite>1</enable_layered_url_rewrite>
-                      </depends>
-                  </layered_rewrite_path>
-                  <enable_product_review_url_rewrite>
-                      <label>Enable Product Reviews URL Rewrite</label>
-                      <frontend_type>select</frontend_type>
-                      <source_model>adminhtml/system_config_source_enabledisable</source_model>
-                      <sort_order>6</sort_order>
-                      <show_in_default>1</show_in_default>
-                      <show_in_website>1</show_in_website>
-                      <show_in_store>1</show_in_store>
-                  </enable_product_review_url_rewrite>
-                  <product_review_rewrite_path>
-                      <label>Review Rewrite Path</label>
-                      <frontend_type>text</frontend_type>
-                      <backend_model>gomage_seobooster/config_backend_review_rewrite</backend_model>
-                      <sort_order>7</sort_order>
-                      <show_in_default>1</show_in_default>
-                      <show_in_website>1</show_in_website>
-                      <show_in_store>1</show_in_store>
-                      <validate>required-entry</validate>
-                      <depends>
-                          <enable_product_review_url_rewrite>1</enable_product_review_url_rewrite>
-                      </depends>
-                  </product_review_rewrite_path>
-                  <enable_tag_url_rewrite>
-                      <label>Enable Product Tags URL Rewrite</label>
-                      <frontend_type>select</frontend_type>
-                      <source_model>adminhtml/system_config_source_enabledisable</source_model>
-                      <sort_order>8</sort_order>
-                      <show_in_default>1</show_in_default>
-                      <show_in_website>1</show_in_website>
-                      <show_in_store>1</show_in_store>
-                  </enable_tag_url_rewrite>
-                  <tag_url_rewrite_path>
-                      <label>Tags Rewrite Path</label>
-                      <frontend_type>text</frontend_type>
-                      <backend_model>gomage_seobooster/config_backend_tag_rewrite</backend_model>
-                      <sort_order>9</sort_order>
-                      <show_in_default>1</show_in_default>
-                      <show_in_website>1</show_in_website>
-                      <show_in_store>1</show_in_store>
-                      <validate>required-entry</validate>
-                      <depends>
-                          <enable_tag_url_rewrite>1</enable_tag_url_rewrite>
-                      </depends>
-                  </tag_url_rewrite_path>
-                  <enable_rss_url_rewrite>
-                      <label>Enable RSS URL Rewrite</label>
-                      <frontend_type>select</frontend_type>
-                      <source_model>adminhtml/system_config_source_enabledisable</source_model>
-                      <sort_order>10</sort_order>
-                      <show_in_default>1</show_in_default>
-                      <show_in_website>1</show_in_website>
-                      <show_in_store>1</show_in_store>
-                  </enable_rss_url_rewrite>
-                  <rss_url_rewrite_path>
-                      <label>RSS Rewrite Path</label>
-                      <frontend_type>text</frontend_type>
-                      <backend_model>gomage_seobooster/config_backend_rss_rewrite</backend_model>
-                      <sort_order>11</sort_order>
-                      <show_in_default>1</show_in_default>
-                      <show_in_website>1</show_in_website>
-                      <show_in_store>1</show_in_store>
-                      <validate>required-entry</validate>
-                      <depends>
-                          <enable_rss_url_rewrite>1</enable_rss_url_rewrite>
-                      </depends>
-                  </rss_url_rewrite_path>
-              </fields>
-          </url_rewrite>
-          <seo_analyzer>
-              <label>SEO Analyzer</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>30</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-              <expanded>1</expanded>
-              <fields>
-                  <min_name_symbols>
-                      <label>Minimum Name Symbols</label>
-                      <frontend_type>text</frontend_type>
-                      <sort_order>1</sort_order>
-                      <show_in_default>1</show_in_default>
-                      <show_in_website>1</show_in_website>
-                      <show_in_store>1</show_in_store>
-                      <validate>required-entry</validate>
-                  </min_name_symbols>
-                  <name_symbols_limit>
-                      <label>Name Symbols Limit</label>
-                      <frontend_type>text</frontend_type>
-                      <sort_order>2</sort_order>
-                      <show_in_default>1</show_in_default>
-                      <show_in_website>1</show_in_website>
-                      <show_in_store>1</show_in_store>
-                      <validate>required-entry</validate>
-                  </name_symbols_limit>
-                  <min_desctiption_symbols>
-                      <label>Minimum Description Symbols</label>
-                      <frontend_type>text</frontend_type>
-                      <sort_order>3</sort_order>
-                      <show_in_default>1</show_in_default>
-                      <show_in_website>1</show_in_website>
-                      <show_in_store>1</show_in_store>
-                      <validate>required-entry</validate>
-                  </min_desctiption_symbols>
-                  <description_limit>
-                      <label>Description Symbols Limit</label>
-                      <frontend_type>text</frontend_type>
-                      <sort_order>4</sort_order>
-                      <show_in_default>1</show_in_default>
-                      <show_in_website>1</show_in_website>
-                      <show_in_store>1</show_in_store>
-                      <validate>required-entry</validate>
-                  </description_limit>
-                  <min_meta_title_symbols>
-                      <label>Minimum Meta Title Symbols</label>
-                      <frontend_type>text</frontend_type>
-                      <sort_order>5</sort_order>
-                      <show_in_default>1</show_in_default>
-                      <show_in_website>1</show_in_website>
-                      <show_in_store>1</show_in_store>
-                      <validate>required-entry</validate>
-                  </min_meta_title_symbols>
-                  <meta_title_limit>
-                      <label>Meta Title Symbols Limit</label>
-                      <frontend_type>text</frontend_type>
-                      <sort_order>6</sort_order>
-                      <show_in_default>1</show_in_default>
-                      <show_in_website>1</show_in_website>
-                      <show_in_store>1</show_in_store>
-                      <validate>required-entry</validate>
-                  </meta_title_limit>
-                  <min_meta_description_symbols>
-                      <label>Minimum Meta Description Symbols</label>
-                      <frontend_type>text</frontend_type>
-                      <sort_order>7</sort_order>
-                      <show_in_default>1</show_in_default>
-                      <show_in_website>1</show_in_website>
-                      <show_in_store>1</show_in_store>
-                      <validate>required-entry</validate>
-                  </min_meta_description_symbols>
-                  <meta_description_limit>
-                      <label>Meta Description Symbols Limit</label>
-                      <frontend_type>text</frontend_type>
-                      <sort_order>8</sort_order>
-                      <show_in_default>1</show_in_default>
-                      <show_in_website>1</show_in_website>
-                      <show_in_store>1</show_in_store>
-                      <validate>required-entry</validate>
-                  </meta_description_limit>
-                  <min_meta_keywords_qty>
-                      <label>Minimum Meta Keywords Qty</label>
-                      <frontend_type>text</frontend_type>
-                      <sort_order>9</sort_order>
-                      <show_in_default>1</show_in_default>
-                      <show_in_website>1</show_in_website>
-                      <show_in_store>1</show_in_store>
-                      <validate>required-entry</validate>
-                  </min_meta_keywords_qty>
-                  <keywords_qty_limit>
-                      <label>Meta Keywords Qty Limit</label>
-                      <frontend_type>text</frontend_type>
-                      <sort_order>10</sort_order>
-                      <show_in_default>1</show_in_default>
-                      <show_in_website>1</show_in_website>
-                      <show_in_store>1</show_in_store>
-                      <validate>required-entry</validate>
-                  </keywords_qty_limit>
-              </fields>
-          </seo_analyzer>
-        </groups>
-      </gomage_seobooster>
-       <sitemap>
-           <groups>
-               <extended_settings translate="label">
-                   <label>Extended Settings</label>
-                   <frontend_type>text</frontend_type>
-                   <frontend_model>gomage_seobooster/adminhtml_system_config_fieldset_help</frontend_model>
-                   <sort_order>60</sort_order>
-                   <show_in_default>1</show_in_default>
-                   <show_in_website>1</show_in_website>
-                   <show_in_store>1</show_in_store>
-                   <fields>
-                       <include_product_images>
-                           <label>Include Product Images</label>
-                           <frontend_type>select</frontend_type>
-                           <source_model>adminhtml/system_config_source_yesno</source_model>
-                           <sort_order>1</sort_order>
-                           <show_in_default>1</show_in_default>
-                           <show_in_website>1</show_in_website>
-                           <show_in_store>1</show_in_store>
-                       </include_product_images>
-                       <max_images_per_product>
-                           <label>Maximum Images per Product</label>
-                           <frontend_type>text</frontend_type>
-                           <sort_order>2</sort_order>
-                           <show_in_default>1</show_in_default>
-                           <show_in_website>1</show_in_website>
-                           <show_in_store>1</show_in_store>
-                           <depends>
-                               <include_product_images>1</include_product_images>
-                           </depends>
-                       </max_images_per_product>
-                       <include_product_tags>
-                           <label>Include Product Tags</label>
-                           <frontend_type>select</frontend_type>
-                           <source_model>adminhtml/system_config_source_yesno</source_model>
-                           <sort_order>3</sort_order>
-                           <show_in_default>1</show_in_default>
-                           <show_in_website>1</show_in_website>
-                           <show_in_store>1</show_in_store>
-                       </include_product_tags>
-                       <paroduct_tags_changefreq translate="label">
-                           <label>Product Tags Frequency</label>
-                           <frontend_type>select</frontend_type>
-                           <source_model>adminhtml/system_config_source_frequency</source_model>
-                           <sort_order>4</sort_order>
-                           <show_in_default>1</show_in_default>
-                           <show_in_website>1</show_in_website>
-                           <show_in_store>1</show_in_store>
-                           <depends>
-                               <include_product_tags>1</include_product_tags>
-                           </depends>
-                       </paroduct_tags_changefreq>
-                       <paroduct_tags_priority translate="label comment">
-                           <label>Product Tags Priority</label>
-                           <frontend_type>text</frontend_type>
-                           <backend_model>adminhtml/system_config_backend_sitemap</backend_model>
-                           <sort_order>5</sort_order>
-                           <show_in_default>1</show_in_default>
-                           <show_in_website>1</show_in_website>
-                           <show_in_store>1</show_in_store>
-                           <comment>Valid values range: from 0.0 to 1.0.</comment>
-                           <depends>
-                               <include_product_tags>1</include_product_tags>
-                           </depends>
-                       </paroduct_tags_priority>
-                       <additional_links>
-                           <label>Additional Links</label>
-                           <frontend_type>textarea</frontend_type>
-                           <sort_order>6</sort_order>
-                           <show_in_default>1</show_in_default>
-                           <show_in_website>1</show_in_website>
-                           <show_in_store>1</show_in_store>
-                       </additional_links>
-                       <additional_links_changefreq translate="label">
-                           <label>Additional Links Frequency</label>
-                           <frontend_type>select</frontend_type>
-                           <source_model>adminhtml/system_config_source_frequency</source_model>
-                           <sort_order>7</sort_order>
-                           <show_in_default>1</show_in_default>
-                           <show_in_website>1</show_in_website>
-                           <show_in_store>1</show_in_store>
-                       </additional_links_changefreq>
-                       <additional_links_priority translate="label comment">
-                           <label>Additional Links Priority</label>
-                           <frontend_type>text</frontend_type>
-                           <backend_model>adminhtml/system_config_backend_sitemap</backend_model>
-                           <sort_order>8</sort_order>
-                           <show_in_default>1</show_in_default>
-                           <show_in_website>1</show_in_website>
-                           <show_in_store>1</show_in_store>
-                           <comment>Valid values range: from 0.0 to 1.0.</comment>
-                       </additional_links_priority>
-                       <allow_split_sitemap>
-                           <label>Allow to Split Sitemap</label>
-                           <frontend_type>select</frontend_type>
-                           <source_model>adminhtml/system_config_source_yesno</source_model>
-                           <sort_order>9</sort_order>
-                           <show_in_default>1</show_in_default>
-                           <show_in_website>1</show_in_website>
-                           <show_in_store>1</show_in_store>
-                       </allow_split_sitemap>
-                       <max_links_count>
-                           <label>Maximum URLs per Sitemap</label>
-                           <frontend_type>text</frontend_type>
-                           <sort_order>10</sort_order>
-                           <show_in_default>1</show_in_default>
-                           <show_in_website>1</show_in_website>
-                           <show_in_store>1</show_in_store>
-                           <depends>
-                               <allow_split_sitemap>1</allow_split_sitemap>
-                           </depends>
-                       </max_links_count>
-                       <max_file_size>
-                           <label>Sitemap Split Size Limit, KB</label>
-                           <frontend_type>text</frontend_type>
-                           <sort_order>11</sort_order>
-                           <show_in_default>1</show_in_default>
-                           <show_in_website>1</show_in_website>
-                           <show_in_store>1</show_in_store>
-                           <depends>
-                               <allow_split_sitemap>1</allow_split_sitemap>
-                           </depends>
-                       </max_file_size>
-                       <submit_sitemap_automatically>
-                           <label>Submit Sitemap Automatically</label>
-                           <frontend_type>select</frontend_type>
-                           <source_model>adminhtml/system_config_source_yesno</source_model>
-                           <sort_order>12</sort_order>
-                           <show_in_default>1</show_in_default>
-                           <show_in_website>1</show_in_website>
-                           <show_in_store>1</show_in_store>
-                       </submit_sitemap_automatically>
-                       <submit_search_engines>
-                           <label>Search Engines for Submission</label>
-                           <frontend_type>multiselect</frontend_type>
-                           <source_model>gomage_seobooster/config_source_searchengines</source_model>
-                           <sort_order>13</sort_order>
-                           <show_in_default>1</show_in_default>
-                           <show_in_website>1</show_in_website>
-                           <show_in_store>1</show_in_store>
-                           <depends>
-                               <submit_sitemap_automatically>1</submit_sitemap_automatically>
-                           </depends>
-                       </submit_search_engines>
-                   </fields>
-               </extended_settings>
-           </groups>
-       </sitemap>
-   </sections>
+                    <fields>
+                        <include_product_images>
+                            <label>Include Product Images</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </include_product_images>
+                        <max_images_per_product>
+                            <label>Maximum Images per Product</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <include_product_images>1</include_product_images>
+                            </depends>
+                        </max_images_per_product>
+                        <include_product_tags>
+                            <label>Include Product Tags</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </include_product_tags>
+                        <paroduct_tags_changefreq translate="label">
+                            <label>Product Tags Frequency</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_frequency</source_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <include_product_tags>1</include_product_tags>
+                            </depends>
+                        </paroduct_tags_changefreq>
+                        <paroduct_tags_priority translate="label comment">
+                            <label>Product Tags Priority</label>
+                            <frontend_type>text</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_sitemap</backend_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Valid values range: from 0.0 to 1.0.</comment>
+                            <depends>
+                                <include_product_tags>1</include_product_tags>
+                            </depends>
+                        </paroduct_tags_priority>
+                        <additional_links>
+                            <label>Additional Links</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </additional_links>
+                        <additional_links_changefreq translate="label">
+                            <label>Additional Links Frequency</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_frequency</source_model>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </additional_links_changefreq>
+                        <additional_links_priority translate="label comment">
+                            <label>Additional Links Priority</label>
+                            <frontend_type>text</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_sitemap</backend_model>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Valid values range: from 0.0 to 1.0.</comment>
+                        </additional_links_priority>
+                        <allow_split_sitemap>
+                            <label>Allow to Split Sitemap</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </allow_split_sitemap>
+                        <max_links_count>
+                            <label>Maximum URLs per Sitemap</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <allow_split_sitemap>1</allow_split_sitemap>
+                            </depends>
+                        </max_links_count>
+                        <max_file_size>
+                            <label>Sitemap Split Size Limit, KB</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <allow_split_sitemap>1</allow_split_sitemap>
+                            </depends>
+                        </max_file_size>
+                        <submit_sitemap_automatically>
+                            <label>Submit Sitemap Automatically</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </submit_sitemap_automatically>
+                        <submit_search_engines>
+                            <label>Search Engines for Submission</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>gomage_seobooster/config_source_searchengines</source_model>
+                            <sort_order>13</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <submit_sitemap_automatically>1</submit_sitemap_automatically>
+                            </depends>
+                        </submit_search_engines>
+                    </fields>
+                </extended_settings>
+            </groups>
+        </sitemap>
+    </sections>
 </config>
