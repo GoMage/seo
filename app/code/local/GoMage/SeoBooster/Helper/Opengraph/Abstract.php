@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GoMage Seo Booster Extension
  *
@@ -10,7 +11,6 @@
  * @version      Release: 1.0.0
  * @since        Available since Release 1.0.0
  */
-
 abstract class GoMage_SeoBooster_Helper_Opengraph_Abstract extends Mage_Core_Helper_Data
 {
     /**
@@ -59,10 +59,10 @@ abstract class GoMage_SeoBooster_Helper_Opengraph_Abstract extends Mage_Core_Hel
 
         if ($entity && $entity->getId() && isset($ogMetaBlock)) {
             if ($title = $entity->getName()) {
-                $ogMetaBlock->addItem('og:title', addslashes(strip_tags($title)));
+                $ogMetaBlock->addItem('og:title', htmlspecialchars(strip_tags($title)));
             }
             if ($description = $entity->getDescription()) {
-                $ogMetaBlock->addItem('og:description', addslashes(strip_tags($description)));
+                $ogMetaBlock->addItem('og:description', htmlspecialchars(strip_tags($description)));
             }
             if ($url = $this->getCanonicalUrl()) {
                 $ogMetaBlock->addItem('og:url', $url);
