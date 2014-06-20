@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GoMage Seo Booster Extension
  *
@@ -10,7 +11,6 @@
  * @version      Release: 1.0.0
  * @since        Available since Release 1.0.0
  */
-
 class GoMage_SeoBooster_Helper_Opengraph_Product extends GoMage_SeoBooster_Helper_Opengraph_Abstract
 {
     /**
@@ -105,7 +105,6 @@ class GoMage_SeoBooster_Helper_Opengraph_Product extends GoMage_SeoBooster_Helpe
      */
     protected function _addImages($ogMetaBlock)
     {
-        parent::_addImages($ogMetaBlock);
         $images = $this->getImages();
         foreach ($images as $image) {
             $ogMetaBlock->addItem('og:image', $image['image']);

@@ -1,7 +1,5 @@
 <?php $items = $this->getItems(); ?>
 
-<?php foreach ($items as $_property => $_content):?>
-    <?php foreach ($_content as $_item):?>
-        <meta property="<?php echo $_property; ?>" content="<?php echo $_item; ?>" />
-    <?php endforeach; ?>
+<?php foreach ($items as $item): ?>
+    <meta property="<?php echo $item['property']; ?>" content="<?php echo $item['content']; ?>"/>
 <?php endforeach; ?>
