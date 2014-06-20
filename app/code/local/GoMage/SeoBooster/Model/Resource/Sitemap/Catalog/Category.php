@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GoMage Seo Booster Extension
  *
@@ -10,7 +11,6 @@
  * @version      Release: 1.0.0
  * @since        Available since Release 1.0.0
  */
-
 class GoMage_SeoBooster_Model_Resource_Sitemap_Catalog_Category
     extends Mage_Sitemap_Model_Resource_Catalog_Category
 {
@@ -34,38 +34,39 @@ class GoMage_SeoBooster_Model_Resource_Sitemap_Catalog_Category
         $this->_select = $this->_getWriteAdapter()->select()
             ->from($this->getMainTable())
             ->where($this->getIdFieldName() . '=?', $store->getRootCategoryId());
-        $categoryRow = $this->_getWriteAdapter()->fetchRow($this->_select);
+        $categoryRow   = $this->_getWriteAdapter()->fetchRow($this->_select);
 
         if (!$categoryRow) {
             return false;
         }
 
         $urConditions = array(
-            'e.entity_id=ur.category_id',
+            'main_table.entity_id=ur.category_id',
             $this->_getWriteAdapter()->quoteInto('ur.store_id=?', $store->getId()),
             'ur.product_id IS NULL',
             $this->_getWriteAdapter()->quoteInto('ur.is_system=?', 1),
         );
 
         $this->_select = $this->_getWriteAdapter()->select()
-            ->from(array('e' => $this->getMainTable()), array($this->getIdFieldName()))
+            ->from(array('main_table' => $this->getMainTable()), array($this->getIdFieldName()))
             ->joinLeft(
                 array('ur' => $this->getTable('core/url_rewrite')),
                 join(' AND ', $urConditions),
-                array('url'=>'request_path')
+                array('url' => 'request_path')
             )
-            ->where('e.path LIKE ?', $categoryRow['path'] . '/%');
+            ->where('main_table.path LIKE ?', $categoryRow['path'] . '/%');
 
         $sitemapAttribute = Mage::getSingleton('eav/config')
             ->getAttribute(Mage_Catalog_Model_Category::ENTITY, 'exclude_from_sitemap');
         $this->_select->joinLeft(array('sitemap' => $sitemapAttribute->getBackend()->getTable()),
-            "e.entity_id = sitemap.entity_id AND sitemap.attribute_id = {$sitemapAttribute->getId()}",
-            array("exclude_from_sitemap"=>"sitemap.value")
+            "main_table.entity_id = sitemap.entity_id AND sitemap.attribute_id = {$sitemapAttribute->getId()}",
+            array("exclude_from_sitemap" => "sitemap.value")
         );
         $this->_addFilter($storeId, 'is_active', 1);
+
         $query = $this->_getWriteAdapter()->query($this->_select);
         while ($row = $query->fetch()) {
-            $category = $this->_prepareCategory($row);
+            $category                       = $this->_prepareCategory($row);
             $categories[$category->getId()] = $category;
         }
 

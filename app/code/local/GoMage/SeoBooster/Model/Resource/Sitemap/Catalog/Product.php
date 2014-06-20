@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GoMage Seo Booster Extension
  *
@@ -10,7 +11,6 @@
  * @version      Release: 1.0.0
  * @since        Available since Release 1.0.0
  */
-
 class GoMage_SeoBooster_Model_Resource_Sitemap_Catalog_Product extends Mage_Sitemap_Model_Resource_Catalog_Product
 {
     /**
@@ -30,17 +30,17 @@ class GoMage_SeoBooster_Model_Resource_Sitemap_Catalog_Product extends Mage_Site
             return false;
         }
 
-        $urCondions = array(
-            'e.entity_id=ur.product_id',
+        $urCondions    = array(
+            'main_table.entity_id=ur.product_id',
             'ur.category_id IS NULL',
             $this->_getWriteAdapter()->quoteInto('ur.store_id=?', $store->getId()),
             $this->_getWriteAdapter()->quoteInto('ur.is_system=?', 1),
         );
         $this->_select = $this->_getWriteAdapter()->select()
-            ->from(array('e' => $this->getMainTable()), array($this->getIdFieldName()))
+            ->from(array('main_table' => $this->getMainTable()), array($this->getIdFieldName()))
             ->join(
                 array('w' => $this->getTable('catalog/product_website')),
-                'e.entity_id=w.product_id',
+                'main_table.entity_id=w.product_id',
                 array()
             )
             ->where('w.website_id=?', $store->getWebsiteId())
@@ -53,8 +53,8 @@ class GoMage_SeoBooster_Model_Resource_Sitemap_Catalog_Product extends Mage_Site
         $sitemapAttribute = Mage::getSingleton('eav/config')
             ->getAttribute(Mage_Catalog_Model_Product::ENTITY, 'exclude_from_sitemap');
         $this->_select->joinLeft(array('sitemap' => $sitemapAttribute->getBackend()->getTable()),
-            "e.entity_id = sitemap.entity_id AND sitemap.attribute_id = {$sitemapAttribute->getId()}",
-            array("exclude_from_sitemap"=>"sitemap.value")
+            "main_table.entity_id = sitemap.entity_id AND sitemap.attribute_id = {$sitemapAttribute->getId()}",
+            array("exclude_from_sitemap" => "sitemap.value")
         );
 
         $this->_addFilter($storeId, 'visibility', Mage::getSingleton('catalog/product_visibility')->getVisibleInSiteIds(), 'in');
@@ -62,7 +62,7 @@ class GoMage_SeoBooster_Model_Resource_Sitemap_Catalog_Product extends Mage_Site
 
         $query = $this->_getWriteAdapter()->query($this->_select);
         while ($row = $query->fetch()) {
-            $product = $this->_prepareProduct($row);
+            $product                     = $this->_prepareProduct($row);
             $products[$product->getId()] = $product;
         }
 
