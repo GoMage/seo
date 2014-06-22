@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GoMage Seo Booster Extension
  *
@@ -10,7 +11,6 @@
  * @version      Release: 1.0.0
  * @since        Available since Release 1.0.0
  */
-
 class GoMage_SeoBooster_Helper_Category extends GoMage_SeoBooster_Helper_Canonical_Abstract
 {
     /**
@@ -39,7 +39,8 @@ class GoMage_SeoBooster_Helper_Category extends GoMage_SeoBooster_Helper_Canonic
     {
         $storeId = $this->getCanonicalStore($category);
         if ($storeId !== GoMage_SeoBooster_Helper_Data::CANONICAL_URL_DEFAULT_DOMAIN_VALUE ||
-            $storeId !== Mage::app()->getStore()->getId()) {
+            $storeId !== Mage::app()->getStore()->getId()
+        ) {
             $store = Mage::app()->getStore($storeId);
             if ($store->getIsActive()) {
                 $storeCategory = $this->_getCategoryInStore($category->getId(), $store->getId());
@@ -73,7 +74,7 @@ class GoMage_SeoBooster_Helper_Category extends GoMage_SeoBooster_Helper_Canonic
      * Return category in store
      *
      * @param int $categoryId Category Id
-     * @param int $storeId    Store Id
+     * @param int $storeId Store Id
      * @return Mage_Catalog_Model_Category
      */
     protected function _getCategoryInStore($categoryId, $storeId)
@@ -85,14 +86,15 @@ class GoMage_SeoBooster_Helper_Category extends GoMage_SeoBooster_Helper_Canonic
      * Return category Url
      *
      * @param Mage_Catalog_Model_Category $category Category
-     * @param int                         $storeId  Store Id
+     * @param int $storeId Store Id
      * @return string
      */
     public function getCategoryUrl($category, $storeId = null)
     {
-        $params = array('_nosid' => true, '_store_to_url' => false);
+        $params = array('_nosid' => true);
         if ($storeId) {
-            $params['_store'] = $storeId;
+            $params['_store']        = $storeId;
+            $params['_store_to_url'] = true;
         }
         if ($category->hasData('request_path') && $category->getRequestPath() != '') {
             return $category->getUrlInstance()->getDirectUrl($category->getRequestPath(), $params);
@@ -122,7 +124,7 @@ class GoMage_SeoBooster_Helper_Category extends GoMage_SeoBooster_Helper_Canonic
      */
     public function canAddNextPrevLinkRel()
     {
-        return $this->_moduleEnabled() &&  Mage::getStoreConfig('gomage_seobooster/general/enable_next_prev_link_rel');
+        return $this->_moduleEnabled() && Mage::getStoreConfig('gomage_seobooster/general/enable_next_prev_link_rel');
     }
 
     /**
@@ -138,7 +140,7 @@ class GoMage_SeoBooster_Helper_Category extends GoMage_SeoBooster_Helper_Canonic
                 if ($pager->isLastPage() || $pager->getCurrentPage() > 1) {
                     $lastPageNum = $pager->getLastPageNum() < $pager->getCurrentPage()
                         ? $pager->getLastPageNum() : $pager->getCurrentPage();
-                    $params = array(
+                    $params      = array(
                         $pager->getLimitVarName() => $pager->getLimit(),
                         $pager->getModeVarName()  => $pager->getMode(),
                         $pager->getPageVarName()  => ($lastPageNum - 1 > 1) ? $lastPageNum - 1 : null
@@ -147,10 +149,12 @@ class GoMage_SeoBooster_Helper_Category extends GoMage_SeoBooster_Helper_Canonic
                 }
                 if ($pager->isFirstPage() || $pager->getCurrentPage() < $pager->getLastPageNum()) {
                     $headBlock->addLinkRel('next', $pager->getPagerUrl(array(
-                        $pager->getLimitVarName() => $pager->getLimit(),
-                        $pager->getModeVarName()  => $pager->getMode(),
-                        $pager->getPageVarName()  => $pager->getCurrentPage() + 1
-                    )));
+                                $pager->getLimitVarName() => $pager->getLimit(),
+                                $pager->getModeVarName()  => $pager->getMode(),
+                                $pager->getPageVarName()  => $pager->getCurrentPage() + 1
+                            )
+                        )
+                    );
                 }
             }
         }
@@ -166,7 +170,7 @@ class GoMage_SeoBooster_Helper_Category extends GoMage_SeoBooster_Helper_Canonic
     protected function _getPagerBlock()
     {
         $toolbarBlock = Mage::app()->getLayout()->createBlock('catalog/product_list_toolbar');
-        $pagerBlock = Mage::app()->getLayout()->createBlock('page/html_pager');
+        $pagerBlock   = Mage::app()->getLayout()->createBlock('page/html_pager');
         $toolbarBlock->setCollection($this->_getCategoryProducts());
 
         if ($pagerBlock instanceof Varien_Object) {
