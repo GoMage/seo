@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GoMage Seo Booster Extension
  *
@@ -10,7 +11,6 @@
  * @version      Release: 1.0.0
  * @since        Available since Release 1.0.0
  */
-
 class GoMage_SeoBooster_Helper_Opengraph_Category extends GoMage_SeoBooster_Helper_Opengraph_Abstract
 {
     /**
@@ -67,8 +67,8 @@ class GoMage_SeoBooster_Helper_Opengraph_Category extends GoMage_SeoBooster_Help
         return array(
             'image'        => $image_url,
             'image_secure' => $image_url_secure,
-            'width'        => $processor->getOriginalHeight(),
-            'height'       => $processor->getOriginalWidth(),
+            'width'        => $processor->getOriginalWidth(),
+            'height'       => $processor->getOriginalHeight(),
             'type'         => mime_content_type($imagePath)
         );
     }

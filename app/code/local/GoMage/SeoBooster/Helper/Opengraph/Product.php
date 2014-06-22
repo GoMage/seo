@@ -74,8 +74,8 @@ class GoMage_SeoBooster_Helper_Opengraph_Product extends GoMage_SeoBooster_Helpe
         return array(
             'image'        => $image_url,
             'image_secure' => $image_url_secure,
-            'width'        => $image->getOriginalHeight(),
-            'height'       => $image->getOriginalWidth(),
+            'width'        => $image->getOriginalWidth(),
+            'height'       => $image->getOriginalHeight(),
             'type'         => mime_content_type($imageFile)
         );
     }
