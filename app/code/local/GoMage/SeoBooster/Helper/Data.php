@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GoMage Seo Booster Extension
  *
@@ -10,7 +11,6 @@
  * @version      Release: 1.0.0
  * @since        Available since Release 1.0.0
  */
-
 class GoMage_SeoBooster_Helper_Data extends Mage_Core_Helper_Data
 {
     const CANONICAL_URL_DISABLED            = 0;
@@ -28,7 +28,8 @@ class GoMage_SeoBooster_Helper_Data extends Mage_Core_Helper_Data
     public function isEnabled()
     {
         return Mage::getStoreConfig('gomage_seobooster/general/enabled') &&
-        in_array(Mage::app()->getStore()->getWebsiteId(), $this->getAvailableWebsites());
+        (in_array(Mage::app()->getStore()->getWebsiteId(), $this->getAvailableWebsites()) ||
+            Mage::app()->getStore()->getWebsiteId() == 0);
     }
 
     public function getIsAnymoreVersion($major, $minor, $revision = 0)
@@ -53,8 +54,8 @@ class GoMage_SeoBooster_Helper_Data extends Mage_Core_Helper_Data
     /**
      * Return url by route
      *
-     * @param string $route   Route
-     * @param array $params  Route params
+     * @param string $route Route
+     * @param array $params Route params
      * @param int|null $storeId Store Id
      * @return string
      */

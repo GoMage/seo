@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GoMage SeoBooster Extension
  *
@@ -10,21 +11,8 @@
  * @version      Release: 1.0.0
  * @since        Available since Release 1.0.0
  */
-
 class GoMage_SeoBooster_Adminhtml_Report_Seo_AnalyzerController extends Mage_Adminhtml_Controller_Action
 {
-    /**
-     * Dispatch action method
-     *
-     * @param $action
-     */
-    public function dispatch($action)
-    {
-        if (!Mage::helper('gomage_seobooster')->isEnabled()) {
-            $action = 'noRoute';
-        }
-        parent::dispatch($action);
-    }
 
     public function productAction()
     {
@@ -80,16 +68,18 @@ class GoMage_SeoBooster_Adminhtml_Report_Seo_AnalyzerController extends Mage_Adm
     public function analyzeAction()
     {
         $type = $this->getRequest()->getParam('type');
-        if ($type) {
-            Mage::getModel('gomage_seobooster/analyzer')->generateReport($type);
+        if (Mage::helper('gomage_seobooster')->isEnabled()) {
+            if ($type) {
+                Mage::getModel('gomage_seobooster/analyzer')->generateReport($type);
+            }
         }
 
-        $this->_redirect('*/*/'.$type);
+        $this->_redirect('*/*/' . $type);
     }
 
     protected function _showLastAnalyzeTime($flagCode)
     {
-        $flag = Mage::getModel('reports/flag')->setReportFlagCode($flagCode)->loadSelf();
+        $flag      = Mage::getModel('reports/flag')->setReportFlagCode($flagCode)->loadSelf();
         $updatedAt = ($flag->hasData())
             ? Mage::app()->getLocale()->storeDate(
                 0, new Zend_Date($flag->getLastUpdate(), Varien_Date::DATETIME_INTERNAL_FORMAT), true

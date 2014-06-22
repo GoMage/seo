@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 /**
  * GoMage Seo Booster Extension
  *
@@ -10,7 +11,6 @@
  * @version      Release: 1.0.0
  * @since        Available since Release 1.0.0
  */
-
 abstract class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Abstract extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
     /**
@@ -19,11 +19,14 @@ abstract class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Abstract extends Mage_
     public function __construct()
     {
         parent::__construct();
-        $this->_addButton('analyze', array(
-            'label'     => $this->helper('gomage_seobooster')->__('Analyze'),
-            'onclick'   => 'setLocation(\''. $this->_getAnalyzerUrl() .'\')',
-            'class'     => 'save',
-        ));
+        if (Mage::helper('gomage_seobooster')->isEnabled()) {
+            $this->_addButton('analyze', array(
+                    'label'   => $this->helper('gomage_seobooster')->__('Analyze'),
+                    'onclick' => 'setLocation(\'' . $this->_getAnalyzerUrl() . '\')',
+                    'class'   => 'save',
+                )
+            );
+        }
         $this->removeButton('add');
     }
 
