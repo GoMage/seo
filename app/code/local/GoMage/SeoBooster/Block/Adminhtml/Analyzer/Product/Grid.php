@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 /**
  * GoMage Seo Booster Extension
  *
@@ -10,7 +11,6 @@
  * @version      Release: 1.0.0
  * @since        Available since Release 1.0.0
  */
-
 class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Product_Grid
     extends GoMage_SeoBooster_Block_Adminhtml_Analyzer_Grid_Abstract
 {
@@ -38,45 +38,50 @@ class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Product_Grid
     protected function _prepareColumns()
     {
         $this->addColumn('product_id', array(
-            'header' => $this->helper('gomage_seobooster')->__('Product ID'),
-            'index'  => 'product_id',
-            'type'   => 'number',
-            'width'  => 20,
-        ));
+                'header' => $this->helper('gomage_seobooster')->__('Product ID'),
+                'index'  => 'product_id',
+                'type'   => 'number',
+                'width'  => 20,
+            )
+        );
         $this->addColumnAfter('product_name', array(
-            'header' => $this->helper('gomage_seobooster')->__('Product Name'),
-            'index'  => 'product_name',
-            'type'   => 'text',
-        ), 'product_id');
+                'header' => $this->helper('gomage_seobooster')->__('Product Name'),
+                'index'  => 'product_name',
+                'type'   => 'text',
+            ), 'product_id'
+        );
 
         $this->addColumnAfter('sku', array(
-            'header' => $this->helper('gomage_seobooster')->__('SKU'),
-            'index'  => 'sku',
-            'type'   => 'text',
-        ), 'product_name');
+                'header' => $this->helper('gomage_seobooster')->__('SKU'),
+                'index'  => 'sku',
+                'type'   => 'text',
+            ), 'product_name'
+        );
 
         $this->addColumnAfter('product_type', array(
-            'header'=> Mage::helper('catalog')->__('Type'),
-            'index' => 'product_type',
-            'type'  => 'options',
-            'options' => Mage::getSingleton('catalog/product_type')->getOptionArray(),
-        ), 'sku');
+                'header'  => Mage::helper('catalog')->__('Type'),
+                'index'   => 'product_type',
+                'type'    => 'options',
+                'options' => Mage::getSingleton('catalog/product_type')->getOptionArray(),
+            ), 'sku'
+        );
         $this->addColumnAfter('action', array(
-            'header'  => $this->helper('gomage_seobooster')->__('Action'),
-            'width'   => '100px',
-            'type'    => 'action',
-            'getter'  => 'getProductId',
-            'actions' => array(
-                array(
-                    'caption' => $this->helper('gomage_seobooster')->__('Edit'),
-                    'url'     => array('base' => '*/catalog_product/edit'),
-                    'field'   => 'id',
+                'header'    => $this->helper('gomage_seobooster')->__('Action'),
+                'width'     => '100px',
+                'type'      => 'action',
+                'getter'    => 'getProductId',
+                'actions'   => array(
+                    array(
+                        'caption' => $this->helper('gomage_seobooster')->__('Edit'),
+                        'url'     => array('base' => '*/catalog_product/edit'),
+                        'field'   => 'id',
+                    ),
                 ),
-            ),
-            'filter'    => false,
-            'sortable'  => false,
-            'is_system' => true,
-        ), GoMage_SeoBooster_Helper_Analyzer::META_KEYWORD_FIELD);
+                'filter'    => false,
+                'sortable'  => false,
+                'is_system' => true,
+            ), GoMage_SeoBooster_Helper_Analyzer::META_KEYWORD_FIELD
+        );
 
         return parent::_prepareColumns();
     }

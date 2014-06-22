@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 /**
  * GoMage Seo Booster Extension
  *
@@ -10,7 +11,6 @@
  * @version      Release: 1.0.0
  * @since        Available since Release 1.0.0
  */
-
 class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Page_Grid
     extends GoMage_SeoBooster_Block_Adminhtml_Analyzer_Grid_Abstract
 {
@@ -32,39 +32,41 @@ class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Page_Grid
             ->prepareCollectionForReport();
         $this->setCollection($collection);
         return parent::_prepareCollection();
-
     }
 
     protected function _prepareColumns()
     {
         $this->addColumn('page_id', array(
-            'header' => $this->helper('gomage_seobooster')->__('Page ID'),
-            'index'  => 'page_id',
-            'type'   => 'number',
-            'width'  => 20,
-        ));
+                'header' => $this->helper('gomage_seobooster')->__('Page ID'),
+                'index'  => 'page_id',
+                'type'   => 'number',
+                'width'  => 20,
+            )
+        );
         $this->addColumnAfter('page_name', array(
-            'header' => $this->helper('gomage_seobooster')->__('Page Title'),
-            'index'  => 'page_name',
-            'type'   => 'text',
-        ), 'page_id');
+                'header' => $this->helper('gomage_seobooster')->__('Page Title'),
+                'index'  => 'page_name',
+                'type'   => 'text',
+            ), 'page_id'
+        );
 
         $this->addColumnAfter('action', array(
-            'header'  => $this->helper('gomage_seobooster')->__('Action'),
-            'width'   => '100px',
-            'type'    => 'action',
-            'getter'  => 'getPageId',
-            'actions' => array(
-                array(
-                    'caption' => $this->helper('gomage_seobooster')->__('Edit'),
-                    'url'     => array('base' => '*/cms_page/edit'),
-                    'field'   => 'page_id',
+                'header'    => $this->helper('gomage_seobooster')->__('Action'),
+                'width'     => '100px',
+                'type'      => 'action',
+                'getter'    => 'getPageId',
+                'actions'   => array(
+                    array(
+                        'caption' => $this->helper('gomage_seobooster')->__('Edit'),
+                        'url'     => array('base' => '*/cms_page/edit'),
+                        'field'   => 'page_id',
+                    ),
                 ),
-            ),
-            'filter'    => false,
-            'sortable'  => false,
-            'is_system' => true,
-        ), GoMage_SeoBooster_Helper_Analyzer::META_KEYWORD_FIELD);
+                'filter'    => false,
+                'sortable'  => false,
+                'is_system' => true,
+            ), GoMage_SeoBooster_Helper_Analyzer::META_KEYWORD_FIELD
+        );
 
         parent::_prepareColumns();
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GoMage Seo Booster Extension
  *
@@ -10,7 +11,6 @@
  * @version      Release: 1.0.0
  * @since        Available since Release 1.0.0
  */
-
 class GoMage_SeoBooster_Model_Resource_Analyzer_Page_Collection
     extends GoMage_SeoBooster_Model_Resource_Analyzer_Collection_Abstract
 {
@@ -26,15 +26,15 @@ class GoMage_SeoBooster_Model_Resource_Analyzer_Page_Collection
             'main_table.page_id = cms_page.page_id',
             array('page_name' => 'cms_page.title')
         )->joinLeft(
-            array('duplicate_table' => $this->getResource()->getDuplicateTable()),
-            'main_table.page_id = duplicate_table.page_id',
-            array(
-                'duplicate_entity_id' => 'duplicate_table.entity_id',
-                'duplicate_name' => 'duplicate_table.name',
-                'duplicate_meta_description' => 'duplicate_table.meta_description',
-                'duplicate_meta_keyword' => 'duplicate_table.meta_keyword'
-            )
-        );
+                array('duplicate_table' => $this->getResource()->getDuplicateTable()),
+                'main_table.page_id = duplicate_table.page_id',
+                array(
+                    'duplicate_entity_id'        => 'duplicate_table.entity_id',
+                    'duplicate_name'             => 'duplicate_table.name',
+                    'duplicate_meta_description' => 'duplicate_table.meta_description',
+                    'duplicate_meta_keyword'     => 'duplicate_table.meta_keyword'
+                )
+            );
 
         if ($storeId = $this->_getStoreId()) {
             $this->getSelect()->joinInner(
@@ -42,14 +42,18 @@ class GoMage_SeoBooster_Model_Resource_Analyzer_Page_Collection
                 'main_table.page_id=store_table.page_id',
                 array()
             )->where('store_table.store_id IN (?)', array(0, $storeId))
-            ->group('main_table.page_id');
+                ->group('main_table.page_id');
         }
 
         $this->addFilterToMap('page_id', 'main_table.page_id');
-        $this->addFilterToMap('name', 'main_table.title');
+        $this->addFilterToMap('page_name', 'cms_page.title');
         $this->addFilterToMap('duplicate_name', 'duplicate_table.name');
         $this->addFilterToMap('duplicate_meta_description', 'duplicate_table.meta_description');
         $this->addFilterToMap('duplicate_meta_keyword', 'duplicate_table.meta_keyword');
+
+        $this->addFilterToMap('name', 'cms_page.title');
+        $this->addFilterToMap('meta_description', 'cms_page.meta_description');
+        $this->addFilterToMap('meta_keyword', 'cms_page.meta_keywords');
 
         return $this;
     }
@@ -62,7 +66,7 @@ class GoMage_SeoBooster_Model_Resource_Analyzer_Page_Collection
 
         foreach ($this->getItems() as $item) {
             foreach ($this->getFieldsMap() as $alias => $field) {
-                $value = $item->getData($field);
+                $value    = $item->getData($field);
                 $minLimit = Mage::helper('gomage_seobooster/analyzer')->getMinCharsCountLimit($alias);
                 if ($value == 0) {
                     $item->setData($alias, array(GoMage_SeoBooster_Model_Analyzer::MISSING_ERROR));
@@ -72,13 +76,13 @@ class GoMage_SeoBooster_Model_Resource_Analyzer_Page_Collection
                     $item->setData($alias, array(GoMage_SeoBooster_Model_Analyzer::SHORT_ERROR));
                 }
 
-                if ($duplicates = $item->getData('duplicate_'. $alias)) {
+                if ($duplicates = $item->getData('duplicate_' . $alias)) {
                     $duplicates = unserialize($duplicates);
                     if (is_array($duplicates) && count($duplicates) > 1) {
-                        $item->setData('duplicate_'. $alias, $duplicates);
+                        $item->setData('duplicate_' . $alias, $duplicates);
                         if ($value = $item->getData($alias)) {
                             if (!is_array($value)) {
-                                $value = (array) $value;
+                                $value = (array)$value;
                             }
                             $value[] = GoMage_SeoBooster_Model_Analyzer::DUPLICATE_ERROR;
                             $item->setData($alias, $value);
@@ -99,7 +103,7 @@ class GoMage_SeoBooster_Model_Resource_Analyzer_Page_Collection
 
     public function getDuplicateCollection($entityId)
     {
-        $field = $this->_getDuplicateField();
+        $field      = $this->_getDuplicateField();
         $productIds = $this->getResource()->getDuplicateValues($entityId, $field);
 
         if (!$productIds || !is_array($productIds)) {
@@ -117,7 +121,7 @@ class GoMage_SeoBooster_Model_Resource_Analyzer_Page_Collection
                 'main_table.page_id=store_table.page_id',
                 array()
             )->where('store_table.store_id IN (?)', array(0, $storeId))
-            ->group('main_table.page_id');
+                ->group('main_table.page_id');
         }
         return $collection;
     }

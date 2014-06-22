@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GoMage Seo Booster Extension
  *
@@ -10,7 +11,6 @@
  * @version      Release: 1.0.0
  * @since        Available since Release 1.0.0
  */
-
 class GoMage_SeoBooster_Model_Resource_Analyzer_Category
     extends GoMage_SeoBooster_Model_Resource_Analyzer_Abstract
 {
@@ -25,34 +25,36 @@ class GoMage_SeoBooster_Model_Resource_Analyzer_Category
 
     public function generateReport()
     {
-        $entities = $this->getEntities();
+        $entities   = $this->getEntities();
         $duplicates = $this->_getDuplicateEntities($entities);
-        $entities = $this->prepareEntities($entities, $duplicates);
+        $entities   = $this->prepareEntities($entities, $duplicates);
 
         $this->_getWriteAdapter()->truncateTable($this->getMainTable());
         $this->_getWriteAdapter()->truncateTable($this->getDuplicateTable());
 
         if (!empty($entities)) {
             $this->_getWriteAdapter()->insertArray($this->getMainTable(), array(
-                'category_id',
-                'name_chars_count',
-                'description_chars_count',
-                'meta_title_chars_count',
-                'meta_description_chars_count',
-                'meta_keyword_chars_count',
-                'meta_keyword_qty'
-            ), $entities);
+                    'category_id',
+                    'name_chars_count',
+                    'description_chars_count',
+                    'meta_title_chars_count',
+                    'meta_description_chars_count',
+                    'meta_keyword_chars_count',
+                    'meta_keyword_qty'
+                ), $entities
+            );
         }
 
         if (!empty($duplicates)) {
             $this->_getWriteAdapter()->insertArray($this->getDuplicateTable(), array(
-                'name',
-                'description',
-                'meta_title',
-                'meta_description',
-                'meta_keyword',
-                'category_id'
-            ), $duplicates);
+                    'name',
+                    'description',
+                    'meta_title',
+                    'meta_description',
+                    'meta_keyword',
+                    'category_id'
+                ), $duplicates
+            );
         }
 
         $this->_setFlagData(GoMage_SeoBooster_Model_Analyzer::REPORT_CATEGORY_ANALYZER_FLAG_CODE);
@@ -64,16 +66,17 @@ class GoMage_SeoBooster_Model_Resource_Analyzer_Category
     {
         $select = $this->_getReadAdapter()->select();
         $select->from(array('main_table' => $this->getTable('catalog/category')),
-            array('category_id' => 'main_table.entity_id'));
+            array('category_id' => 'main_table.entity_id')
+        );
 
         foreach ($this->_requiredAttributes as $attributeCode) {
-            $attribute = Mage::getSingleton('eav/config')
+            $attribute  = Mage::getSingleton('eav/config')
                 ->getAttribute(Mage_Catalog_Model_Category::ENTITY, $attributeCode);
             $tableAlias = $attributeCode . '_table';
             $select->joinInner(
                 array($tableAlias => $attribute->getBackend()->getTable()),
                 "main_table.entity_id = {$tableAlias}.entity_id AND {$tableAlias}.attribute_id = {$attribute->getId()}",
-                array($attributeCode => $tableAlias.'.value', $attributeCode.'_chars_count' => "CHAR_LENGTH({$tableAlias}.value)")
+                array($attributeCode => $tableAlias . '.value', $attributeCode . '_chars_count' => "CHAR_LENGTH({$tableAlias}.value)")
             );
         }
 
@@ -85,12 +88,13 @@ class GoMage_SeoBooster_Model_Resource_Analyzer_Category
     public function prepareEntities($entities, $duplicates)
     {
         foreach ($entities as $_key => &$entity) {
-            $isOk = true;
+            $isOk                       = true;
             $entity['meta_keyword_qty'] = $this->_getMetaKeywordsQty($entity['meta_keywords']);
             foreach ($this->_requiredAttributes as $attribute) {
-                if (($entity[$attribute. '_chars_count'] > Mage::helper('gomage_seobooster/analyzer')->getCharsCountLimit($attribute))
-                    || ($entity[$attribute. '_chars_count'] < Mage::helper('gomage_seobooster/analyzer')->getMinCharsCountLimit($attribute)
-                        || ($entity[$attribute. '_chars_count'] == 0))) {
+                if (($entity[$attribute . '_chars_count'] > Mage::helper('gomage_seobooster/analyzer')->getCharsCountLimit($attribute))
+                    || ($entity[$attribute . '_chars_count'] < Mage::helper('gomage_seobooster/analyzer')->getMinCharsCountLimit($attribute)
+                        || ($entity[$attribute . '_chars_count'] == 0))
+                ) {
                     $isOk = false;
                 }
                 if (isset($duplicates[$entity['category_id']]) && $duplicates[$entity['category_id']][$attribute]) {
@@ -108,7 +112,7 @@ class GoMage_SeoBooster_Model_Resource_Analyzer_Category
 
     protected function _getDuplicateEntities($entities)
     {
-        $duplicates = array();
+        $duplicates          = array();
         $duplicateCategories = array();
 
         foreach ($entities as $entity) {
@@ -132,9 +136,10 @@ class GoMage_SeoBooster_Model_Resource_Analyzer_Category
         foreach ($entities as $entity) {
             foreach ($this->_requiredAttributes as $attribute) {
                 if (isset($duplicates[$attribute][$entity[$attribute]]) &&
-                    (count($duplicates[$attribute][$entity[$attribute]]) > 1)) {
+                    (count($duplicates[$attribute][$entity[$attribute]]) > 1)
+                ) {
                     if (!isset($duplicateCategories[$entity['category_id']])) {
-                        $duplicateCategories[$entity['category_id']] = $_duplicateTmpl;
+                        $duplicateCategories[$entity['category_id']]                = $_duplicateTmpl;
                         $duplicateCategories[$entity['category_id']]['category_id'] = $entity['category_id'];
                     }
                     $duplicateCategories[$entity['category_id']][$attribute] = serialize($duplicates[$attribute][$entity[$attribute]]);
