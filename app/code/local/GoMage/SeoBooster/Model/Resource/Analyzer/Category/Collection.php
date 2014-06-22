@@ -45,14 +45,12 @@ class GoMage_SeoBooster_Model_Resource_Analyzer_Category_Collection
                 )
             );
 
-        if ($storeId = $this->_getStoreId()) {
-            $this->getSelect()->joinInner(
-                array('cat_index' => $this->getTable('catalog/category_product_index')),
-                "main_table.category_id = cat_index.category_id",
-                array()
-            )->where("cat_index.store_id = ?", $storeId)
-                ->group('main_table.category_id');
-        }
+
+        $storeId = intval($this->_getStoreId());
+        $this->getSelect()
+            ->where("catalog_category_name.store_id = ?", $storeId)
+            ->group('main_table.category_id');
+
 
         $this->addFilterToMap('category_id', 'main_table.category_id');
         $this->addFilterToMap('category_name', 'catalog_category_name.value');
@@ -123,12 +121,9 @@ class GoMage_SeoBooster_Model_Resource_Analyzer_Category_Collection
         }
         $collection->addFieldToFilter('entity_id', array('in' => $categoryIds));
         if ($storeId = $this->_getStoreId()) {
-            $collection->getSelect()->joinInner(
-                array('cat_index' => $this->getTable('catalog/category_product_index')),
-                "e.entity_id = cat_index.category_id",
-                array()
-            )->where("cat_index.store_id = ?", $storeId)
-                ->group('e.entity_id');
+            $collection
+                ->setProductStoreId($storeId)
+                ->setStoreId($storeId);
         }
         return $collection;
     }

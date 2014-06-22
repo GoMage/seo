@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 /**
  * GoMage Seo Booster Extension
  *
@@ -10,7 +11,6 @@
  * @version      Release: 1.0.0
  * @since        Available since Release 1.0.0
  */
-
 class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Category_Duplicate_Grid
     extends GoMage_SeoBooster_Block_Adminhtml_Analyzer_Duplicate_Grid_Abstract
 {
@@ -26,7 +26,7 @@ class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Category_Duplicate_Grid
 
     protected function _prepareCollection()
     {
-        $entityId = $this->getParam('duplicate_entity_id');
+        $entityId   = $this->getParam('duplicate_entity_id');
         $collection = Mage::getModel('gomage_seobooster/analyzer_category')
             ->getCollection()->getDuplicateCollection($entityId);
         $this->setCollection($collection);
@@ -37,26 +37,28 @@ class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Category_Duplicate_Grid
     protected function _prepareColumns()
     {
         $this->addColumn('entity_id', array(
-            'header' => $this->helper('gomage_seobooster')->__('Category ID'),
-            'index'  => 'entity_id',
-            'type'   => 'number',
-            'width'  => 20,
-        ));
+                'header' => $this->helper('gomage_seobooster')->__('Category ID'),
+                'index'  => 'entity_id',
+                'type'   => 'number',
+                'width'  => 20,
+            )
+        );
         $this->addColumnAfter('name', array(
-            'header' => $this->helper('gomage_seobooster')->__('Category Name'),
-            'index'  => 'name',
-            'type'   => 'text',
-        ), 'entity_id');
+                'header' => $this->helper('gomage_seobooster')->__('Category Name'),
+                'index'  => 'name',
+                'type'   => 'text',
+            ), 'entity_id'
+        );
 
         $actionColumnParams = array(
-            'header'  => $this->helper('gomage_seobooster')->__('Action'),
-            'width'   => '100px',
-            'type'    => 'action',
-            'getter'  => 'getEntityId',
-            'actions' => array(
+            'header'    => $this->helper('gomage_seobooster')->__('Action'),
+            'width'     => '100px',
+            'type'      => 'action',
+            'getter'    => 'getEntityId',
+            'actions'   => array(
                 array(
                     'caption' => $this->helper('gomage_seobooster')->__('Edit'),
-                    'url'     => array('base' => '*/catalog_product/edit'),
+                    'url'     => array('base' => '*/catalog_category/edit'),
                     'field'   => 'id',
                 ),
             ),
@@ -73,4 +75,16 @@ class GoMage_SeoBooster_Block_Adminhtml_Analyzer_Category_Duplicate_Grid
 
         return parent::_prepareColumns();
     }
+
+    /**
+     * Get children of specified item
+     *
+     * @param Varien_Object $item
+     * @return array
+     */
+    public function getMultipleRows($item)
+    {
+        return false;
+    }
+
 }
