@@ -339,6 +339,7 @@
                             <label>Enable RSS URL Rewrite</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <comment>It applies only to categories.</comment>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
