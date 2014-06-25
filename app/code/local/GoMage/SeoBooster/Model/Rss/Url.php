@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GoMage Seo Booster Extension
  *
@@ -10,7 +11,6 @@
  * @version      Release: 1.0.0
  * @since        Available since Release 1.0.0
  */
-
 class GoMage_SeoBooster_Model_Rss_Url
 {
     /**
@@ -55,15 +55,16 @@ class GoMage_SeoBooster_Model_Rss_Url
 
     /**
      * Return rss url
-     * @param int   $categoryId Category Id
-     * @param int   $storeId    Store Id
-     * @param array $params     Params
+     *
+     * @param int $categoryId Category Id
+     * @param int $storeId Store Id
+     * @param array $params Params
      * @return string
      */
     public function getUrl($categoryId, $storeId = null, $params = array())
     {
-        $routePath      = '';
-        $routeParams    = $params;
+        $routePath   = '';
+        $routeParams = $params;
 
         $idPath = sprintf('rss/cid/%d', $categoryId);
 

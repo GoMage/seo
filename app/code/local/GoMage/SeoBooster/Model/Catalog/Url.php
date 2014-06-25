@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GoMage Seo Booster Extension
  *
@@ -10,7 +11,6 @@
  * @version      Release: 1.0.0
  * @since        Available since Release 1.0.0
  */
-
 class GoMage_SeoBooster_Model_Catalog_Url extends Mage_Catalog_Model_Url
 {
     /**
@@ -73,7 +73,7 @@ class GoMage_SeoBooster_Model_Catalog_Url extends Mage_Catalog_Model_Url
     /**
      * Refresh product reviews url rewrite
      *
-     * @param Varien_Object $product  Product
+     * @param Varien_Object $product Product
      * @param Varien_Object $category Category
      * @return $this
      */
@@ -93,13 +93,13 @@ class GoMage_SeoBooster_Model_Catalog_Url extends Mage_Catalog_Model_Url
         }
 
         $rewriteData = array(
-            'store_id'      => $category->getStoreId(),
-            'category_id'   => $categoryId,
-            'product_id'    => $product->getId(),
-            'id_path'       => $idPath,
-            'request_path'  => $requestPath,
-            'target_path'   => $targetPath,
-            'is_system'     => 0
+            'store_id'     => $category->getStoreId(),
+            'category_id'  => $categoryId,
+            'product_id'   => $product->getId(),
+            'id_path'      => $idPath,
+            'request_path' => $requestPath,
+            'target_path'  => $targetPath,
+            'is_system'    => 0
         );
 
         $this->getResource()->saveRewrite($rewriteData, $this->_rewrite);
@@ -142,8 +142,7 @@ class GoMage_SeoBooster_Model_Catalog_Url extends Mage_Catalog_Model_Url
 
             if ($product->getUrlKey() == '') {
                 $urlKey = $this->getProductModel()->formatUrlKey($product->getName());
-            }
-            else {
+            } else {
                 $urlKey = $this->getProductModel()->formatUrlKey($product->getUrlKey());
             }
             $productUrlSuffix  = '.html';
@@ -153,8 +152,9 @@ class GoMage_SeoBooster_Model_Catalog_Url extends Mage_Catalog_Model_Url
                 // To ensure, that category has url path either from attribute or generated now
                 $this->_addCategoryUrlPath($category);
                 $categoryUrl = Mage::helper('catalog/category')->getCategoryUrlPath($category->getUrlPath(),
-                    false, $category->getStoreId());
-                $path = $categoryUrl . '/' . $urlKey . '/' . $reviewRewritePath .$productUrlSuffix;
+                    false, $category->getStoreId()
+                );
+                $path        = $categoryUrl . '/' . $urlKey . '/' . $reviewRewritePath . $productUrlSuffix;
                 return $this->getUnusedPath($category->getStoreId(), $path, $this->generateReviewsPath('id', $product, $category));
             }
 
@@ -213,13 +213,13 @@ class GoMage_SeoBooster_Model_Catalog_Url extends Mage_Catalog_Model_Url
             $requestPath = $this->generateRssPath('request', $category);
 
             $rewriteData = array(
-                'store_id'      => $category->getStoreId(),
-                'category_id'   => $category->getId(),
-                'product_id'    => null,
-                'id_path'       => $idPath,
-                'request_path'  => $requestPath,
-                'target_path'   => $targetPath,
-                'is_system'     => 0
+                'store_id'     => $category->getStoreId(),
+                'category_id'  => $category->getId(),
+                'product_id'   => null,
+                'id_path'      => $idPath,
+                'request_path' => $requestPath,
+                'target_path'  => $targetPath,
+                'is_system'    => 0
             );
 
             $this->getResource()->saveRewrite($rewriteData, $this->_rewrite);
@@ -240,22 +240,26 @@ class GoMage_SeoBooster_Model_Catalog_Url extends Mage_Catalog_Model_Url
      */
     public function generateRssPath($type = 'target', $category = null)
     {
-        if (!$category) {
+        if (is_null($category)) {
             Mage::throwException(Mage::helper('core')->__('Please specify either a category.'));
         }
 
-        // generate id_path
         if ('id' === $type) {
             return 'rss/cid/' . $category->getId();
         } elseif ('request' === $type) {
-            $urlKey = $this->getCategoryModel()->formatUrlKey($category->getUrlKey());
+            $cat     = $category;
+            $urlKeys = array();
+            while ($cat->getLevel() > 1) {
+                array_unshift($urlKeys, $this->getCategoryModel()->formatUrlKey($cat->getUrlKey()));
+                $cat = Mage::getModel('catalog/category')->load($cat->getParentId());
+            }
             $categoryUrlSuffix = $this->getCategoryUrlSuffix($category->getStoreId());
-            $rssRewritePath = Mage::helper('gomage_seobooster')->getRssUrlRewritePath();
+            $rssRewritePath    = Mage::helper('gomage_seobooster')->getRssUrlRewritePath();
 
-            return $rssRewritePath. '/' . $urlKey . $categoryUrlSuffix;
+            return $rssRewritePath . '/' . implode('/', $urlKeys) . $categoryUrlSuffix;
         }
 
-        return 'rss/catalog/category/cid/'. $category->getId() . '/store_id/' . $category->getStoreId();
+        return 'rss/catalog/category/cid/' . $category->getId() . '/store_id/' . $category->getStoreId();
     }
 
 
