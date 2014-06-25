@@ -285,7 +285,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <validate>required-entry</validate>
+                            <validate>validate-rewrite-path</validate>
                             <depends>
                                 <enable_layered_rewrite_path>1</enable_layered_rewrite_path>
                                 <enable_layered_url_rewrite>1</enable_layered_url_rewrite>
@@ -308,7 +308,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <validate>required-entry</validate>
+                            <validate>validate-rewrite-path</validate>
                             <depends>
                                 <enable_product_review_url_rewrite>1</enable_product_review_url_rewrite>
                             </depends>
@@ -330,7 +330,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <validate>required-entry</validate>
+                            <validate>validate-rewrite-path</validate>
                             <depends>
                                 <enable_tag_url_rewrite>1</enable_tag_url_rewrite>
                             </depends>
@@ -352,7 +352,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <validate>required-entry</validate>
+                            <validate>validate-rewrite-path</validate>
                             <depends>
                                 <enable_rss_url_rewrite>1</enable_rss_url_rewrite>
                             </depends>
@@ -374,7 +374,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <validate>required-entry</validate>
+                            <validate>validate-zero-or-greater</validate>
                         </min_name_symbols>
                         <name_symbols_limit>
                             <label>Name Symbols Limit</label>
@@ -383,7 +383,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <validate>required-entry</validate>
+                            <validate>validate-zero-or-greater</validate>
                         </name_symbols_limit>
                         <min_desctiption_symbols>
                             <label>Minimum Description Symbols</label>
@@ -392,7 +392,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <validate>required-entry</validate>
+                            <validate>validate-zero-or-greater</validate>
                         </min_desctiption_symbols>
                         <description_limit>
                             <label>Description Symbols Limit</label>
@@ -401,7 +401,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <validate>required-entry</validate>
+                            <validate>validate-zero-or-greater</validate>
                         </description_limit>
                         <min_meta_title_symbols>
                             <label>Minimum Meta Title Symbols</label>
@@ -410,7 +410,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <validate>required-entry</validate>
+                            <validate>vvalidate-zero-or-greater</validate>
                         </min_meta_title_symbols>
                         <meta_title_limit>
                             <label>Meta Title Symbols Limit</label>
@@ -419,7 +419,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <validate>required-entry</validate>
+                            <validate>validate-zero-or-greater</validate>
                         </meta_title_limit>
                         <min_meta_description_symbols>
                             <label>Minimum Meta Description Symbols</label>
@@ -428,7 +428,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <validate>required-entry</validate>
+                            <validate>validate-zero-or-greater</validate>
                         </min_meta_description_symbols>
                         <meta_description_limit>
                             <label>Meta Description Symbols Limit</label>
@@ -437,7 +437,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <validate>required-entry</validate>
+                            <validate>validate-zero-or-greater</validate>
                         </meta_description_limit>
                         <min_meta_keywords_qty>
                             <label>Minimum Meta Keywords Qty</label>
@@ -446,7 +446,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <validate>required-entry</validate>
+                            <validate>validate-zero-or-greater</validate>
                         </min_meta_keywords_qty>
                         <keywords_qty_limit>
                             <label>Meta Keywords Qty Limit</label>
@@ -455,7 +455,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <validate>required-entry</validate>
+                            <validate>validate-zero-or-greater</validate>
                         </keywords_qty_limit>
                     </fields>
                 </seo_analyzer>

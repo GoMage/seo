@@ -1,5 +1,23 @@
 <?xml version="1.0"?>
+<!--
+/**
+* GoMage Seo Booster Extension
+*
+* @category     Extension
+* @copyright    Copyright (c) 2013-2014 GoMage (http://www.gomage.com)
+* @author       GoMage
+* @license      http://www.gomage.com/license-agreement/  Single domain license
+* @terms of use http://www.gomage.com/terms-of-use/
+* @version      Release: 1.0.0
+* @since        Available since Release 1.0.0
+*/
+-->
 <layout version="0.1.0">
+    <default>
+        <reference name="head">
+            <action method="addJs"><script>gomage/seobooster/validation.js</script></action>
+        </reference>
+    </default>
     <adminhtml_report_seo_analyzer_product>
         <reference name="content">
             <block type="gomage_seobooster/adminhtml_analyzer_product" name="analyzer.product.container" as="products" template="gomage/seobooster/analyzer.phtml">

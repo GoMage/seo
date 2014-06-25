@@ -235,11 +235,11 @@
         <events>
             <admin_system_config_changed_section_gomage_activation>
                 <observers>
-                    <seobooster_collect_totals_after>
+                    <seobooster_config_changed>
                         <type>model</type>
                         <class>gomage_seobooster/observer</class>
                         <method>checkK</method>
-                    </seobooster_collect_totals_after>
+                    </seobooster_config_changed>
                 </observers>
             </admin_system_config_changed_section_gomage_activation>
             <controller_action_predispatch>
