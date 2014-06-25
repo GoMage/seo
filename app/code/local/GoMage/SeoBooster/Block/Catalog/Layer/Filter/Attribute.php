@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GoMage Seo Booster Extension
  *
@@ -10,7 +11,6 @@
  * @version      Release: 1.0.0
  * @since        Available since Release 1.0.0
  */
-
 class GoMage_SeoBooster_Block_Catalog_Layer_Filter_Attribute extends Mage_Catalog_Block_Layer_Filter_Attribute
 {
     /**
@@ -27,7 +27,7 @@ class GoMage_SeoBooster_Block_Catalog_Layer_Filter_Attribute extends Mage_Catalo
             ->setLayer($this->getLayer());
         $this->_prepareFilter();
         $request = $this->getRequest();
-        $helper = Mage::helper('gomage_seobooster/layered');
+        $helper  = Mage::helper('gomage_seobooster/layered');
         $request = $helper->getSeparator() || Mage::helper('gomage_seobooster/layered')->canAddRewritePath()
             ? $helper->getRequest() : $request;
 

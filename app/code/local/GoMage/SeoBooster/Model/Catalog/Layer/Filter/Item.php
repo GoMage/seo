@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GoMage Seo Booster Extension
  *
@@ -10,7 +11,6 @@
  * @version      Release: 1.0.0
  * @since        Available since Release 1.0.0
  */
-
 class GoMage_SeoBooster_Model_Catalog_Layer_Filter_Item extends Mage_Catalog_Model_Layer_Filter_Item
 {
     /**
@@ -25,12 +25,13 @@ class GoMage_SeoBooster_Model_Catalog_Layer_Filter_Item extends Mage_Catalog_Mod
         );
 
         $params = array(
-            '_current'=>true,
-            '_use_rewrite'=>true,
+            '_current'     => true,
+            '_use_rewrite' => true,
         );
 
         if ($separator = Mage::helper('gomage_seobooster/layered')->getSeparator() ||
-            Mage::helper('gomage_seobooster/layered')->canAddRewritePath()) {
+            Mage::helper('gomage_seobooster/layered')->canAddRewritePath()
+        ) {
             $params['_layered_query_params'] = array($this->getFilter()->getRequestVar() => $this->getValue());
         } else {
             $query[$this->getFilter()->getRequestVar()] = $this->getValue();
@@ -47,24 +48,25 @@ class GoMage_SeoBooster_Model_Catalog_Layer_Filter_Item extends Mage_Catalog_Mod
      */
     public function getRemoveUrl()
     {
-        $params = array();
-        $query = array();
+        $params       = array();
+        $query        = array();
         $layeredQuery = array();
 
         if ($separator = Mage::helper('gomage_seobooster/layered')->getSeparator() ||
-            Mage::helper('gomage_seobooster/layered')->canAddRewritePath()) {
-            $layeredQuery = array($this->getFilter()->getRequestVar()=>$this->getFilter()->getResetValue());
+            Mage::helper('gomage_seobooster/layered')->canAddRewritePath()
+        ) {
+            $layeredQuery = array($this->getFilter()->getRequestVar() => $this->getFilter()->getResetValue());
         } else {
-            $query = array($this->getFilter()->getRequestVar()=>$this->getFilter()->getResetValue());
+            $query = array($this->getFilter()->getRequestVar() => $this->getFilter()->getResetValue());
         }
         if (Mage::helper('gomage_seobooster/layered')->getFilterableParamsSize() < 2) {
             $params['_use_layer_rewrite'] = false;
         }
 
-        $params['_current']     = true;
-        $params['_use_rewrite'] = true;
-        $params['_query']       = $query;
-        $params['_escape']      = true;
+        $params['_current']              = true;
+        $params['_use_rewrite']          = true;
+        $params['_query']                = $query;
+        $params['_escape']               = true;
         $params['_layered_query_params'] = $layeredQuery;
 
         return Mage::helper('gomage_seobooster/layered')->getUrl('*/*/*', $params);
@@ -82,11 +84,12 @@ class GoMage_SeoBooster_Model_Catalog_Layer_Filter_Item extends Mage_Catalog_Mod
             return false;
         }
 
-        $query = array();
+        $query        = array();
         $layeredQuery = array();
 
         if (Mage::helper('gomage_seobooster/layered')->getSeparator() ||
-            Mage::helper('gomage_seobooster/layered')->canAddRewritePath()) {
+            Mage::helper('gomage_seobooster/layered')->canAddRewritePath()
+        ) {
             $layeredQuery = array($this->getFilter()->getRequestVar() => null);
         } else {
             $query = array($this->getFilter()->getRequestVar() => null);
@@ -97,10 +100,10 @@ class GoMage_SeoBooster_Model_Catalog_Layer_Filter_Item extends Mage_Catalog_Mod
         }
 
         $urlParams = array(
-            '_current' => true,
-            '_use_rewrite' => true,
-            '_query' => $query,
-            '_escape' => true,
+            '_current'              => true,
+            '_use_rewrite'          => true,
+            '_query'                => $query,
+            '_escape'               => true,
             '_layered_query_params' => $layeredQuery
         );
 

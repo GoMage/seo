@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GoMage Seo Booster Extension
  *
@@ -10,7 +11,6 @@
  * @version      Release: 1.0.0
  * @since        Available since Release 1.0.0
  */
-
 class GoMage_SeoBooster_Block_Page_Html_Pager extends Mage_Page_Block_Html_Pager
 {
     /**
@@ -20,6 +20,6 @@ class GoMage_SeoBooster_Block_Page_Html_Pager extends Mage_Page_Block_Html_Pager
      */
     protected function _getUrlModelClass()
     {
-        return 'gomage_seobooster/url';
+        return 'gomage_seobooster/catalog_layer_url';
     }
 }
