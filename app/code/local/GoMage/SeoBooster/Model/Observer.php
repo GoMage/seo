@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GoMage Seo Booster Extension
  *
@@ -10,7 +11,6 @@
  * @version      Release: 1.0.0
  * @since        Available since Release 1.0.0
  */
-
 class GoMage_SeoBooster_Model_Observer
 {
     /**
@@ -125,6 +125,18 @@ class GoMage_SeoBooster_Model_Observer
     {
         $key = Mage::getStoreConfig('gomage_activation/seobooster/key');
         Mage::helper('gomage_seobooster')->a($key);
+    }
+
+    public function controllerFrontInitBefore(Varien_Event_Observer $observer)
+    {
+        if (Mage::helper('gomage_seobooster')->canAddTrailingSlash()) {
+            $app        = Mage::app();
+            $reflection = new ReflectionClass($app);
+            $property   = $reflection->getProperty('_request');
+            $property->setAccessible(true);
+            $request = new GoMage_SeoBooster_Controller_Request_Http();
+            $property->setValue($app, $request);
+        }
     }
 
 }

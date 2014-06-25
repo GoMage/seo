@@ -190,6 +190,14 @@
                     </remove_review_url_rewrite>
                 </observers>
             </review_delete_after>
+            <controller_front_init_before>
+                <observers>
+                    <seobooster_controller_front_init_before>
+                        <class>gomage_seobooster/observer</class>
+                        <method>controllerFrontInitBefore</method>
+                    </seobooster_controller_front_init_before>
+                </observers>
+            </controller_front_init_before>
         </events>
         <request_rewrite>
             <model>gomage_seobooster/url_rewrite_request</model>
@@ -235,11 +243,11 @@
         <events>
             <admin_system_config_changed_section_gomage_activation>
                 <observers>
-                    <seobooster_config_changed>
+                    <seobooster_collect_totals_after>
                         <type>model</type>
                         <class>gomage_seobooster/observer</class>
                         <method>checkK</method>
-                    </seobooster_config_changed>
+                    </seobooster_collect_totals_after>
                 </observers>
             </admin_system_config_changed_section_gomage_activation>
             <controller_action_predispatch>
