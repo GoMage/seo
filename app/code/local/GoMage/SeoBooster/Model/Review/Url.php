@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GoMage Seo Booster Extension
  *
@@ -10,7 +11,6 @@
  * @version      Release: 1.0.0
  * @since        Available since Release 1.0.0
  */
-
 class GoMage_SeoBooster_Model_Review_Url
 {
     protected $_reviewUrlSuffix = '.html';
@@ -35,18 +35,18 @@ class GoMage_SeoBooster_Model_Review_Url
             return $this;
         }
 
-        $product = $this->_getProduct($review);
+        $product     = $this->_getProduct($review);
         $idPath      = $this->generatePath('id', $review);
         $targetPath  = $this->generatePath('target', $review);
         $requestPath = $this->generatePath('request', $review, $product);
 
         $rewriteData = array(
-            'product_id'    => $product->getId(),
-            'store_id'      => $storeId ?: $review->getStoreId(),
-            'id_path'       => $idPath,
-            'request_path'  => $requestPath,
-            'target_path'   => $targetPath,
-            'is_system'     => 0
+            'product_id'   => $product->getId(),
+            'store_id'     => $storeId ? : $review->getStoreId(),
+            'id_path'      => $idPath,
+            'request_path' => $requestPath,
+            'target_path'  => $targetPath,
+            'is_system'    => 0
         );
 
         $urlRewriteModel = Mage::getModel('core/url_rewrite');
@@ -77,19 +77,12 @@ class GoMage_SeoBooster_Model_Review_Url
             return $product;
         }
         $productId = $review->getEntityPkValue();
-        $product = Mage::getModel('catalog/product')->load($productId);
+        $product   = Mage::getModel('catalog/product')->load($productId);
 
         return $product;
 
     }
 
-    /**
-     * Generate path for url rewrite
-     *
-     * @param string             $type Path type
-     * @param Mage_Review_Model_Review $review  Review
-     * @return string
-     */
     public function generatePath($type = 'target', $review, $product = null)
     {
         if (!$review || !$review->getId()) {
@@ -97,7 +90,7 @@ class GoMage_SeoBooster_Model_Review_Url
         }
 
         if ($type == 'id') {
-            return 'product/review/'. $review->getId();
+            return 'product/review/' . $review->getId();
         } elseif ($type == 'request') {
             if ($product->getUrlKey() == '') {
                 $productUrlKey = $this->_formatUrlKey($product->getName());
@@ -105,11 +98,11 @@ class GoMage_SeoBooster_Model_Review_Url
                 $productUrlKey = $this->_formatUrlKey($product->getUrlKey());
             }
 
-            $path = $productUrlKey . '/'. $this->_getProductReviewsRewritePath() . '/' . $review->getId() . $this->_reviewUrlSuffix;
+            $path = $productUrlKey . '/' . $this->_getProductReviewsRewritePath() . '/' . $review->getId() . $this->_reviewUrlSuffix;
             return $path;
         }
 
-        return 'review/product/view/id/'. $review->getId();
+        return 'review/product/view/id/' . $review->getId();
     }
 
     /**
@@ -141,18 +134,18 @@ class GoMage_SeoBooster_Model_Review_Url
                 continue;
             }
 
-            $product = $this->_getProduct($review);
+            $product     = $this->_getProduct($review);
             $idPath      = $this->generatePath('id', $review);
             $targetPath  = $this->generatePath('target', $review);
             $requestPath = $this->generatePath('request', $review, $product);
 
             $rewriteData = array(
-                'product_id'    => $product->getId(),
-                'store_id'      => $storeId ?: $review->getStoreId(),
-                'id_path'       => $idPath,
-                'request_path'  => $requestPath,
-                'target_path'   => $targetPath,
-                'is_system'     => 0
+                'product_id'   => $product->getId(),
+                'store_id'     => $storeId ? : $review->getStoreId(),
+                'id_path'      => $idPath,
+                'request_path' => $requestPath,
+                'target_path'  => $targetPath,
+                'is_system'    => 0
             );
 
             Mage::getResourceModel('gomage_seobooster/catalog_url')->saveRewrite($rewriteData, null);
@@ -189,9 +182,9 @@ class GoMage_SeoBooster_Model_Review_Url
 
     public function getUrl($reviewId, $params = array())
     {
-        $routePath      = '';
-        $routeParams    = $params;
-        $storeId = null;
+        $routePath   = '';
+        $routeParams = $params;
+        $storeId     = null;
 
         $idPath = sprintf('product/review/%d', $reviewId);
 
@@ -204,8 +197,8 @@ class GoMage_SeoBooster_Model_Review_Url
         if (!empty($requestPath)) {
             $routeParams['_direct'] = $requestPath;
         } else {
-            $routePath = 'review/product/view/id';
-            $routeParams['id']  = $reviewId;
+            $routePath         = 'review/product/view/id';
+            $routeParams['id'] = $reviewId;
         }
 
         // reset cached URL instance GET query params
