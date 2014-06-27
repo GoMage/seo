@@ -92,14 +92,15 @@ class GoMage_SeoBooster_Model_Review_Url
         if ($type == 'id') {
             return 'product/review/' . $review->getId();
         } elseif ($type == 'request') {
+
+
             if ($product->getUrlKey() == '') {
                 $productUrlKey = $this->_formatUrlKey($product->getName());
             } else {
                 $productUrlKey = $this->_formatUrlKey($product->getUrlKey());
             }
 
-            $path = $productUrlKey . '/' . $this->_getProductReviewsRewritePath() . '/' . $review->getId() . $this->_reviewUrlSuffix;
-            return $path;
+            return $productUrlKey . '/' . $this->_getProductReviewsRewritePath() . '/' . $review->getId() . $this->_reviewUrlSuffix;
         }
 
         return 'review/product/view/id/' . $review->getId();
@@ -128,7 +129,10 @@ class GoMage_SeoBooster_Model_Review_Url
 
     public function refreshReviewsRewrites($storeId)
     {
-        $reviews = Mage::getModel('review/review')->getCollection()->addStoreFilter($storeId);
+        $reviews = Mage::getModel('review/review')->getCollection();
+        if ($storeId) {
+            $reviews->addStoreFilter($storeId);
+        }
         foreach ($reviews as $review) {
             if (!$review || !$review->getId()) {
                 continue;

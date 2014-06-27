@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GoMage Seo Booster Extension
  *
@@ -10,7 +11,6 @@
  * @version      Release: 1.0.0
  * @since        Available since Release 1.0.0
  */
-
 class GoMage_SeoBooster_Model_Resource_Catalog_Url extends Mage_Catalog_Model_Resource_Url
 {
     /**
@@ -45,7 +45,6 @@ class GoMage_SeoBooster_Model_Resource_Catalog_Url extends Mage_Catalog_Model_Re
             }
         }
         unset($rewriteData);
-
         return $this;
     }
 }

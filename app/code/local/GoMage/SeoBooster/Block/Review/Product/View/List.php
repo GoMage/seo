@@ -18,7 +18,6 @@ class GoMage_SeoBooster_Block_Review_Product_View_List extends Mage_Review_Block
         if (Mage::helper('gomage_seobooster')->canUseProductReviewsUrlRewrite()) {
             return Mage::getModel('gomage_seobooster/review_url')->getUrl($id);
         }
-
-        return Mage::getUrl('*/*/view', array('id' => $id));
+        return parent::getReviewUrl($id);
     }
 }
