@@ -145,6 +145,16 @@ class GoMage_SeoBooster_Model_Catalog_Url extends Mage_Catalog_Model_Url
             } else {
                 $urlKey = $this->getProductModel()->formatUrlKey($product->getUrlKey());
             }
+
+            $_product = $product;
+            if (!($_product instanceof Mage_Catalog_Model_Product)) {
+                $_product = Mage::getModel('catalog/product')->load($product->getId());
+            };
+
+            if (!$_product->isVisibleInSiteVisibility() || !$_product->isVisibleInCatalog()) {
+                $urlKey .= '-' . $product->getId();
+            }
+
             $productUrlSuffix  = '.html';
             $reviewRewritePath = $this->_getProductReviewsRewritePath();
 
