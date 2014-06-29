@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GoMage Seo Booster Extension
  *
@@ -10,7 +11,6 @@
  * @version      Release: 1.0.0
  * @since        Available since Release 1.0.0
  */
-
 class GoMage_SeoBooster_Model_Sitemap_Sitemap extends Mage_Sitemap_Model_Sitemap
 {
     protected $_linksCount = 0;
@@ -70,7 +70,7 @@ class GoMage_SeoBooster_Model_Sitemap_Sitemap extends Mage_Sitemap_Model_Sitemap
                 continue;
             }
             $images = $this->_getProductImages($item, $storeId);
-            $xml = sprintf('<url><loc>%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq><priority>%.1f</priority>%s</url>',
+            $xml    = sprintf('<url><loc>%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq><priority>%.1f</priority>%s</url>',
                 htmlspecialchars($baseUrl . $item->getUrl()),
                 $date,
                 $changefreq,
@@ -124,9 +124,9 @@ class GoMage_SeoBooster_Model_Sitemap_Sitemap extends Mage_Sitemap_Model_Sitemap
         $io->setAllowCreateFolders(true);
         $io->open(array('path' => $this->getPath()));
 
-        $filename = $this->getData('sitemap_filename');
-        $extension = strrchr($filename, '.');
-        $filenameTemplate = str_replace($extension, '', $filename) .'_%d'.$extension;
+        $filename         = $this->getData('sitemap_filename');
+        $extension        = strrchr($filename, '.');
+        $filenameTemplate = str_replace($extension, '', $filename) . '_%d' . $extension;
 
         if ($io->fileExists($filename) && !$io->isWriteable($filename)) {
             Mage::throwException(Mage::helper('sitemap')->__('File "%s" cannot be saved. Please, make sure the directory "%s" is writeable by web server.', $this->getData('sitemap_filename'), $this->getPath()));
@@ -156,24 +156,26 @@ class GoMage_SeoBooster_Model_Sitemap_Sitemap extends Mage_Sitemap_Model_Sitemap
      */
     protected function _getProductImages($product, $storeId)
     {
-        $images = '';
-        $imagesCount = (int) Mage::helper('gomage_seobooster/sitemap')->getMaxImagesPerProduct();
-        $imagesInc = 0;
+        $images      = '';
+        $imagesCount = (int)Mage::helper('gomage_seobooster/sitemap')->getMaxImagesPerProduct();
+        $imagesInc   = 0;
 
         if (!Mage::helper('gomage_seobooster/sitemap')->canIncludeProductImages()) {
             return $images;
         }
 
-        $medialGallery = $product->getMediaGallery();
-        if (is_array($medialGallery)) {
-            foreach ($medialGallery as $image) {
-                if ($imagesCount !=0 && $imagesInc >= $imagesCount) {
-                    return $images;
-                }
-                $path = Mage::getSingleton('catalog/product_media_config')->getMediaUrl($image['file']);
-                $images .= '<image:image><image:loc>' . htmlspecialchars($path) . '</image:loc></image:image>';
-                $imagesInc++;
+        $product = Mage::getModel('catalog/product')->load($product->getId());
+        $product->setStoreId($storeId);
+
+        $medialGallery = $product->getMediaGalleryImages();
+
+        foreach ($medialGallery as $image) {
+            if ($imagesCount != 0 && $imagesInc >= $imagesCount) {
+                return $images;
             }
+            $path = Mage::getSingleton('catalog/product_media_config')->getMediaUrl($image->getFile());
+            $images .= '<image:image><image:loc>' . htmlspecialchars($path) . '</image:loc></image:image>';
+            $imagesInc++;
         }
 
         return $images;
@@ -182,21 +184,21 @@ class GoMage_SeoBooster_Model_Sitemap_Sitemap extends Mage_Sitemap_Model_Sitemap
     /**
      * Add tags to sitemap
      *
-     * @param Varien_Io_File $io      Input/Output Stream
-     * @param int            $storeId Store Id
+     * @param Varien_Io_File $io Input/Output Stream
+     * @param int $storeId Store Id
      * @return $this
      */
     protected function _addTags($io, $storeId)
     {
-        if (!Mage::helper('gomage_seobooster/sitemap')->canAddProductTags()){
+        if (!Mage::helper('gomage_seobooster/sitemap')->canAddProductTags()) {
             return $this;
         }
 
-        $mageUrl = Mage::getBaseUrl();
-        $baseUrl = Mage::app()->getStore($storeId)->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK);
-        $date = Mage::getSingleton('core/date')->gmtDate('Y-m-d');
+        $mageUrl    = Mage::getBaseUrl();
+        $baseUrl    = Mage::app()->getStore($storeId)->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK);
+        $date       = Mage::getSingleton('core/date')->gmtDate('Y-m-d');
         $changefreq = Mage::helper('gomage_seobooster/sitemap')->getProductTagsChangefreq();
-        $priority = Mage::helper('gomage_seobooster/sitemap')->getProductTagsPriority();
+        $priority   = Mage::helper('gomage_seobooster/sitemap')->getProductTagsPriority();
 
         $tags = Mage::getModel('tag/tag')->getPopularCollection()
             ->joinFields(Mage::app()->getStore()->getId())
@@ -221,18 +223,18 @@ class GoMage_SeoBooster_Model_Sitemap_Sitemap extends Mage_Sitemap_Model_Sitemap
     /**
      * Add additional links to sitemap
      *
-     * @param Varien_Io_File $io      Input/Output Stream
-     * @param int            $storeId Store Id
+     * @param Varien_Io_File $io Input/Output Stream
+     * @param int $storeId Store Id
      * @return $this
      */
     protected function _addAdditionalLinks($io, $storeId)
     {
-        $mageUrl = Mage::getBaseUrl();
-        $baseUrl = Mage::app()->getStore($storeId)->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK);
+        $mageUrl         = Mage::getBaseUrl();
+        $baseUrl         = Mage::app()->getStore($storeId)->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK);
         $additionalLinks = Mage::helper('gomage_seobooster/sitemap')->getAdditionalLinks();
-        $date = Mage::getSingleton('core/date')->gmtDate('Y-m-d');
-        $changefreq = Mage::helper('gomage_seobooster/sitemap')->getAdditionalLinksChangefreq();
-        $priority = Mage::helper('gomage_seobooster/sitemap')->getAdditionalLinksPriority();
+        $date            = Mage::getSingleton('core/date')->gmtDate('Y-m-d');
+        $changefreq      = Mage::helper('gomage_seobooster/sitemap')->getAdditionalLinksChangefreq();
+        $priority        = Mage::helper('gomage_seobooster/sitemap')->getAdditionalLinksPriority();
 
         foreach ($additionalLinks as $link) {
             $url = str_replace($mageUrl, $baseUrl, $link['url']);
@@ -254,7 +256,8 @@ class GoMage_SeoBooster_Model_Sitemap_Sitemap extends Mage_Sitemap_Model_Sitemap
         if (Mage::helper('gomage_seobooster/sitemap')->canSplitSitemap()) {
             $this->_linksCount++;
             if (($this->_linksCount == Mage::helper('gomage_seobooster/sitemap')->getMaxLinksCount())
-                || ($io->streamStat('size') / 1024 >= Mage::helper('gomage_seobooster/sitemap')->getMaxFileSize())) {
+                || ($io->streamStat('size') / 1024 >= Mage::helper('gomage_seobooster/sitemap')->getMaxFileSize())
+            ) {
                 $this->_linksCount = 0;
                 $this->_filesCount++;
                 $this->_closeXmlFile($io);
@@ -289,10 +292,10 @@ class GoMage_SeoBooster_Model_Sitemap_Sitemap extends Mage_Sitemap_Model_Sitemap
     public function getSitemapIndexFilename()
     {
         if (Mage::helper('gomage_seobooster/sitemap')->canSplitSitemap()) {
-            $filename = $this->getData('sitemap_filename');
+            $filename  = $this->getData('sitemap_filename');
             $extension = strrchr($filename, '.');
-            $filename = str_replace($extension, '', $filename);
-            $filename = $filename . sprintf('_%d', $this->_filesCount). $extension;
+            $filename  = str_replace($extension, '', $filename);
+            $filename  = $filename . sprintf('_%d', $this->_filesCount) . $extension;
 
             return $filename;
         }
@@ -306,18 +309,18 @@ class GoMage_SeoBooster_Model_Sitemap_Sitemap extends Mage_Sitemap_Model_Sitemap
             return;
         }
 
-        $fileName = preg_replace('/^\//', '', $this->getSitemapPath() . $this->getSitemapIndexFilename());
+        $fileName   = preg_replace('/^\//', '', $this->getSitemapPath() . $this->getSitemapIndexFilename());
         $sitemapUrl = Mage::app()->getStore($this->getStoreId())->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB) . $fileName;
-        $engines = Mage::helper('gomage_seobooster/sitemap')->getSearchEngines();
+        $engines    = Mage::helper('gomage_seobooster/sitemap')->getSearchEngines();
 
         foreach ($engines as $engine) {
             $engineUrl = Mage::helper('gomage_seobooster/sitemap')->getSearchEngineUrl($engine);
-            $submitUrl = sprintf($engineUrl.'%s', urldecode($sitemapUrl));
+            $submitUrl = sprintf($engineUrl . '%s', urldecode($sitemapUrl));
 
             $handle = curl_init();
-            curl_setopt($handle,CURLOPT_URL, $submitUrl);
-            curl_setopt($handle,CURLOPT_CONNECTTIMEOUT, 2);
-            curl_setopt($handle,CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($handle, CURLOPT_URL, $submitUrl);
+            curl_setopt($handle, CURLOPT_CONNECTTIMEOUT, 2);
+            curl_setopt($handle, CURLOPT_RETURNTRANSFER, 1);
             curl_exec($handle);
             curl_close($handle);
         }
@@ -325,14 +328,15 @@ class GoMage_SeoBooster_Model_Sitemap_Sitemap extends Mage_Sitemap_Model_Sitemap
 
     protected function _removeOldFiles()
     {
-        $filename = $this->getData('sitemap_filename');
+        $filename  = $this->getData('sitemap_filename');
         $extension = strrchr($filename, '.');
-        $filename = str_replace($extension, '', $filename);
-        $mask = $this->getPath(). '{'. $filename .'}_*'. $extension;
-        array_map(function($path){
-            if (file_exists($path)) {
-                unlink($path);
-            }
-        }, glob($mask, GLOB_BRACE));
+        $filename  = str_replace($extension, '', $filename);
+        $mask      = $this->getPath() . '{' . $filename . '}_*' . $extension;
+        array_map(function ($path) {
+                if (file_exists($path)) {
+                    unlink($path);
+                }
+            }, glob($mask, GLOB_BRACE)
+        );
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GoMage Seo Booster Extension
  *
@@ -10,7 +11,6 @@
  * @version      Release: 1.0.0
  * @since        Available since Release 1.0.0
  */
-
 class GoMage_SeoBooster_Helper_Sitemap extends Mage_Core_Helper_Data
 {
     const SEARCH_ENGINE_GOOGLE = 'google';
@@ -22,6 +22,7 @@ class GoMage_SeoBooster_Helper_Sitemap extends Mage_Core_Helper_Data
     const SEARCH_ENGINE_YAHOO_URL  = 'http://www.bing.com/webmaster/ping.aspx?siteMap=';
     const SEARCH_ENGINE_BING_URL   = 'http://www.bing.com/webmaster/ping.aspx?siteMap=';
     const SEARCH_ENGINE_ASK_URL    = 'http://submissions.ask.com/ping?sitemap=';
+
     /**
      * Return module status
      *
@@ -44,6 +45,7 @@ class GoMage_SeoBooster_Helper_Sitemap extends Mage_Core_Helper_Data
 
     /**
      * Return max images per product
+     *
      * @return mixed
      */
     public function getMaxImagesPerProduct()
@@ -89,14 +91,14 @@ class GoMage_SeoBooster_Helper_Sitemap extends Mage_Core_Helper_Data
     public function getAdditionalLinks()
     {
         $linksString = Mage::getStoreConfig('sitemap/extended_settings/additional_links');
-        $result = array();
+        $result      = array();
         if (!empty($linksString)) {
             $links = explode("\n", $linksString);
             foreach ($links as $_link) {
                 $explodedLink = explode(',', $_link);
                 if (isset($explodedLink[0])) {
                     $urlPath = ltrim(ltrim($explodedLink[0]), '/');
-                    $link = array('url' => Mage::getUrl($urlPath));
+                    $link    = array('url' => Mage::getUrl($urlPath));
                     if (isset($explodedLink[1])) {
                         $link['name'] = ltrim($explodedLink[1]);
                     }

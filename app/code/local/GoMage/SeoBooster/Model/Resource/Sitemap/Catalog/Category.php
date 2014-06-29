@@ -76,16 +76,16 @@ class GoMage_SeoBooster_Model_Resource_Sitemap_Catalog_Category
     /**
      * Prepare category
      *
-     * @param array $categoryRow
+     * @param array $row
      * @return Varien_Object
      */
-    protected function _prepareCategory(array $categoryRow)
+    protected function _prepareCategory(array $row)
     {
         $category = new Varien_Object();
-        $category->setId($categoryRow[$this->getIdFieldName()]);
-        $categoryUrl = !empty($categoryRow['url']) ? $categoryRow['url'] : 'catalog/category/view/id/' . $category->getId();
-        $category->setUrl($categoryUrl);
-        $excludeFromSitemap = !empty($categoryRow['exclude_from_sitemap']) ? $categoryRow['exclude_from_sitemap'] : 0;
+        $category->setId($row[$this->getIdFieldName()]);
+        $url = !empty($row['url']) ? $row['url'] : 'catalog/category/view/id/' . $category->getId();
+        $category->setUrl($url);
+        $excludeFromSitemap = !empty($row['exclude_from_sitemap']) ? $row['exclude_from_sitemap'] : 0;
         $category->setExcludeFromSitemap($excludeFromSitemap);
         return $category;
     }

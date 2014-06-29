@@ -30,12 +30,13 @@ class GoMage_SeoBooster_Model_Resource_Sitemap_Catalog_Product extends Mage_Site
             return false;
         }
 
-        $urCondions    = array(
+        $urCondions = array(
             'main_table.entity_id=ur.product_id',
             'ur.category_id IS NULL',
             $this->_getWriteAdapter()->quoteInto('ur.store_id=?', $store->getId()),
             $this->_getWriteAdapter()->quoteInto('ur.is_system=?', 1),
         );
+
         $this->_select = $this->_getWriteAdapter()->select()
             ->from(array('main_table' => $this->getMainTable()), array($this->getIdFieldName()))
             ->join(
@@ -61,6 +62,7 @@ class GoMage_SeoBooster_Model_Resource_Sitemap_Catalog_Product extends Mage_Site
         $this->_addFilter($storeId, 'status', Mage::getSingleton('catalog/product_status')->getVisibleStatusIds(), 'in');
 
         $query = $this->_getWriteAdapter()->query($this->_select);
+
         while ($row = $query->fetch()) {
             $product                     = $this->_prepareProduct($row);
             $products[$product->getId()] = $product;
@@ -68,4 +70,25 @@ class GoMage_SeoBooster_Model_Resource_Sitemap_Catalog_Product extends Mage_Site
 
         return $products;
     }
+
+    /**
+     * Prepare catalog object
+     *
+     * @param array $row
+     * @return Varien_Object
+     */
+    protected function _prepareProduct(array $row)
+    {
+        $product = new Varien_Object();
+        $product->setId($row[$this->getIdFieldName()]);
+
+        $url = !empty($row['url']) ? $row['url'] : 'catalog/product/view/id/' . $product->getId();
+        $product->setUrl($url);
+
+        $excludeFromSitemap = !empty($row['exclude_from_sitemap']) ? $row['exclude_from_sitemap'] : 0;
+        $product->setExcludeFromSitemap($excludeFromSitemap);
+
+        return $product;
+    }
+
 }
