@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GoMage Seo Booster Extension
  *
@@ -10,7 +11,6 @@
  * @version      Release: 1.0.0
  * @since        Available since Release 1.0.0
  */
-
 class GoMage_SeoBooster_Helper_Layered extends Mage_Core_Helper_Data
 {
     protected $_request;
@@ -29,7 +29,7 @@ class GoMage_SeoBooster_Helper_Layered extends Mage_Core_Helper_Data
     public function isUrlRewriteEnabled()
     {
         return Mage::helper('gomage_seobooster')->isEnabled()
-            && Mage::getStoreConfig('gomage_seobooster/url_rewrite/enable_layered_url_rewrite');
+        && Mage::getStoreConfig('gomage_seobooster/url_rewrite/enable_layered_url_rewrite');
     }
 
     /**
@@ -40,7 +40,7 @@ class GoMage_SeoBooster_Helper_Layered extends Mage_Core_Helper_Data
     public function canUseFriendlyUrl()
     {
         return $this->isUrlRewriteEnabled()
-            && Mage::getStoreConfig('gomage_seobooster/url_rewrite/layered_friendly_urls');
+        && Mage::getStoreConfig('gomage_seobooster/url_rewrite/layered_friendly_urls');
     }
 
     /**
@@ -51,7 +51,7 @@ class GoMage_SeoBooster_Helper_Layered extends Mage_Core_Helper_Data
     public function getSeparator()
     {
         return $this->isUrlRewriteEnabled()
-            && Mage::getStoreConfig('gomage_seobooster/url_rewrite/layered_separator') != '='
+        && Mage::getStoreConfig('gomage_seobooster/url_rewrite/layered_separator') != '='
             ? Mage::getStoreConfig('gomage_seobooster/url_rewrite/layered_separator') : false;
     }
 
@@ -63,7 +63,7 @@ class GoMage_SeoBooster_Helper_Layered extends Mage_Core_Helper_Data
     public function canAddRewritePath()
     {
         return $this->isUrlRewriteEnabled()
-            && Mage::getStoreConfig('gomage_seobooster/url_rewrite/enable_layered_rewrite_path');
+        && Mage::getStoreConfig('gomage_seobooster/url_rewrite/enable_layered_rewrite_path');
     }
 
     /**
@@ -80,9 +80,9 @@ class GoMage_SeoBooster_Helper_Layered extends Mage_Core_Helper_Data
     /**
      * Return url by route
      *
-     * @param string      $route   Route
-     * @param array       $params  Route params
-     * @param int|null    $storeId Store Id
+     * @param string $route Route
+     * @param array $params Route params
+     * @param int|null $storeId Store Id
      * @return string
      */
     public function getUrl($route, $params = array(), $storeId = null)
@@ -109,8 +109,8 @@ class GoMage_SeoBooster_Helper_Layered extends Mage_Core_Helper_Data
     /**
      * Return query string for layered
      *
-     * @param array $params  Query params
-     * @param bool  $escape Escape string
+     * @param array $params Query params
+     * @param bool $escape Escape string
      * @return string
      */
     public function getQuery($params, $escape)
@@ -119,7 +119,7 @@ class GoMage_SeoBooster_Helper_Layered extends Mage_Core_Helper_Data
 
         if (is_array($params)) {
             $paramsSeparator = $this->canAddRewritePath() ? '/' : ($escape ? '&amp;' : '&');
-            $queryParams = array();
+            $queryParams     = array();
             ksort($params);
             if ($valueSeparator = $this->getSeparator()) {
                 foreach ($params as $_param => $_value) {
@@ -198,7 +198,7 @@ class GoMage_SeoBooster_Helper_Layered extends Mage_Core_Helper_Data
     {
         if (is_null($this->_request)) {
             $request = new Mage_Core_Controller_Request_Http();
-            $params = array_merge($request->getParams(), Mage::app()->getRequest()->getParams());
+            $params  = array_merge($request->getParams(), Mage::app()->getRequest()->getParams());
             $request->clearParams();
             foreach ($params as $key => $value) {
                 if ($this->isLayeredQueryParam($key, $value)) {
@@ -224,7 +224,7 @@ class GoMage_SeoBooster_Helper_Layered extends Mage_Core_Helper_Data
     protected function _getProductAttributeCollection()
     {
         if (is_null($this->_productAttributesCollection)) {
-            $params = $this->getRequest()->getParams();
+            $params     = $this->getRequest()->getParams();
             $attributes = array();
             foreach ($params as $key => $value) {
                 if ($value) {
@@ -250,8 +250,8 @@ class GoMage_SeoBooster_Helper_Layered extends Mage_Core_Helper_Data
     public function getFilterableParams()
     {
         if (is_null($this->_filterableParams)) {
-            $collection = $this->_getProductAttributeCollection();
-            $params = array();
+            $collection  = $this->_getProductAttributeCollection();
+            $params      = array();
             $queryParams = $this->getRequest()->getParams();
             foreach ($collection as $item) {
                 if (isset($queryParams[$item->getAttributeCode()])) {
@@ -275,8 +275,7 @@ class GoMage_SeoBooster_Helper_Layered extends Mage_Core_Helper_Data
     public function getFilterableParamsSize()
     {
         if (is_null($this->_filterableParamsCount)) {
-            $collection = $this->_getProductAttributeCollection();
-            $this->_filterableParamsCount = $collection->getSize();
+            $this->_filterableParamsCount = count($this->getFilterableParams());
         }
 
         return $this->_filterableParamsCount;

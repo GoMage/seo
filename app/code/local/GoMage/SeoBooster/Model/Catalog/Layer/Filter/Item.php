@@ -59,6 +59,7 @@ class GoMage_SeoBooster_Model_Catalog_Layer_Filter_Item extends Mage_Catalog_Mod
         } else {
             $query = array($this->getFilter()->getRequestVar() => $this->getFilter()->getResetValue());
         }
+
         if (Mage::helper('gomage_seobooster/layered')->getFilterableParamsSize() < 2) {
             $params['_use_layer_rewrite'] = false;
         }
