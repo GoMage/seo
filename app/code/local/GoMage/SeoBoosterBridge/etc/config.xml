@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * GoMage Seo Booster Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2013-2014 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use/
+ * @version      Release: 1.0.0
+ * @since        Available since Release 1.0.0
+ */
+-->
+<config>
+    <modules>
+        <GoMage_SeoBoosterBridge>
+            <version>1.0.0</version>
+        </GoMage_SeoBoosterBridge>
+    </modules>
+    <global>
+        <blocks>
+            <gomage_seoboosterbridge>
+                <class>GoMage_SeoBoosterBridge_Block</class>
+            </gomage_seoboosterbridge>
+            <catalog>
+                <rewrite>
+                    <product_list_toolbar>GoMage_SeoBoosterBridge_Block_Catalog_Product_List_Toolbar</product_list_toolbar>
+                    <layer_filter_category>GoMage_SeoBoosterBridge_Block_Catalog_Layer_Filter_Category</layer_filter_category>
+                    <layer_filter_price>GoMage_SeoBoosterBridge_Block_Catalog_Layer_Filter_Price</layer_filter_price>
+                    <layer_filter_decimal>GoMage_SeoBoosterBridge_Block_Catalog_Layer_Filter_Decimal</layer_filter_decimal>
+                    <layer_filter_attribute>GoMage_SeoBoosterBridge_Block_Catalog_Layer_Filter_Attribute</layer_filter_attribute>
+                </rewrite>
+            </catalog>
+            <page>
+                <rewrite>
+                    <html_pager>GoMage_SeoBoosterBridge_Block_Page_Html_Pager</html_pager>
+                </rewrite>
+            </page>
+        </blocks>
+        <helpers>
+            <gomage_seoboosterbridge>
+                <class>GoMage_SeoBoosterBridge_Helper</class>
+            </gomage_seoboosterbridge>
+        </helpers>
+        <models>
+            <gomage_seoboosterbridge>
+                <class>GoMage_SeoBoosterBridge_Model</class>
+            </gomage_seoboosterbridge>
+            <catalog>
+                <rewrite>
+                    <layer_filter_item>GoMage_SeoBoosterBridge_Model_Catalog_Layer_Filter_Item</layer_filter_item>
+                    <layer_filter_attribute>GoMage_SeoBoosterBridge_Model_Catalog_Layer_Filter_Attribute</layer_filter_attribute>
+                    <layer_filter_price>GoMage_SeoBoosterBridge_Model_Catalog_Layer_Filter_Price</layer_filter_price>
+                </rewrite>
+            </catalog>
+        </models>
+    </global>
+</config> 
