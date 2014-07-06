@@ -28,8 +28,7 @@ class GoMage_SeoBooster_Block_Catalog_Layer_Filter_Decimal extends Mage_Catalog_
         $this->_prepareFilter();
         $request = $this->getRequest();
         $helper = Mage::helper('gomage_seobooster/layered');
-        $request = $helper->getSeparator() || Mage::helper('gomage_seobooster/layered')->canAddRewritePath()
-            ? $helper->getRequest() : $request;
+        $request = $helper->getSeparator() || $helper->canAddRewritePath() ? $helper->getRequest() : $request;
 
         $this->_filter->apply($request, $this);
         return $this;

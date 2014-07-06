@@ -102,11 +102,11 @@
             </gomage_seobooster_resource>
             <catalog>
                 <rewrite>
-                    <product_url>GoMage_SeoBooster_Model_Catalog_Product_Url</product_url>
+                    <url>GoMage_SeoBooster_Model_Catalog_Url</url>
                     <product>GoMage_SeoBooster_Model_Catalog_Product</product>
+                    <product_url>GoMage_SeoBooster_Model_Catalog_Product_Url</product_url>
                     <category>GoMage_SeoBooster_Model_Catalog_Category</category>
                     <template_filter>GoMage_SeoBooster_Model_Catalog_Template_Filter</template_filter>
-                    <url>GoMage_SeoBooster_Model_Catalog_Url</url>
                     <layer_filter_item>GoMage_SeoBooster_Model_Catalog_Layer_Filter_Item</layer_filter_item>
                     <layer_filter_attribute>GoMage_SeoBooster_Model_Catalog_Layer_Filter_Attribute</layer_filter_attribute>
                     <layer_filter_price>GoMage_SeoBooster_Model_Catalog_Layer_Filter_Price</layer_filter_price>

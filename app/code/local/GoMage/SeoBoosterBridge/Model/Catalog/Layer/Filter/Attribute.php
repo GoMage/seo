@@ -20,7 +20,6 @@ class GoMage_SeoBoosterBridge_Model_Catalog_Layer_Filter_Attribute extends GoMag
      */
     protected function _getItemsData()
     {
-
         $attribute         = $this->getAttributeModel();
         $this->_requestVar = $attribute->getAttributeCode();
 
@@ -28,7 +27,7 @@ class GoMage_SeoBoosterBridge_Model_Catalog_Layer_Filter_Attribute extends GoMag
 
         $selected = array();
 
-        if ($value = Mage::app()->getFrontController()->getRequest()->getParam($this->_requestVar)) {
+        if ($value = Mage::helper('gomage_navigation')->getRequest()->getParam($this->_requestVar)) {
             $selected = array_merge($selected, explode(',', $value));
         }
 
@@ -41,7 +40,7 @@ class GoMage_SeoBoosterBridge_Model_Catalog_Layer_Filter_Attribute extends GoMag
             $options     = $attribute->getFrontend()->getSelectOptions();
 
             if (Mage::helper('gomage_navigation')->isEnterprise()) {
-                $isCatalog = is_null(Mage::app()->getFrontController()->getRequest()->getParam('q'));
+                $isCatalog = is_null(Mage::helper('gomage_navigation')->getParam('q'));
 
                 $helper = Mage::helper('enterprise_search');
                 if (!$isCatalog && $helper->isThirdPartSearchEngine() && $helper->getIsEngineAvailableForNavigation($isCatalog) && Mage::helper('gomage_navigation')->isGomageNavigation()) {
@@ -130,34 +129,6 @@ class GoMage_SeoBoosterBridge_Model_Catalog_Layer_Filter_Attribute extends GoMag
     protected function _getOptionId($value)
     {
         return $this->getAttributeModel()->getSource()->getOptionId($value);
-    }
-
-    /**
-     * Apply attribute option filter to product collection
-     *
-     * @param   Zend_Controller_Request_Abstract $request Request
-     * @param   Varien_Object $filterBlock Filter Block
-     * @return  Mage_Catalog_Model_Layer_Filter_Attribute
-     */
-    public function apply(Zend_Controller_Request_Abstract $request, $filterBlock)
-    {
-        if (!Mage::helper('gomage_seobooster/layered')->canUseFriendlyUrl()) {
-            return parent::apply($request, $filterBlock);
-        }
-
-
-        $filter = $request->getParam($this->_requestVar);
-        if (is_array($filter)) {
-            return $this;
-        }
-        $optionId = $this->_getOptionId($filter);
-
-        if ($optionId) {
-            $this->_getResource()->applyFilterToCollection($this, $optionId);
-            $this->getLayer()->getState()->addFilter($this->_createItem($filter, $optionId));
-            $this->_items = array();
-        }
-        return $this;
     }
 
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GoMage Seo Booster Extension
  *

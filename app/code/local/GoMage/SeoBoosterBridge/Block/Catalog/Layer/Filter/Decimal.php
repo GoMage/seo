@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GoMage Seo Booster Extension
  *
@@ -10,7 +11,6 @@
  * @version      Release: 1.0.0
  * @since        Available since Release 1.0.0
  */
-
 class GoMage_SeoBoosterBridge_Block_Catalog_Layer_Filter_Decimal extends GoMage_Navigation_Block_Layer_Filter_Decimal
 {
     /**
@@ -28,11 +28,56 @@ class GoMage_SeoBoosterBridge_Block_Catalog_Layer_Filter_Decimal extends GoMage_
         $this->_prepareFilter();
         $request = $this->getRequest();
         $helper  = Mage::helper('gomage_seobooster/layered');
-        $request = $helper->getSeparator() || Mage::helper('gomage_seobooster/layered')->canAddRewritePath()
-            ? $helper->getRequest() : $request;
+        $request = $helper->getSeparator() || $helper->canAddRewritePath() ? $helper->getRequest() : $request;
 
         $this->_filter->apply($request, $this);
         return $this;
+    }
+
+    protected function _prepareFilter()
+    {
+        parent::_prepareFilter();
+
+        if (Mage::helper('gomage_navigation')->isGomageNavigation()) {
+
+            switch ($this->getAttributeModel()->getFilterType()) {
+                default:
+                    $this->_template = ('gomage/seoboosterbridge/layer/filter/default.phtml');
+                    break;
+
+                case(GoMage_Navigation_Model_Layer::FILTER_TYPE_INPUT):
+                    $this->_template = ('gomage/navigation/layer/filter/input.phtml');
+                    break;
+
+                case(GoMage_Navigation_Model_Layer::FILTER_TYPE_SLIDER):
+                    if (Mage::helper('gomage_navigation')->isMobileDevice()) {
+                        $this->_template = ('gomage/seoboosterbridge/layer/filter/default.phtml');
+                    } else {
+                        $this->_template = ('gomage/navigation/layer/filter/slider.phtml');
+                    }
+                    break;
+
+                case(GoMage_Navigation_Model_Layer::FILTER_TYPE_SLIDER_INPUT):
+                    if (Mage::helper('gomage_navigation')->isMobileDevice()) {
+                        $this->_template = ('gomage/seoboosterbridge/layer/filter/default.phtml');
+                    } else {
+                        $this->_template = ('gomage/navigation/layer/filter/slider-input.phtml');
+                    }
+                    break;
+
+                case(GoMage_Navigation_Model_Layer::FILTER_TYPE_INPUT_SLIDER):
+                    if (Mage::helper('gomage_navigation')->isMobileDevice()) {
+                        $this->_template = ('gomage/seoboosterbridge/layer/filter/default.phtml');
+                    } else {
+                        $this->_template = ('gomage/navigation/layer/filter/input-slider.phtml');
+                    }
+                    break;
+
+                case(GoMage_Navigation_Model_Layer::FILTER_TYPE_DROPDOWN):
+                    $this->_template = ('gomage/navigation/layer/filter/dropdown.phtml');
+                    break;
+            }
+        }
     }
 
 }

@@ -169,7 +169,7 @@ class GoMage_SeoBooster_Helper_Layered extends Mage_Core_Helper_Data
                 $value = implode($separator, $param);
                 $value = str_replace('/', '', $value);
                 return array($key, $this->_removeCategorySuffixFromRequestValue($value));
-            } else {
+            } elseif (isset($param[1])) {
                 $param[1] = str_replace('/', '', $param[1]);
                 $param[1] = $this->_removeCategorySuffixFromRequestValue($param[1]);
             }
@@ -204,16 +204,32 @@ class GoMage_SeoBooster_Helper_Layered extends Mage_Core_Helper_Data
                 if ($this->isLayeredQueryParam($key, $value)) {
                     $param = $this->prepareLayeredQueryParam($key);
                     if (count($param) == 2) {
-                        $request->setParam($param[0], $param[1]);
+                        $this->_setRequestParam($request, $param[0], $param[1]);
                     }
                 } else {
-                    $request->setParam($key, $this->_removeCategorySuffixFromRequestValue($value));
+                    $this->_setRequestParam($request, $key, $this->_removeCategorySuffixFromRequestValue($value));
                 }
             }
             $this->_request = $request;
         }
 
         return $this->_request;
+    }
+
+    /**
+     * @param Mage_Core_Controller_Request_Http $request
+     * @param string $key
+     * @param mixed $value
+     */
+    protected function _setRequestParam(&$request, $key, $value)
+    {
+        if ($values = $request->getParam($key)) {
+            $values = explode(',', $values);
+            array_push($values, $value);
+            $value = implode(',', $values);
+        }
+
+        $request->setParam($key, $value);
     }
 
     /**
