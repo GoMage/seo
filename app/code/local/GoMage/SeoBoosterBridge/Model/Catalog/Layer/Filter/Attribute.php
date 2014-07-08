@@ -28,7 +28,12 @@ class GoMage_SeoBoosterBridge_Model_Catalog_Layer_Filter_Attribute extends GoMag
         $selected = array();
 
         if ($value = Mage::helper('gomage_navigation')->getRequest()->getParam($this->_requestVar)) {
-            $selected = array_merge($selected, explode(',', $value));
+            $selected = explode(',', $value);
+            if (Mage::helper('gomage_seobooster/layered')->canUseFriendlyUrl()) {
+                foreach ($selected as $_k => $_v) {
+                    $selected[$_k] = $this->_getOptionId($_v);
+                }
+            }
         }
 
         $key  = $this->getLayer()->getStateKey() . '_' . $this->_requestVar;
@@ -129,6 +134,34 @@ class GoMage_SeoBoosterBridge_Model_Catalog_Layer_Filter_Attribute extends GoMag
     protected function _getOptionId($value)
     {
         return $this->getAttributeModel()->getSource()->getOptionId($value);
+    }
+
+    public function apply(Zend_Controller_Request_Abstract $request, $filterBlock)
+    {
+        $filter = $request->getParam($this->_requestVar);
+
+        if (is_array($filter)) {
+            return $this;
+        }
+
+        if ($filter) {
+            $filters = explode(',', $filter);
+            if (Mage::helper('gomage_seobooster/layered')->canUseFriendlyUrl()) {
+                foreach ($filters as $_k => $_v) {
+                    $filters[$_k] = $this->_getOptionId($_v);
+                }
+            }
+            $this->_getResource()->applyFilterToCollection($this, $filters);
+            foreach ($filters as $filter) {
+                if (Mage::helper('gomage_seobooster/layered')->canUseFriendlyUrl()) {
+                    $filter = $this->_getOptionId($filter);
+                }
+                $text = $this->_getOptionText($filter);
+                $this->getLayer()->getState()->addFilter($this->_createItem($text, $filter));
+            }
+
+        }
+        return $this;
     }
 
 }
