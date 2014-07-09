@@ -55,5 +55,15 @@
                 </rewrite>
             </catalog>
         </models>
+        <events>
+            <gomage_navigation_ajax_result>
+                <observers>
+                    <refresh_tag_url_rewrite>
+                        <class>gomage_seoboosterbridge/observer</class>
+                        <method>prepareNavigationResult</method>
+                    </refresh_tag_url_rewrite>
+                </observers>
+            </gomage_navigation_ajax_result>
+        </events>
     </global>
 </config> 

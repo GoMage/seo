@@ -21,6 +21,8 @@ class GoMage_SeoBooster_Helper_Layered extends Mage_Core_Helper_Data
 
     protected $_productAttributesCollection = null;
 
+    protected $_slider_request_params = null;
+
     /**
      * Is url rewrite for layered navigation enabled
      *
@@ -145,6 +147,9 @@ class GoMage_SeoBooster_Helper_Layered extends Mage_Core_Helper_Data
      */
     public function isLayeredQueryParam($param, $value)
     {
+        if (in_array($param, $this->getSliderRequestParams())) {
+            return true;
+        }
         if (!$value) {
             $params = $this->prepareLayeredQueryParam($param);
             return count($params) < 2 ? false : true;
@@ -216,17 +221,12 @@ class GoMage_SeoBooster_Helper_Layered extends Mage_Core_Helper_Data
         return $this->_request;
     }
 
-    /**
-     * @param Mage_Core_Controller_Request_Http $request
-     * @param string $key
-     * @param mixed $value
-     */
     protected function _setRequestParam(&$request, $key, $value)
     {
         if ($values = $request->getParam($key)) {
             $values = explode(',', $values);
             array_push($values, $value);
-            $value = implode(',', $values);
+            $value = implode(',', array_unique($values));
         }
 
         $request->setParam($key, $value);
@@ -269,13 +269,19 @@ class GoMage_SeoBooster_Helper_Layered extends Mage_Core_Helper_Data
             $collection  = $this->_getProductAttributeCollection();
             $params      = array();
             $queryParams = $this->getRequest()->getParams();
-            foreach ($collection as $item) {
-                if (isset($queryParams[$item->getAttributeCode()])) {
-                    $params[$item->getAttributeCode()] = $queryParams[$item->getAttributeCode()];
+            foreach ($collection as $attribute) {
+                if (isset($queryParams[$attribute->getAttributeCode()])) {
+                    $params[$attribute->getAttributeCode()] = $queryParams[$attribute->getAttributeCode()];
                 }
             }
             if (isset($queryParams['cat'])) {
                 $params['cat'] = $queryParams['cat'];
+            }
+
+            foreach ($this->getSliderRequestParams() as $param) {
+                if (isset($queryParams[$param])) {
+                    $params[$param] = $queryParams[$param];
+                }
             }
             $this->_filterableParams = $params;
         }
@@ -291,9 +297,37 @@ class GoMage_SeoBooster_Helper_Layered extends Mage_Core_Helper_Data
     public function getFilterableParamsSize()
     {
         if (is_null($this->_filterableParamsCount)) {
-            $this->_filterableParamsCount = count($this->getFilterableParams());
+            $count = 0;
+            foreach ($this->getFilterableParams() as $param) {
+                $param = explode(',', $param);
+                $count += count($param);
+            }
+            $this->_filterableParamsCount = $count;
         }
 
         return $this->_filterableParamsCount;
     }
+
+    public function getSliderRequestParams()
+    {
+        if (is_null($this->_slider_request_params)) {
+            $this->_slider_request_params = array();
+            if ($this->isSeoBoosterBridgeEnabled()) {
+                $this->_slider_request_params = Mage::helper('gomage_seoboosterbridge')->getSliderRequestParams();
+            }
+        }
+
+        return $this->_slider_request_params;
+    }
+
+    public function isSeoBoosterBridgeEnabled()
+    {
+        $_modules      = Mage::getConfig()->getNode('modules')->children();
+        $_modulesArray = (array)$_modules;
+        if (!isset($_modulesArray['GoMage_SeoBoosterBridge'])) {
+            return false;
+        }
+        return $_modulesArray['GoMage_SeoBoosterBridge']->is('active');
+    }
+
 }

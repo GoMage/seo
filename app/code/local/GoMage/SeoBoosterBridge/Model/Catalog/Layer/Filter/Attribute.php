@@ -84,7 +84,13 @@ class GoMage_SeoBoosterBridge_Model_Catalog_Layer_Filter_Attribute extends GoMag
                     } else {
                         $active = false;
                         if (!empty($selected) && $attribute->getFilterType() != GoMage_Navigation_Model_Layer::FILTER_TYPE_DROPDOWN) {
-                            $value = implode(',', array_merge($selected, (array)$option['value']));
+                            $value = array_merge($selected, (array)$option['value']);
+                            if (Mage::helper('gomage_seobooster/layered')->canUseFriendlyUrl()) {
+                                foreach ($value as $_k => $_v) {
+                                    $value[$_k] = strtolower($this->_getOptionText($_v));
+                                }
+                            }
+                            $value = implode(',', $value);
                         } else {
                             $value = Mage::helper('gomage_seobooster/layered')->canUseFriendlyUrl() ? strtolower($option['label']) : $option['value'];
                         }
@@ -162,6 +168,32 @@ class GoMage_SeoBoosterBridge_Model_Catalog_Layer_Filter_Attribute extends GoMag
 
         }
         return $this;
+    }
+
+    public function getResetValue($value_to_remove = null)
+    {
+        if ($value_to_remove && ($current_value = Mage::helper('gomage_navigation')->getRequest()->getParam($this->_requestVar))) {
+            $current_value = explode(',', $current_value);
+            if (Mage::helper('gomage_seobooster/layered')->canUseFriendlyUrl()) {
+                foreach ($current_value as $_k => $_v) {
+                    $current_value[$_k] = $this->_getOptionId($_v);
+                }
+                $value_to_remove = $this->_getOptionId($value_to_remove);
+            }
+            if (false !== ($position = array_search($value_to_remove, $current_value))) {
+                unset($current_value[$position]);
+            }
+            if (!empty($current_value)) {
+                if (Mage::helper('gomage_seobooster/layered')->canUseFriendlyUrl()) {
+                    foreach ($current_value as $_k => $_v) {
+                        $current_value[$_k] = strtolower($this->_getOptionText($_v));
+                    }
+                }
+                return implode(',', $current_value);
+            }
+        }
+
+        return null;
     }
 
 }
