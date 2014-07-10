@@ -67,8 +67,28 @@ class GoMage_SeoBoosterBridge_Model_Catalog_Layer_Filter_Item extends GoMage_Nav
 
         if ($separator = Mage::helper('gomage_seobooster/layered')->getSeparator() || Mage::helper('gomage_seobooster/layered')->canAddRewritePath()) {
             $params['_layered_query_params'] = array($this->getFilter()->getRequestVar() => $reset_value);
+            if (in_array($this->getFilter()->getAttributeModel()->getFilterType(), array(
+                    GoMage_Navigation_Model_Layer::FILTER_TYPE_SLIDER,
+                    GoMage_Navigation_Model_Layer::FILTER_TYPE_INPUT,
+                    GoMage_Navigation_Model_Layer::FILTER_TYPE_INPUT_SLIDER,
+                    GoMage_Navigation_Model_Layer::FILTER_TYPE_SLIDER_INPUT,)
+            )
+            ) {
+                $params['_layered_query_params'][$this->getFilter()->getRequestVar() . '_from'] = null;
+                $params['_layered_query_params'][$this->getFilter()->getRequestVar() . '_to']   = null;
+            }
         } else {
             $query[$this->getFilter()->getRequestVar()] = $reset_value;
+            if (in_array($this->getFilter()->getAttributeModel()->getFilterType(), array(
+                    GoMage_Navigation_Model_Layer::FILTER_TYPE_SLIDER,
+                    GoMage_Navigation_Model_Layer::FILTER_TYPE_INPUT,
+                    GoMage_Navigation_Model_Layer::FILTER_TYPE_INPUT_SLIDER,
+                    GoMage_Navigation_Model_Layer::FILTER_TYPE_SLIDER_INPUT,)
+            )
+            ) {
+                $query[$this->getFilter()->getRequestVar() . '_from'] = null;
+                $query[$this->getFilter()->getRequestVar() . '_to']   = null;
+            }
         }
 
         if (Mage::helper('gomage_seobooster/layered')->getFilterableParamsSize() < 2) {
