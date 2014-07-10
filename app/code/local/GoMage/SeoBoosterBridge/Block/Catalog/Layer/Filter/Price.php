@@ -54,14 +54,14 @@ class GoMage_SeoBoosterBridge_Block_Catalog_Layer_Filter_Price extends GoMage_Na
                     if (Mage::helper('gomage_navigation')->isMobileDevice()) {
                         $this->_template = ('gomage/seoboosterbridge/layer/filter/default.phtml');
                     } else {
-                        $this->_template = ('gomage/navigation/layer/filter/slider-input.phtml');
+                        $this->_template = ('gomage/seoboosterbridge/layer/filter/slider-input.phtml');
                     }
                     break;
                 case(GoMage_Navigation_Model_Layer::FILTER_TYPE_INPUT_SLIDER):
                     if (Mage::helper('gomage_navigation')->isMobileDevice()) {
                         $this->_template = ('gomage/seoboosterbridge/layer/filter/default.phtml');
                     } else {
-                        $this->_template = ('gomage/navigation/layer/filter/input-slider.phtml');
+                        $this->_template = ('gomage/seoboosterbridge/layer/filter/input-slider.phtml');
                     }
                     break;
                 case(GoMage_Navigation_Model_Layer::FILTER_TYPE_DROPDOWN):

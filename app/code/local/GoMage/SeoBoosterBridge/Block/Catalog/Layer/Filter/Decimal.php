@@ -46,7 +46,7 @@ class GoMage_SeoBoosterBridge_Block_Catalog_Layer_Filter_Decimal extends GoMage_
                     break;
 
                 case(GoMage_Navigation_Model_Layer::FILTER_TYPE_INPUT):
-                    $this->_template = ('gomage/navigation/layer/filter/input.phtml');
+                    $this->_template = ('gomage/seoboosterbridge/layer/filter/input.phtml');
                     break;
 
                 case(GoMage_Navigation_Model_Layer::FILTER_TYPE_SLIDER):
@@ -61,7 +61,7 @@ class GoMage_SeoBoosterBridge_Block_Catalog_Layer_Filter_Decimal extends GoMage_
                     if (Mage::helper('gomage_navigation')->isMobileDevice()) {
                         $this->_template = ('gomage/seoboosterbridge/layer/filter/default.phtml');
                     } else {
-                        $this->_template = ('gomage/navigation/layer/filter/slider-input.phtml');
+                        $this->_template = ('gomage/seoboosterbridge/layer/filter/slider-input.phtml');
                     }
                     break;
 
@@ -69,12 +69,12 @@ class GoMage_SeoBoosterBridge_Block_Catalog_Layer_Filter_Decimal extends GoMage_
                     if (Mage::helper('gomage_navigation')->isMobileDevice()) {
                         $this->_template = ('gomage/seoboosterbridge/layer/filter/default.phtml');
                     } else {
-                        $this->_template = ('gomage/navigation/layer/filter/input-slider.phtml');
+                        $this->_template = ('gomage/seoboosterbridge/layer/filter/input-slider.phtml');
                     }
                     break;
 
                 case(GoMage_Navigation_Model_Layer::FILTER_TYPE_DROPDOWN):
-                    $this->_template = ('gomage/navigation/layer/filter/dropdown.phtml');
+                    $this->_template = ('gomage/seoboosterbridge/layer/filter/dropdown.phtml');
                     break;
             }
         }

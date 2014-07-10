@@ -26,12 +26,18 @@
             <catalog>
                 <rewrite>
                     <product_list_toolbar>GoMage_SeoBoosterBridge_Block_Catalog_Product_List_Toolbar</product_list_toolbar>
+                    <product_list_toolbar_pager>GoMage_SeoBoosterBridge_Block_Catalog_Product_List_Toolbar_Pager</product_list_toolbar_pager>
                     <layer_filter_category>GoMage_SeoBoosterBridge_Block_Catalog_Layer_Filter_Category</layer_filter_category>
                     <layer_filter_price>GoMage_SeoBoosterBridge_Block_Catalog_Layer_Filter_Price</layer_filter_price>
                     <layer_filter_decimal>GoMage_SeoBoosterBridge_Block_Catalog_Layer_Filter_Decimal</layer_filter_decimal>
                     <layer_filter_attribute>GoMage_SeoBoosterBridge_Block_Catalog_Layer_Filter_Attribute</layer_filter_attribute>
                 </rewrite>
             </catalog>
+            <gomage_navigation>
+                <rewrite>
+                    <product_list_toolbar_pager>GoMage_SeoBoosterBridge_Block_Catalog_Product_List_Toolbar_Pager</product_list_toolbar_pager>
+                </rewrite>
+            </gomage_navigation>
             <page>
                 <rewrite>
                     <html_pager>GoMage_SeoBoosterBridge_Block_Page_Html_Pager</html_pager>

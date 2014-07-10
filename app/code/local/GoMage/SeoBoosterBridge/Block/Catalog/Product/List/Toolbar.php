@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GoMage Seo Booster Extension
  *
@@ -10,7 +11,6 @@
  * @version      Release: 1.0.0
  * @since        Available since Release 1.0.0
  */
-
 class GoMage_SeoBoosterBridge_Block_Catalog_Product_List_Toolbar extends GoMage_Navigation_Block_Product_List_Toolbar
 {
     /**
@@ -22,4 +22,23 @@ class GoMage_SeoBoosterBridge_Block_Catalog_Product_List_Toolbar extends GoMage_
     {
         return 'gomage_seobooster/catalog_layer_url';
     }
+
+    public function getPagerUrl($params = array())
+    {
+        if (Mage::helper('gomage_navigation')->isGomageNavigationAjax()) {
+            $params['ajax'] = 1;
+        } else {
+            $params['ajax'] = null;
+        }
+
+        $urlParams                 = array();
+        $urlParams['_nosid']       = true;
+        $urlParams['_current']     = true;
+        $urlParams['_escape']      = true;
+        $urlParams['_use_rewrite'] = true;
+        $urlParams['_query']       = $params;
+
+        return Mage::helper('gomage_seobooster/layered')->getUrl('*/*/*', $urlParams);
+    }
+
 }

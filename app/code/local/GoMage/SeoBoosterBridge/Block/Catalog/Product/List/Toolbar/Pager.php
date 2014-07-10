@@ -1,18 +1,19 @@
 <?php
 
 /**
- * GoMage Seo Booster Extension
+ * GoMage Advanced Navigation Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2013-2014 GoMage (http://www.gomage.com)
+ * @copyright    Copyright (c) 2010-2014 GoMage (http://www.gomage.com)
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
- * @terms of use http://www.gomage.com/terms-of-use/
- * @version      Release: 1.0.0
- * @since        Available since Release 1.0.0
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 4.3
+ * @since        Class available since Release 1.0
  */
-class GoMage_SeoBoosterBridge_Block_Page_Html_Pager extends GoMage_Navigation_Block_Html_Pager
+class GoMage_SeoBoosterBridge_Block_Catalog_Product_List_Toolbar_Pager extends GoMage_Navigation_Block_Product_List_Toolbar_Pager
 {
+
     /**
      * Returns url model class name
      *
@@ -20,7 +21,7 @@ class GoMage_SeoBoosterBridge_Block_Page_Html_Pager extends GoMage_Navigation_Bl
      */
     protected function _getUrlModelClass()
     {
-        return 'gomage_seobooster/url';
+        return 'gomage_seobooster/catalog_layer_url';
     }
 
     public function getPagerUrl($params = array())
