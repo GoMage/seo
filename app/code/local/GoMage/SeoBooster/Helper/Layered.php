@@ -210,6 +210,8 @@ class GoMage_SeoBooster_Helper_Layered extends Mage_Core_Helper_Data
                     $param = $this->prepareLayeredQueryParam($key);
                     if (count($param) == 2) {
                         $this->_setRequestParam($request, $param[0], $param[1]);
+                    } else {
+                        $this->_setRequestParam($request, $key, $this->_removeCategorySuffixFromRequestValue($value));
                     }
                 } else {
                     $this->_setRequestParam($request, $key, $this->_removeCategorySuffixFromRequestValue($value));
