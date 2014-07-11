@@ -105,8 +105,7 @@ class GoMage_SeoBooster_Helper_Data extends Mage_Core_Helper_Data
      */
     public function canUseProductReviewsUrlRewrite()
     {
-        return $this->isEnabled() &&
-        Mage::getStoreConfig('gomage_seobooster/url_rewrite/enable_product_review_url_rewrite');
+        return $this->isEnabled() && Mage::getStoreConfig('gomage_seobooster/url_rewrite/enable_product_review_url_rewrite');
     }
 
     /**
@@ -126,8 +125,7 @@ class GoMage_SeoBooster_Helper_Data extends Mage_Core_Helper_Data
      */
     public function canUseTagUrlRewrite()
     {
-        return $this->isEnabled() &&
-        Mage::getStoreConfig('gomage_seobooster/url_rewrite/enable_tag_url_rewrite');
+        return $this->isEnabled() && Mage::getStoreConfig('gomage_seobooster/url_rewrite/enable_tag_url_rewrite');
     }
 
     /**
@@ -147,8 +145,7 @@ class GoMage_SeoBooster_Helper_Data extends Mage_Core_Helper_Data
      */
     public function canUseRssUrlRewrite()
     {
-        return $this->isEnabled() &&
-        Mage::getStoreConfig('gomage_seobooster/url_rewrite/enable_rss_url_rewrite');
+        return $this->isEnabled() && Mage::getStoreConfig('gomage_seobooster/url_rewrite/enable_rss_url_rewrite');
     }
 
     /**
@@ -168,7 +165,7 @@ class GoMage_SeoBooster_Helper_Data extends Mage_Core_Helper_Data
      */
     public function isRichSnippetEnabled()
     {
-        return Mage::getStoreConfig('gomage_seobooster/general/enable_rich_snippets');
+        return $this->isEnabled() && Mage::getStoreConfig('gomage_seobooster/general/enable_rich_snippets');
     }
 
     /**

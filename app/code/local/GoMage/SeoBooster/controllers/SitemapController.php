@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GoMage SeoBooster Extension
  *
@@ -10,7 +11,6 @@
  * @version      Release: 1.0.0
  * @since        Available since Release 1.0.0
  */
-
 class GoMage_SeoBooster_SitemapController extends Mage_Core_Controller_Front_Action
 {
     /**

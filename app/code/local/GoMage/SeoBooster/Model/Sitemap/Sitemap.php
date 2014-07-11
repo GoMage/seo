@@ -24,6 +24,10 @@ class GoMage_SeoBooster_Model_Sitemap_Sitemap extends Mage_Sitemap_Model_Sitemap
      */
     public function generateXml()
     {
+        if (!Mage::helper('gomage_seobooster')->isEnabled()) {
+            return parent::generateXml();
+        }
+
         $io = new Varien_Io_File();
         $io->setAllowCreateFolders(true);
         $io->open(array('path' => $this->getPath()));
