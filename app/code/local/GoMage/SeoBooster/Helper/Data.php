@@ -468,4 +468,10 @@ class GoMage_SeoBooster_Helper_Data extends Mage_Core_Helper_Data
         return $value ? $value : $default;
     }
 
+    public function isGoMageCheckoutEnabled()
+    {
+        $modules = (array)Mage::getConfig()->getNode('modules')->children();
+        return isset($modules['GoMage_Checkout']) && $modules['GoMage_Checkout']->is('active');
+    }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GoMage Seo Booster Extension
  *
@@ -10,7 +11,6 @@
  * @version      Release: 1.0.0
  * @since        Available since Release 1.0.0
  */
-
 class GoMage_SeoBooster_Model_Url_Rewrite_Request extends Mage_Core_Model_Url_Rewrite_Request
 {
     /**
@@ -22,7 +22,7 @@ class GoMage_SeoBooster_Model_Url_Rewrite_Request extends Mage_Core_Model_Url_Re
     {
         $this->_prepareTargetPath();
         $isPermanentRedirectOption = $this->_rewrite->hasOption('RP');
-        $external = substr($this->_rewrite->getTargetPath(), 0, 6);
+        $external                  = substr($this->_rewrite->getTargetPath(), 0, 6);
         if ($external === 'http:/' || $external === 'https:') {
             $destinationStoreCode = $this->_app->getStore($this->_rewrite->getStoreId())->getCode();
             $this->_setStoreCodeCookie($destinationStoreCode);
@@ -61,10 +61,10 @@ class GoMage_SeoBooster_Model_Url_Rewrite_Request extends Mage_Core_Model_Url_Re
     {
         $pathInfo = $request->getPathInfo();
         if ($rewritePath = Mage::helper('gomage_seobooster/layered')->getRewritePath()) {
-            if ($rewritePathPos = strripos($pathInfo, '/'. $rewritePath)) {
+            if ($rewritePathPos = strripos($pathInfo, '/' . $rewritePath)) {
                 $queryString = substr($pathInfo, ($rewritePathPos + strlen($rewritePath) + 2));
                 if ($queryString) {
-                    $params = explode('/', $queryString);
+                    $params   = explode('/', $queryString);
                     $separtor = Mage::helper('gomage_seobooster/layered')->getSeparator();
                     if ($separtor == '/') {
                         if (!empty($params)) {
@@ -111,9 +111,9 @@ class GoMage_SeoBooster_Model_Url_Rewrite_Request extends Mage_Core_Model_Url_Re
      */
     protected function _getRequestCases()
     {
-        $pathInfo = $this->preparePathInfo($this->_request);
+        $pathInfo    = $this->preparePathInfo($this->_request);
         $requestPath = trim($pathInfo, '/');
-        $origSlash = (substr($pathInfo, -1) == '/') ? '/' : '';
+        $origSlash   = (substr($pathInfo, -1) == '/') ? '/' : '';
         // If there were final slash - add nothing to less priority paths. And vice versa.
         $altSlash = $origSlash ? '' : '/';
 
@@ -140,5 +140,22 @@ class GoMage_SeoBooster_Model_Url_Rewrite_Request extends Mage_Core_Model_Url_Re
         $this->_rewrite->setTargetPath(Mage::helper('gomage_seobooster')->addTrailingSlash($path));
 
         return $this;
+    }
+
+    protected function _rewriteConfig()
+    {
+        if (Mage::helper('gomage_seobooster')->isGoMageCheckoutEnabled()) {
+            $h = Mage::helper('gomage_checkout');
+            if ($h->getConfigData('general/enabled')) {
+                $requestPath = trim($this->_request->getPathInfo(), '/');
+                if ($requestPath == 'checkout/onepage' || $requestPath == 'checkout/onepage/index') {
+                    if ($h->isAvailableWebsite() && $h->isCompatibleDevice()) {
+                        $this->_request->setPathInfo('gomage_checkout/onepage');
+                        return true;
+                    }
+                }
+            }
+        }
+        return parent::_rewriteConfig();
     }
 }
