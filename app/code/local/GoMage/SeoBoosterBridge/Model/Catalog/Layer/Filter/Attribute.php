@@ -80,19 +80,21 @@ class GoMage_SeoBoosterBridge_Model_Catalog_Layer_Filter_Attribute extends GoMag
 
                     if (in_array($option['value'], $selected) && $filter_mode) {
                         $active = true;
-                        $value  = Mage::helper('gomage_seobooster/layered')->canUseFriendlyUrl() ? strtolower($option['label']) : $option['value'];
+                        $value  = Mage::helper('gomage_seobooster/layered')->canUseFriendlyUrl() ?
+                            Mage::helper('gomage_seobooster')->formatUrlValue($option['label'], $option['value']) : $option['value'];
                     } else {
                         $active = false;
                         if (!empty($selected) && $attribute->getFilterType() != GoMage_Navigation_Model_Layer::FILTER_TYPE_DROPDOWN) {
                             $value = array_merge($selected, (array)$option['value']);
                             if (Mage::helper('gomage_seobooster/layered')->canUseFriendlyUrl()) {
                                 foreach ($value as $_k => $_v) {
-                                    $value[$_k] = strtolower($this->_getOptionText($_v));
+                                    $value[$_k] = Mage::helper('gomage_seobooster')->formatUrlValue($this->_getOptionText($_v));
                                 }
                             }
                             $value = implode(',', $value);
                         } else {
-                            $value = Mage::helper('gomage_seobooster/layered')->canUseFriendlyUrl() ? strtolower($option['label']) : $option['value'];
+                            $value = Mage::helper('gomage_seobooster/layered')->canUseFriendlyUrl() ?
+                                Mage::helper('gomage_seobooster')->formatUrlValue($option['label'], $option['value']) : $option['value'];
                         }
                     }
 
@@ -139,6 +141,15 @@ class GoMage_SeoBoosterBridge_Model_Catalog_Layer_Filter_Attribute extends GoMag
      */
     protected function _getOptionId($value)
     {
+        if (Mage::helper('gomage_seobooster/layered')->canUseFriendlyUrl()) {
+            $options = $this->getAttributeModel()->getSource()->getAllOptions();
+            foreach ($options as $option) {
+                if (strcasecmp($option['label'], $value) == 0 || $option['value'] == $value || $value == Mage::helper('gomage_seobooster')->formatUrlValue($option['label'])) {
+                    return $option['value'];
+                }
+            }
+            return null;
+        }
         return $this->getAttributeModel()->getSource()->getOptionId($value);
     }
 
@@ -186,7 +197,7 @@ class GoMage_SeoBoosterBridge_Model_Catalog_Layer_Filter_Attribute extends GoMag
             if (!empty($current_value)) {
                 if (Mage::helper('gomage_seobooster/layered')->canUseFriendlyUrl()) {
                     foreach ($current_value as $_k => $_v) {
-                        $current_value[$_k] = strtolower($this->_getOptionText($_v));
+                        $current_value[$_k] = Mage::helper('gomage_seobooster')->formatUrlValue($this->_getOptionText($_v));
                     }
                 }
                 return implode(',', $current_value);

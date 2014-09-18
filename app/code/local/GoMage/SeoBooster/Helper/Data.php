@@ -1,1 +1,471 @@
-<?php eval(base64_decode("LyoqICogR29NYWdlIFNlbyBCb29zdGVyIEV4dGVuc2lvbiAqICogQGNhdGVnb3J5IEV4dGVuc2lvbiAqIEBjb3B5cmlnaHQgQ29weXJpZ2h0IChjKSAyMDEzLTIwMTQgR29NYWdlIChodHRwOi8vd3d3LmdvbWFnZS5jb20pICogQGF1dGhvciBHb01hZ2UgKiBAbGljZW5zZSBodHRwOi8vd3d3LmdvbWFnZS5jb20vbGljZW5zZS1hZ3JlZW1lbnQvIFNpbmdsZSBkb21haW4gbGljZW5zZSAqIEB0ZXJtcyBvZiB1c2UgaHR0cDovL3d3dy5nb21hZ2UuY29tL3Rlcm1zLW9mLXVzZS8gKiBAdmVyc2lvbiBSZWxlYXNlOiAxLjAuMCAqIEBzaW5jZSBBdmFpbGFibGUgc2luY2UgUmVsZWFzZSAxLjAuMCAqLyBjbGFzcyBHb01hZ2VfU2VvQm9vc3Rlcl9IZWxwZXJfRGF0YSBleHRlbmRzIE1hZ2VfQ29yZV9IZWxwZXJfRGF0YSB7IGNvbnN0IENBTk9OSUNBTF9VUkxfRElTQUJMRUQgPSAwOyBjb25zdCBDQU5PTklDQUxfVVJMX1BST0RVQ1RTID0gMTsgY29uc3QgQ0FOT05JQ0FMX1VSTF9DQVRFR09SSUVTID0gMjsgY29uc3QgQ0FOT05JQ0FMX1VSTF9QUk9EVUNUU19DQVRFR09SSUVTID0gMzsgY29uc3QgQ0FOT05JQ0FMX1VSTF9ERUZBVUxUX0RPTUFJTl9WQUxVRSA9IDA7IC8qKiAqIFJldHVybiBtb2R1bGUgc3RhdHVzICogKiBAcmV0dXJuIGJvb2wgKi8gcHVibGljIGZ1bmN0aW9uIGlzRW5hYmxlZCgpIHsgcmV0dXJuIE1hZ2U6OmdldFN0b3JlQ29uZmlnKCdnb21hZ2Vfc2VvYm9vc3Rlci9nZW5lcmFsL2VuYWJsZWQnKSAmJiAoaW5fYXJyYXkoTWFnZTo6YXBwKCktPmdldFN0b3JlKCktPmdldFdlYnNpdGVJZCgpLCAkdGhpcy0+Z2V0QXZhaWxhYmxlV2Vic2l0ZXMoKSkgfHwgTWFnZTo6YXBwKCktPmdldFN0b3JlKCktPmdldFdlYnNpdGVJZCgpID09IDApOyB9IHB1YmxpYyBmdW5jdGlvbiBnZXRJc0FueW1vcmVWZXJzaW9uKCRtYWpvciwgJG1pbm9yLCAkcmV2aXNpb24gPSAwKSB7ICR2ZXJzaW9uX2luZm8gPSBNYWdlOjpnZXRWZXJzaW9uSW5mbygpOyBpZiAoJHZlcnNpb25faW5mb1snbWFqb3InXSA+ICRtYWpvcikgeyByZXR1cm4gdHJ1ZTsgfSBlbHNlaWYgKCR2ZXJzaW9uX2luZm9bJ21ham9yJ10gPT0gJG1ham9yKSB7IGlmICgkdmVyc2lvbl9pbmZvWydtaW5vciddID4gJG1pbm9yKSB7IHJldHVybiB0cnVlOyB9IGVsc2VpZiAoJHZlcnNpb25faW5mb1snbWlub3InXSA9PSAkbWlub3IpIHsgaWYgKCR2ZXJzaW9uX2luZm9bJ3JldmlzaW9uJ10gPj0gJHJldmlzaW9uKSB7IHJldHVybiB0cnVlOyB9IH0gfSByZXR1cm4gZmFsc2U7IH0gLyoqICogUmV0dXJuIHVybCBieSByb3V0ZSAqICogQHBhcmFtIHN0cmluZyAkcm91dGUgUm91dGUgKiBAcGFyYW0gYXJyYXkgJHBhcmFtcyBSb3V0ZSBwYXJhbXMgKiBAcGFyYW0gaW50fG51bGwgJHN0b3JlSWQgU3RvcmUgSWQgKiBAcmV0dXJuIHN0cmluZyAqLyBwdWJsaWMgZnVuY3Rpb24gZ2V0VXJsKCRyb3V0ZSwgJHBhcmFtcyA9IGFycmF5KCksICRzdG9yZUlkID0gbnVsbCkgeyBpZiAoIWlzX251bGwoJHN0b3JlSWQpKSB7ICRzdG9yZSA9IE1hZ2U6OmFwcCgpLT5nZXRTdG9yZSgkc3RvcmVJZCk7IH0gaWYgKCR0aGlzLT5pc0VuYWJsZWQoKSkgeyAkdXJsTW9kZWwgPSBNYWdlOjpnZXRNb2RlbCgnZ29tYWdlX3Nlb2Jvb3N0ZXIvdXJsJyk7IGlmIChpc3NldCgkc3RvcmUpKSB7ICR1cmxNb2RlbC0+c2V0U3RvcmUoJHN0b3JlKTsgfSByZXR1cm4gJHVybE1vZGVsLT5nZXRVcmwoJHJvdXRlLCAkcGFyYW1zKTsgfSBpZiAoaXNzZXQoJHN0b3JlKSkgeyByZXR1cm4gJHN0b3JlLT5nZXRVcmwoJHJvdXRlLCAkcGFyYW1zKTsgfSByZXR1cm4gJHRoaXMtPl9nZXRVcmwoJHJvdXRlLCAkcGFyYW1zKTsgfSBwdWJsaWMgZnVuY3Rpb24gY2FuQWRkVHJhaWxpbmdTbGFzaCgpIHsgcmV0dXJuICR0aGlzLT5pc0VuYWJsZWQoKSAmJiBNYWdlOjpnZXRTdG9yZUNvbmZpZygnZ29tYWdlX3Nlb2Jvb3N0ZXIvZ2VuZXJhbC9hZGRfdHJhaWxpbmdfc2xhc2gnKTsgfSBwdWJsaWMgZnVuY3Rpb24gYWRkVHJhaWxpbmdTbGFzaCgkcm91dGVQYXRoKSB7IGlmICgkdGhpcy0+Y2FuQWRkVHJhaWxpbmdTbGFzaCgpKSB7IGlmICgocHJlZ19tYXRjaCgnL1wuW2Etel17Miw0fSQvJywgJHJvdXRlUGF0aCkgPT09IDApICYmIChzdWJzdHIoJHJvdXRlUGF0aCwgLTEsIDEpICE9PSAnLycpICkgeyByZXR1cm4gJHJvdXRlUGF0aCAuICcvJzsgfSB9IHJldHVybiAkcm91dGVQYXRoOyB9IC8qKiAqIENhbiB1c2UgdXJsIHJld3JpdGUgZm9yIHByb2R1Y3QgcmV2aWV3cyAqICogQHJldHVybiBib29sICovIHB1YmxpYyBmdW5jdGlvbiBjYW5Vc2VQcm9kdWN0UmV2aWV3c1VybFJld3JpdGUoKSB7IHJldHVybiAkdGhpcy0+aXNFbmFibGVkKCkgJiYgTWFnZTo6Z2V0U3RvcmVDb25maWcoJ2dvbWFnZV9zZW9ib29zdGVyL3VybF9yZXdyaXRlL2VuYWJsZV9wcm9kdWN0X3Jldmlld191cmxfcmV3cml0ZScpOyB9IC8qKiAqIFJldHVybiBwcm9kdWN0IHJldmlld3MgdXJsIHJld3JpdGUgcGF0aCAqICogQHJldHVybiBzdHJpbmcgKi8gcHVibGljIGZ1bmN0aW9uIGdldFByb2R1Y3RSZXZpZXdzVXJsUmV3cml0ZVBhdGgoKSB7IHJldHVybiBNYWdlOjpnZXRTdG9yZUNvbmZpZygnZ29tYWdlX3Nlb2Jvb3N0ZXIvdXJsX3Jld3JpdGUvcHJvZHVjdF9yZXZpZXdfcmV3cml0ZV9wYXRoJyk7IH0gLyoqICogQ2FuIHVzZSB1cmwgcmV3cml0ZSBmb3IgdGFncyAqICogQHJldHVybiBib29sICovIHB1YmxpYyBmdW5jdGlvbiBjYW5Vc2VUYWdVcmxSZXdyaXRlKCkgeyByZXR1cm4gJHRoaXMtPmlzRW5hYmxlZCgpICYmIE1hZ2U6OmdldFN0b3JlQ29uZmlnKCdnb21hZ2Vfc2VvYm9vc3Rlci91cmxfcmV3cml0ZS9lbmFibGVfdGFnX3VybF9yZXdyaXRlJyk7IH0gLyoqICogUmV0dXJuIHRhZ3MgdXJsIHJld3JpdGUgcGF0aCAqICogQHJldHVybiBzdHJpbmcgKi8gcHVibGljIGZ1bmN0aW9uIGdldFRhZ1Jld3JpdGVQYXRoKCkgeyByZXR1cm4gTWFnZTo6Z2V0U3RvcmVDb25maWcoJ2dvbWFnZV9zZW9ib29zdGVyL3VybF9yZXdyaXRlL3RhZ191cmxfcmV3cml0ZV9wYXRoJyk7IH0gLyoqICogQ2FuIHVzZSByc3MgdXJsIHJld3JpdGUgKiAqIEByZXR1cm4gYm9vbCAqLyBwdWJsaWMgZnVuY3Rpb24gY2FuVXNlUnNzVXJsUmV3cml0ZSgpIHsgcmV0dXJuICR0aGlzLT5pc0VuYWJsZWQoKSAmJiBNYWdlOjpnZXRTdG9yZUNvbmZpZygnZ29tYWdlX3Nlb2Jvb3N0ZXIvdXJsX3Jld3JpdGUvZW5hYmxlX3Jzc191cmxfcmV3cml0ZScpOyB9IC8qKiAqIFJldHVybiByc3MgdXJsIHJld3JpdGUgcGF0aCAqICogQHJldHVybiBzdHJpbmcgKi8gcHVibGljIGZ1bmN0aW9uIGdldFJzc1VybFJld3JpdGVQYXRoKCkgeyByZXR1cm4gTWFnZTo6Z2V0U3RvcmVDb25maWcoJ2dvbWFnZV9zZW9ib29zdGVyL3VybF9yZXdyaXRlL3Jzc191cmxfcmV3cml0ZV9wYXRoJyk7IH0gLyoqICogSXMgcmljaCBzbmlwcGV0IGVuYWJsZSAqICogQHJldHVybiBtaXhlZCAqLyBwdWJsaWMgZnVuY3Rpb24gaXNSaWNoU25pcHBldEVuYWJsZWQoKSB7IHJldHVybiAkdGhpcy0+aXNFbmFibGVkKCkgJiYgTWFnZTo6Z2V0U3RvcmVDb25maWcoJ2dvbWFnZV9zZW9ib29zdGVyL2dlbmVyYWwvZW5hYmxlX3JpY2hfc25pcHBldHMnKTsgfSAvKiogKiBGb3JtYXQgS2V5IGZvciBVUkwgKiAqIEBwYXJhbSBzdHJpbmcgJHN0ciAqIEByZXR1cm4gc3RyaW5nICovIHB1YmxpYyBmdW5jdGlvbiBmb3JtYXRVcmxLZXkoJHN0cikgeyAkdXJsS2V5ID0gcHJlZ19yZXBsYWNlKCcjW14wLTlhLXpdKyNpJywgJy0nLCBNYWdlOjpoZWxwZXIoJ2NhdGFsb2cvcHJvZHVjdF91cmwnKS0+Zm9ybWF0KCRzdHIpKTsgJHVybEtleSA9IHN0cnRvbG93ZXIoJHVybEtleSk7ICR1cmxLZXkgPSB0cmltKCR1cmxLZXksICctJyk7IHJldHVybiAkdXJsS2V5OyB9IC8qKiAqIFJldHVybiByb2JvdHMgZm9yIHByb2R1Y3QsIGNhdGVnb3J5IG9yIGNtcyBwYWdlICogKiBAcGFyYW0gTWFnZV9DYXRhbG9nX01vZGVsX1Byb2R1Y3R8TWFnZV9DYXRhbG9nX01vZGVsX0NhdGVnb3J5fE1hZ2VfQ21zX01vZGVsX1BhZ2UgJGVudGl0eSBFbnRpdHkgKiBAcmV0dXJuIHN0cmluZyAqLyBwdWJsaWMgZnVuY3Rpb24gZ2V0Um9ib3RzKCRlbnRpdHkpIHsgaWYgKCgkcm9ib3RzID0gJGVudGl0eS0+Z2V0Um9ib3RzKCkpICYmICR0aGlzLT5pc0VuYWJsZWQoKSkgeyByZXR1cm4gJHJvYm90czsgfSByZXR1cm4gTWFnZTo6Z2V0U3RvcmVDb25maWcoJ2Rlc2lnbi9oZWFkL2RlZmF1bHRfcm9ib3RzJyk7IH0gcHVibGljIGZ1bmN0aW9uIGdldFByb2R1Y3RNYXhQcmljZShNYWdlX0NhdGFsb2dfTW9kZWxfUHJvZHVjdCAkcHJvZHVjdCkgeyBpZiAoJHByb2R1Y3QtPmdldFR5cGVJZCgpID09IE1hZ2VfQ2F0YWxvZ19Nb2RlbF9Qcm9kdWN0X1R5cGVfQ29uZmlndXJhYmxlOjpUWVBFX0NPREUpIHsgcmV0dXJuICR0aGlzLT5fZ2V0Q29uZmlndXJhYmxlUHJvZHVjdE1heFByaWNlKCRwcm9kdWN0KTsgfSByZXR1cm4gJHByb2R1Y3QtPmdldEZpbmFsUHJpY2UoKTsgfSBwcm90ZWN0ZWQgZnVuY3Rpb24gX2dldENvbmZpZ3VyYWJsZVByb2R1Y3RNYXhQcmljZShNYWdlX0NhdGFsb2dfTW9kZWxfUHJvZHVjdCAkcHJvZHVjdCkgeyAkcHJvZHVjdFByaWNlID0gJHByb2R1Y3QtPmdldEZpbmFsUHJpY2UoKTsgJGF0dHJpYnV0ZXMgPSAkcHJvZHVjdC0+Z2V0VHlwZUluc3RhbmNlKCktPmdldENvbmZpZ3VyYWJsZUF0dHJpYnV0ZXMoJHByb2R1Y3QpOyAkYXR0cmlidXRlc1ByaWNlID0gMC4wOyBmb3JlYWNoICgkYXR0cmlidXRlcyBhcyAkYXR0cmlidXRlKSB7ICRhdHRyaWJ1dGVNYXhQcmljZSA9IDAuMDsgaWYgKCRwcmljZXMgPSAkYXR0cmlidXRlLT5nZXRQcmljZXMoKSkgeyBmb3JlYWNoICgkcHJpY2VzIGFzICRwcmljZSkgeyBpZiAoJHByaWNlWydpc19wZXJjZW50J10pIHsgJHByaWNlVmFsdWUgPSAkcHJvZHVjdFByaWNlICogJHByaWNlWydwcmljaW5nX3ZhbHVlJ10gLyAxMDA7IH0gZWxzZSB7ICRwcmljZVZhbHVlID0gJHByaWNlWydwcmljaW5nX3ZhbHVlJ107IH0gJGF0dHJpYnV0ZU1heFByaWNlID0gbWF4KCRhdHRyaWJ1dGVNYXhQcmljZSwgJHByaWNlVmFsdWUpOyB9IH0gJGF0dHJpYnV0ZXNQcmljZSArPSAkYXR0cmlidXRlTWF4UHJpY2U7IH0gJHByb2R1Y3RQcmljZSArPSAkYXR0cmlidXRlc1ByaWNlOyByZXR1cm4gJHByb2R1Y3RQcmljZTsgfSBwdWJsaWMgZnVuY3Rpb24gZ2V0R3JvdXBlZFByb2R1Y3RQcmljZXMoTWFnZV9DYXRhbG9nX01vZGVsX1Byb2R1Y3QgJHByb2R1Y3QpIHsgaWYgKCRwcm9kdWN0LT5nZXRUeXBlSWQoKSA9PSBNYWdlX0NhdGFsb2dfTW9kZWxfUHJvZHVjdF9UeXBlX0dyb3VwZWQ6OlRZUEVfQ09ERSkgeyAkbWF4UHJpY2UgPSAwLjA7ICRtaW5QcmljZSA9ICRwcm9kdWN0LT5nZXRNaW5pbWFsUHJpY2UoKTsgJGFzc29jaWF0ZWRQcm9kdWN0cyA9ICRwcm9kdWN0LT5nZXRUeXBlSW5zdGFuY2UoKS0+Z2V0QXNzb2NpYXRlZFByb2R1Y3RzKCRwcm9kdWN0KTsgZm9yZWFjaCAoJGFzc29jaWF0ZWRQcm9kdWN0cyBhcyAkX3Byb2R1Y3QpIHsgJG1heFByaWNlID0gbWF4KCRtYXhQcmljZSwgJF9wcm9kdWN0LT5nZXRGaW5hbFByaWNlKCkpOyAkbWluUHJpY2UgPSBtaW4oJG1pblByaWNlLCAkX3Byb2R1Y3QtPmdldEZpbmFsUHJpY2UoKSk7IH0gcmV0dXJuIG5ldyBWYXJpZW5fT2JqZWN0KGFycmF5KCdtaW5fcHJpY2UnID0+ICRtaW5QcmljZSwgJ21heF9wcmljZScgPT4gJG1heFByaWNlKSk7IH0gcmV0dXJuIG5ldyBWYXJpZW5fT2JqZWN0KCk7IH0gcHVibGljIGZ1bmN0aW9uIGdldEFsbFN0b3JlRG9tYWlucygpIHsgJGRvbWFpbnMgPSBhcnJheSgpOyBmb3JlYWNoIChNYWdlOjphcHAoKS0+Z2V0V2Vic2l0ZXMoKSBhcyAkd2Vic2l0ZSkgeyAkdXJsID0gJHdlYnNpdGUtPmdldENvbmZpZygnd2ViL3Vuc2VjdXJlL2Jhc2VfdXJsJyk7IGlmICgkZG9tYWluID0gdHJpbShwcmVnX3JlcGxhY2UoJy9eLio/XFwvXFwvKC4qKT9cXC8vJywgJyQxJywgJHVybCkpKSB7ICRkb21haW5zW10gPSAkZG9tYWluOyB9ICR1cmwgPSAkd2Vic2l0ZS0+Z2V0Q29uZmlnKCd3ZWIvc2VjdXJlL2Jhc2VfdXJsJyk7IGlmICgkZG9tYWluID0gdHJpbShwcmVnX3JlcGxhY2UoJy9eLio/XFwvXFwvKC4qKT9cXC8vJywgJyQxJywgJHVybCkpKSB7ICRkb21haW5zW10gPSAkZG9tYWluOyB9IH0gcmV0dXJuIGFycmF5X3VuaXF1ZSgkZG9tYWlucyk7IH0gcHVibGljIGZ1bmN0aW9uIGdhKCkgeyByZXR1cm4gWmVuZF9Kc29uOjpkZWNvZGUoYmFzZTY0X2RlY29kZShNYWdlOjpoZWxwZXIoJ2NvcmUnKS0+ZGVjcnlwdChNYWdlOjpnZXRTdG9yZUNvbmZpZygnZ29tYWdlX2FjdGl2YXRpb24vc2VvYm9vc3Rlci9hcicpKSkpOyB9IHB1YmxpYyBmdW5jdGlvbiBnZXRBdmFpbGFibGVXZWJzaXRlcygpIHsgcmV0dXJuICR0aGlzLT5fdygpOyB9IHByb3RlY3RlZCBmdW5jdGlvbiBfdygpIHsgaWYgKCFNYWdlOjpnZXRTdG9yZUNvbmZpZygnZ29tYWdlX2FjdGl2YXRpb24vc2VvYm9vc3Rlci9pbnN0YWxsZWQnKSB8fCAoaW50dmFsKE1hZ2U6OmdldFN0b3JlQ29uZmlnKCdnb21hZ2VfYWN0aXZhdGlvbi9zZW9ib29zdGVyL2NvdW50JykpID4gMTApICkgeyByZXR1cm4gYXJyYXkoKTsgfSAkdGltZV90b191cGRhdGUgPSA2MCAqIDYwICogMjQgKiAxNTsgJHIgPSBNYWdlOjpnZXRTdG9yZUNvbmZpZygnZ29tYWdlX2FjdGl2YXRpb24vc2VvYm9vc3Rlci9hcicpOyAkdCA9IE1hZ2U6OmdldFN0b3JlQ29uZmlnKCdnb21hZ2VfYWN0aXZhdGlvbi9zZW9ib29zdGVyL3RpbWUnKTsgJHMgPSBNYWdlOjpnZXRTdG9yZUNvbmZpZygnZ29tYWdlX2FjdGl2YXRpb24vc2VvYm9vc3Rlci93ZWJzaXRlcycpOyAkbGFzdF9jaGVjayA9IHN0cl9yZXBsYWNlKCRyLCAnJywgTWFnZTo6aGVscGVyKCdjb3JlJyktPmRlY3J5cHQoJHQpKTsgJGFsbHNpdGVzID0gZXhwbG9kZSgnLCcsIHN0cl9yZXBsYWNlKCRyLCAnJywgTWFnZTo6aGVscGVyKCdjb3JlJyktPmRlY3J5cHQoJHMpKSk7ICRhbGxzaXRlcyA9IGFycmF5X2RpZmYoJGFsbHNpdGVzLCBhcnJheSgiIikpOyBpZiAoKCRsYXN0X2NoZWNrICsgJHRpbWVfdG9fdXBkYXRlKSA8IHRpbWUoKSkgeyAkdGhpcy0+YShNYWdlOjpnZXRTdG9yZUNvbmZpZygnZ29tYWdlX2FjdGl2YXRpb24vc2VvYm9vc3Rlci9rZXknKSwgaW50dmFsKE1hZ2U6OmdldFN0b3JlQ29uZmlnKCdnb21hZ2VfYWN0aXZhdGlvbi9zZW9ib29zdGVyL2NvdW50JykpLCBpbXBsb2RlKCcsJywgJGFsbHNpdGVzKSApOyB9IHJldHVybiAkYWxsc2l0ZXM7IH0gcHVibGljIGZ1bmN0aW9uIGEoJGssICRjID0gMCwgJHMgPSAnJykgeyAkY2ggPSBjdXJsX2luaXQoKTsgY3VybF9zZXRvcHQoJGNoLCBDVVJMT1BUX1VSTCwgc3ByaW50ZignaHR0cHM6Ly93d3cuZ29tYWdlLmNvbS9pbmRleC5waHAvZ29tYWdlX2Rvd25sb2FkYWJsZS9rZXkvY2hlY2snKSk7IGN1cmxfc2V0b3B0KCRjaCwgQ1VSTE9QVF9QT1NULCB0cnVlKTsgY3VybF9zZXRvcHQoJGNoLCBDVVJMT1BUX1BPU1RGSUVMRFMsICdrZXk9JyAuIHVybGVuY29kZSgkaykgLiAnJnNrdT1zZW8tYm9vc3RlciZkb21haW5zPScgLiB1cmxlbmNvZGUoaW1wbG9kZSgnLCcsICR0aGlzLT5nZXRBbGxTdG9yZURvbWFpbnMoKSkpIC4gJyZ2ZXI9JyAuIHVybGVuY29kZSgnMS4wJykpOyBjdXJsX3NldG9wdCgkY2gsIENVUkxPUFRfVElNRU9VVCwgMzApOyBjdXJsX3NldG9wdCgkY2gsIENVUkxPUFRfUkVUVVJOVFJBTlNGRVIsIHRydWUpOyBjdXJsX3NldG9wdCgkY2gsIENVUkxPUFRfU1NMX1ZFUklGWVBFRVIsIDApOyBjdXJsX3NldG9wdCgkY2gsIENVUkxPUFRfU1NMX1ZFUklGWUhPU1QsIDApOyAkY29udGVudCA9IGN1cmxfZXhlYygkY2gpOyAkciA9IFplbmRfSnNvbjo6ZGVjb2RlKCRjb250ZW50KTsgJGUgPSBNYWdlOjpoZWxwZXIoJ2NvcmUnKTsgaWYgKGVtcHR5KCRyKSkgeyAkdmFsdWUxID0gTWFnZTo6Z2V0U3RvcmVDb25maWcoJ2dvbWFnZV9hY3RpdmF0aW9uL3Nlb2Jvb3N0ZXIvYXInKTsgJGdyb3VwcyA9IGFycmF5KCAnc2VvYm9vc3RlcicgPT4gYXJyYXkoICdmaWVsZHMnID0+IGFycmF5KCAnYXInID0+IGFycmF5KCAndmFsdWUnID0+ICR2YWx1ZTEgKSwgJ3dlYnNpdGVzJyA9PiBhcnJheSggJ3ZhbHVlJyA9PiAoc3RyaW5nKU1hZ2U6OmdldFN0b3JlQ29uZmlnKCdnb21hZ2VfYWN0aXZhdGlvbi9zZW9ib29zdGVyL3dlYnNpdGVzJykgKSwgJ3RpbWUnID0+IGFycmF5KCAndmFsdWUnID0+IChzdHJpbmcpJGUtPmVuY3J5cHQoJHZhbHVlMSAuICh0aW1lKCkgLSAoNjAgKiA2MCAqIDI0ICogMTUgLSAxODAwKSkgLiAkdmFsdWUxKSApLCAnY291bnQnID0+IGFycmF5KCAndmFsdWUnID0+ICRjICsgMSkgKSApICk7IE1hZ2U6OmdldE1vZGVsKCdhZG1pbmh0bWwvY29uZmlnX2RhdGEnKSAtPnNldFNlY3Rpb24oJ2dvbWFnZV9hY3RpdmF0aW9uJykgLT5zZXRHcm91cHMoJGdyb3VwcykgLT5zYXZlKCk7IE1hZ2U6OmdldENvbmZpZygpLT5yZWluaXQoKTsgTWFnZTo6YXBwKCktPnJlaW5pdFN0b3JlcygpOyByZXR1cm47IH0gJHZhbHVlMSA9ICcnOyAkdmFsdWUyID0gJyc7IGlmIChpc3NldCgkclsnZCddKSAmJiBpc3NldCgkclsnYyddKSkgeyAkdmFsdWUxID0gJGUtPmVuY3J5cHQoYmFzZTY0X2VuY29kZShaZW5kX0pzb246OmVuY29kZSgkcikpKTsgaWYgKCEkcykgeyAkcyA9IE1hZ2U6OmdldFN0b3JlQ29uZmlnKCdnb21hZ2VfYWN0aXZhdGlvbi9zZW9ib29zdGVyL3dlYnNpdGVzJyk7IH0gJHMgPSBhcnJheV9zbGljZShleHBsb2RlKCcsJywgJHMpLCAwLCAkclsnYyddKTsgJHZhbHVlMiA9ICRlLT5lbmNyeXB0KCR2YWx1ZTEgLiBpbXBsb2RlKCcsJywgJHMpIC4gJHZhbHVlMSk7IH0gJGdyb3VwcyA9IGFycmF5KCAnc2VvYm9vc3RlcicgPT4gYXJyYXkoICdmaWVsZHMnID0+IGFycmF5KCAnYXInID0+IGFycmF5KCAndmFsdWUnID0+ICR2YWx1ZTEgKSwgJ3dlYnNpdGVzJyA9PiBhcnJheSggJ3ZhbHVlJyA9PiAoc3RyaW5nKSR2YWx1ZTIgKSwgJ3RpbWUnID0+IGFycmF5KCAndmFsdWUnID0+IChzdHJpbmcpJGUtPmVuY3J5cHQoJHZhbHVlMSAuIHRpbWUoKSAuICR2YWx1ZTEpICksICdpbnN0YWxsZWQnID0+IGFycmF5KCAndmFsdWUnID0+IDEgKSwgJ2NvdW50JyA9PiBhcnJheSggJ3ZhbHVlJyA9PiAwKSApICkgKTsgTWFnZTo6Z2V0TW9kZWwoJ2FkbWluaHRtbC9jb25maWdfZGF0YScpIC0+c2V0U2VjdGlvbignZ29tYWdlX2FjdGl2YXRpb24nKSAtPnNldEdyb3VwcygkZ3JvdXBzKSAtPnNhdmUoKTsgTWFnZTo6Z2V0Q29uZmlnKCktPnJlaW5pdCgpOyBNYWdlOjphcHAoKS0+cmVpbml0U3RvcmVzKCk7IH0gcHVibGljIGZ1bmN0aW9uIG5vdGlmeSgpIHsgJGZyZXF1ZW5jeSA9IGludHZhbChNYWdlOjphcHAoKS0+bG9hZENhY2hlKCdnb21hZ2Vfbm90aWZpY2F0aW9uc19mcmVxdWVuY3knKSk7IGlmICghJGZyZXF1ZW5jeSkgeyAkZnJlcXVlbmN5ID0gMjQ7IH0gJGxhc3RfdXBkYXRlID0gaW50dmFsKE1hZ2U6OmFwcCgpLT5sb2FkQ2FjaGUoJ2dvbWFnZV9ub3RpZmljYXRpb25zX2xhc3RfdXBkYXRlJykpOyBpZiAoKCRmcmVxdWVuY3kgKiA2MCAqIDYwICsgJGxhc3RfdXBkYXRlKSA+IHRpbWUoKSkgeyByZXR1cm4gZmFsc2U7IH0gJHRpbWVzdGFtcCA9ICRsYXN0X3VwZGF0ZTsgaWYgKCEkdGltZXN0YW1wKSB7ICR0aW1lc3RhbXAgPSB0aW1lKCk7IH0gdHJ5IHsgJGNoID0gY3VybF9pbml0KCk7IGN1cmxfc2V0b3B0KCRjaCwgQ1VSTE9QVF9VUkwsIHNwcmludGYoJ2h0dHBzOi8vd3d3LmdvbWFnZS5jb20vaW5kZXgucGhwL2dvbWFnZV9ub3RpZmljYXRpb24vaW5kZXgvZGF0YScpKTsgY3VybF9zZXRvcHQoJGNoLCBDVVJMT1BUX1BPU1QsIHRydWUpOyBjdXJsX3NldG9wdCgkY2gsIENVUkxPUFRfUE9TVEZJRUxEUywgJ3NrdT1zZW8tYm9vc3RlciZ0aW1lc3RhbXA9JyAuICR0aW1lc3RhbXAgLiAnJnZlcj0nIC4gdXJsZW5jb2RlKCcxLjAnKSk7IGN1cmxfc2V0b3B0KCRjaCwgQ1VSTE9QVF9USU1FT1VULCAzMCk7IGN1cmxfc2V0b3B0KCRjaCwgQ1VSTE9QVF9SRVRVUk5UUkFOU0ZFUiwgdHJ1ZSk7IGN1cmxfc2V0b3B0KCRjaCwgQ1VSTE9QVF9TU0xfVkVSSUZZUEVFUiwgMCk7IGN1cmxfc2V0b3B0KCRjaCwgQ1VSTE9QVF9TU0xfVkVSSUZZSE9TVCwgMCk7ICRjb250ZW50ID0gY3VybF9leGVjKCRjaCk7ICRyZXN1bHQgPSBaZW5kX0pzb246OmRlY29kZSgkY29udGVudCk7IGlmICgkcmVzdWx0ICYmIGlzc2V0KCRyZXN1bHRbJ2ZyZXF1ZW5jeSddKSAmJiAoJHJlc3VsdFsnZnJlcXVlbmN5J10gIT0gJGZyZXF1ZW5jeSkpIHsgTWFnZTo6YXBwKCktPnNhdmVDYWNoZSgkcmVzdWx0WydmcmVxdWVuY3knXSwgJ2dvbWFnZV9ub3RpZmljYXRpb25zX2ZyZXF1ZW5jeScpOyB9IGlmICgkcmVzdWx0ICYmIGlzc2V0KCRyZXN1bHRbJ2RhdGEnXSkpIHsgaWYgKCFlbXB0eSgkcmVzdWx0WydkYXRhJ10pKSB7IE1hZ2U6OmdldE1vZGVsKCdhZG1pbm5vdGlmaWNhdGlvbi9pbmJveCcpLT5wYXJzZSgkcmVzdWx0WydkYXRhJ10pOyB9IH0gfSBjYXRjaCAoRXhjZXB0aW9uICRlKSB7IH0gTWFnZTo6YXBwKCktPnNhdmVDYWNoZSh0aW1lKCksICdnb21hZ2Vfbm90aWZpY2F0aW9uc19sYXN0X3VwZGF0ZScpOyB9IH0="));
+<?php
+
+/**
+ * GoMage Seo Booster Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2013-2014 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use/
+ * @version      Release: 1.0.0
+ * @since        Available since Release 1.0.0
+ */
+class GoMage_SeoBooster_Helper_Data extends Mage_Core_Helper_Data
+{
+    const CANONICAL_URL_DISABLED            = 0;
+    const CANONICAL_URL_PRODUCTS            = 1;
+    const CANONICAL_URL_CATEGORIES          = 2;
+    const CANONICAL_URL_PRODUCTS_CATEGORIES = 3;
+
+    const CANONICAL_URL_DEFAULT_DOMAIN_VALUE = 0;
+
+    /**
+     * Return module status
+     *
+     * @return bool
+     */
+    public function isEnabled()
+    {
+        return Mage::getStoreConfig('gomage_seobooster/general/enabled') &&
+        (in_array(Mage::app()->getStore()->getWebsiteId(), $this->getAvailableWebsites()) ||
+            Mage::app()->getStore()->getWebsiteId() == 0);
+    }
+
+    public function getIsAnymoreVersion($major, $minor, $revision = 0)
+    {
+        $version_info = Mage::getVersionInfo();
+
+        if ($version_info['major'] > $major) {
+            return true;
+        } elseif ($version_info['major'] == $major) {
+            if ($version_info['minor'] > $minor) {
+                return true;
+            } elseif ($version_info['minor'] == $minor) {
+                if ($version_info['revision'] >= $revision) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Return url by route
+     *
+     * @param string $route Route
+     * @param array $params Route params
+     * @param int|null $storeId Store Id
+     * @return string
+     */
+    public function getUrl($route, $params = array(), $storeId = null)
+    {
+        if (!is_null($storeId)) {
+            $store = Mage::app()->getStore($storeId);
+        }
+
+        if ($this->isEnabled()) {
+            $urlModel = Mage::getModel('gomage_seobooster/url');
+            if (isset($store)) {
+                $urlModel->setStore($store);
+            }
+
+            return $urlModel->getUrl($route, $params);
+        }
+        if (isset($store)) {
+            return $store->getUrl($route, $params);
+        }
+
+        return $this->_getUrl($route, $params);
+    }
+
+    public function canAddTrailingSlash()
+    {
+        return $this->isEnabled() && Mage::getStoreConfig('gomage_seobooster/general/add_trailing_slash');
+    }
+
+    public function addTrailingSlash($routePath)
+    {
+        if ($this->canAddTrailingSlash()) {
+            if ((preg_match('/\.[a-z]{2,4}$/', $routePath) === 0)
+                && (substr($routePath, -1, 1) !== '/')
+            ) {
+                return $routePath . '/';
+            }
+        }
+
+        return $routePath;
+    }
+
+    /**
+     * Can use url rewrite for product reviews
+     *
+     * @return bool
+     */
+    public function canUseProductReviewsUrlRewrite()
+    {
+        return $this->isEnabled() && Mage::getStoreConfig('gomage_seobooster/url_rewrite/enable_product_review_url_rewrite');
+    }
+
+    /**
+     * Return product reviews url rewrite path
+     *
+     * @return string
+     */
+    public function getProductReviewsUrlRewritePath()
+    {
+        return Mage::getStoreConfig('gomage_seobooster/url_rewrite/product_review_rewrite_path');
+    }
+
+    /**
+     * Can use url rewrite for tags
+     *
+     * @return bool
+     */
+    public function canUseTagUrlRewrite()
+    {
+        return $this->isEnabled() && Mage::getStoreConfig('gomage_seobooster/url_rewrite/enable_tag_url_rewrite');
+    }
+
+    /**
+     * Return tags url rewrite path
+     *
+     * @return string
+     */
+    public function getTagRewritePath()
+    {
+        return Mage::getStoreConfig('gomage_seobooster/url_rewrite/tag_url_rewrite_path');
+    }
+
+    /**
+     * Can use rss url rewrite
+     *
+     * @return bool
+     */
+    public function canUseRssUrlRewrite()
+    {
+        return $this->isEnabled() && Mage::getStoreConfig('gomage_seobooster/url_rewrite/enable_rss_url_rewrite');
+    }
+
+    /**
+     * Return rss url rewrite path
+     *
+     * @return string
+     */
+    public function getRssUrlRewritePath()
+    {
+        return Mage::getStoreConfig('gomage_seobooster/url_rewrite/rss_url_rewrite_path');
+    }
+
+    /**
+     * Is rich snippet enable
+     *
+     * @return mixed
+     */
+    public function isRichSnippetEnabled()
+    {
+        return $this->isEnabled() && Mage::getStoreConfig('gomage_seobooster/general/enable_rich_snippets');
+    }
+
+    /**
+     * Format Key for URL
+     *
+     * @param string $str
+     * @return string
+     */
+    public function formatUrlKey($str)
+    {
+        $urlKey = preg_replace('#[^0-9a-z]+#i', '-', Mage::helper('catalog/product_url')->format($str));
+        $urlKey = strtolower($urlKey);
+        $urlKey = trim($urlKey, '-');
+
+        return $urlKey;
+    }
+
+    /**
+     * Return robots for product, category or cms page
+     *
+     * @param Mage_Catalog_Model_Product|Mage_Catalog_Model_Category|Mage_Cms_Model_Page $entity Entity
+     * @return string
+     */
+    public function getRobots($entity)
+    {
+        if (($robots = $entity->getRobots()) && $this->isEnabled()) {
+            return $robots;
+        }
+
+        return Mage::getStoreConfig('design/head/default_robots');
+    }
+
+    public function getProductMaxPrice(Mage_Catalog_Model_Product $product)
+    {
+        if ($product->getTypeId() == Mage_Catalog_Model_Product_Type_Configurable::TYPE_CODE) {
+            return $this->_getConfigurableProductMaxPrice($product);
+        }
+
+        return $product->getFinalPrice();
+    }
+
+    protected function _getConfigurableProductMaxPrice(Mage_Catalog_Model_Product $product)
+    {
+        $productPrice    = $product->getFinalPrice();
+        $attributes      = $product->getTypeInstance()->getConfigurableAttributes($product);
+        $attributesPrice = 0.0;
+        foreach ($attributes as $attribute) {
+            $attributeMaxPrice = 0.0;
+            if ($prices = $attribute->getPrices()) {
+                foreach ($prices as $price) {
+                    if ($price['is_percent']) {
+                        $priceValue = $productPrice * $price['pricing_value'] / 100;
+                    } else {
+                        $priceValue = $price['pricing_value'];
+                    }
+                    $attributeMaxPrice = max($attributeMaxPrice, $priceValue);
+                }
+            }
+            $attributesPrice += $attributeMaxPrice;
+        }
+
+        $productPrice += $attributesPrice;
+        return $productPrice;
+    }
+
+    public function getGroupedProductPrices(Mage_Catalog_Model_Product $product)
+    {
+
+        if ($product->getTypeId() == Mage_Catalog_Model_Product_Type_Grouped::TYPE_CODE) {
+            $maxPrice           = 0.0;
+            $minPrice           = $product->getMinimalPrice();
+            $associatedProducts = $product->getTypeInstance()->getAssociatedProducts($product);
+
+            foreach ($associatedProducts as $_product) {
+                $maxPrice = max($maxPrice, $_product->getFinalPrice());
+                $minPrice = min($minPrice, $_product->getFinalPrice());
+            }
+
+            return new Varien_Object(array('min_price' => $minPrice, 'max_price' => $maxPrice));
+        }
+
+        return new Varien_Object();
+    }
+
+    public function getAllStoreDomains()
+    {
+        $domains = array();
+        foreach (Mage::app()->getWebsites() as $website) {
+            $url = $website->getConfig('web/unsecure/base_url');
+            if ($domain = trim(preg_replace('/^.*?\\/\\/(.*)?\\//', '$1', $url))) {
+                $domains[] = $domain;
+            }
+            $url = $website->getConfig('web/secure/base_url');
+
+            if ($domain = trim(preg_replace('/^.*?\\/\\/(.*)?\\//', '$1', $url))) {
+                $domains[] = $domain;
+            }
+        }
+
+        return array_unique($domains);
+    }
+
+    public function ga()
+    {
+        return Zend_Json::decode(base64_decode(Mage::helper('core')->decrypt(Mage::getStoreConfig('gomage_activation/seobooster/ar'))));
+    }
+
+    public function getAvailableWebsites()
+    {
+        return $this->_w();
+    }
+
+    protected function _w()
+    {
+        if (!Mage::getStoreConfig('gomage_activation/seobooster/installed') ||
+            (intval(Mage::getStoreConfig('gomage_activation/seobooster/count')) > 10)
+        ) {
+            return array();
+        }
+
+        $time_to_update = 60 * 60 * 24 * 15;
+
+        $r = Mage::getStoreConfig('gomage_activation/seobooster/ar');
+        $t = Mage::getStoreConfig('gomage_activation/seobooster/time');
+        $s = Mage::getStoreConfig('gomage_activation/seobooster/websites');
+
+        $last_check = str_replace($r, '', Mage::helper('core')->decrypt($t));
+
+        $allsites = explode(',', str_replace($r, '', Mage::helper('core')->decrypt($s)));
+        $allsites = array_diff($allsites, array(""));
+
+        if (($last_check + $time_to_update) < time()) {
+            $this->a(Mage::getStoreConfig('gomage_activation/seobooster/key'),
+                intval(Mage::getStoreConfig('gomage_activation/seobooster/count')),
+                implode(',', $allsites)
+            );
+        }
+
+        return $allsites;
+
+    }
+
+    public function a($k, $c = 0, $s = '')
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, sprintf('https://www.gomage.com/index.php/gomage_downloadable/key/check'));
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, 'key=' . urlencode($k) . '&sku=seo-booster&domains=' . urlencode(implode(',', $this->getAllStoreDomains())) . '&ver=' . urlencode('1.0'));
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+
+        $content = curl_exec($ch);
+
+        $r = Zend_Json::decode($content);
+        $e = Mage::helper('core');
+        if (empty($r)) {
+
+            $value1 = Mage::getStoreConfig('gomage_activation/seobooster/ar');
+
+            $groups = array(
+                'seobooster' => array(
+                    'fields' => array(
+                        'ar'       => array(
+                            'value' => $value1
+                        ),
+                        'websites' => array(
+                            'value' => (string)Mage::getStoreConfig('gomage_activation/seobooster/websites')
+                        ),
+                        'time'     => array(
+                            'value' => (string)$e->encrypt($value1 . (time() - (60 * 60 * 24 * 15 - 1800)) . $value1)
+                        ),
+                        'count'    => array(
+                            'value' => $c + 1)
+                    )
+                )
+            );
+
+            Mage::getModel('adminhtml/config_data')
+                ->setSection('gomage_activation')
+                ->setGroups($groups)
+                ->save();
+
+            Mage::getConfig()->reinit();
+            Mage::app()->reinitStores();
+
+            return;
+        }
+
+        $value1 = '';
+        $value2 = '';
+
+        if (isset($r['d']) && isset($r['c'])) {
+            $value1 = $e->encrypt(base64_encode(Zend_Json::encode($r)));
+
+
+            if (!$s) {
+                $s = Mage::getStoreConfig('gomage_activation/seobooster/websites');
+            }
+
+            $s = array_slice(explode(',', $s), 0, $r['c']);
+
+            $value2 = $e->encrypt($value1 . implode(',', $s) . $value1);
+
+        }
+        $groups = array(
+            'seobooster' => array(
+                'fields' => array(
+                    'ar'        => array(
+                        'value' => $value1
+                    ),
+                    'websites'  => array(
+                        'value' => (string)$value2
+                    ),
+                    'time'      => array(
+                        'value' => (string)$e->encrypt($value1 . time() . $value1)
+                    ),
+                    'installed' => array(
+                        'value' => 1
+                    ),
+                    'count'     => array(
+                        'value' => 0)
+
+                )
+            )
+        );
+
+        Mage::getModel('adminhtml/config_data')
+            ->setSection('gomage_activation')
+            ->setGroups($groups)
+            ->save();
+
+        Mage::getConfig()->reinit();
+        Mage::app()->reinitStores();
+
+    }
+
+    public function notify()
+    {
+        $frequency = intval(Mage::app()->loadCache('gomage_notifications_frequency'));
+        if (!$frequency) {
+            $frequency = 24;
+        }
+        $last_update = intval(Mage::app()->loadCache('gomage_notifications_last_update'));
+
+        if (($frequency * 60 * 60 + $last_update) > time()) {
+            return false;
+        }
+
+        $timestamp = $last_update;
+        if (!$timestamp) {
+            $timestamp = time();
+        }
+
+        try {
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, sprintf('https://www.gomage.com/index.php/gomage_notification/index/data'));
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, 'sku=seo-booster&timestamp=' . $timestamp . '&ver=' . urlencode('1.0'));
+            curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+
+            $content = curl_exec($ch);
+
+            $result = Zend_Json::decode($content);
+
+            if ($result && isset($result['frequency']) && ($result['frequency'] != $frequency)) {
+                Mage::app()->saveCache($result['frequency'], 'gomage_notifications_frequency');
+            }
+
+            if ($result && isset($result['data'])) {
+                if (!empty($result['data'])) {
+                    Mage::getModel('adminnotification/inbox')->parse($result['data']);
+                }
+            }
+        } catch (Exception $e) {
+        }
+
+        Mage::app()->saveCache(time(), 'gomage_notifications_last_update');
+
+    }
+
+    public function formatUrlValue($value, $default = '')
+    {
+        $oldLocale  = setlocale(LC_COLLATE, "0");
+        $localeCode = Mage::app()->getLocale()->getLocaleCode();
+        setlocale(LC_COLLATE, $localeCode . '.UTF8', 'C.UTF-8', 'en_US.utf8');
+        $value = iconv(mb_detect_encoding($value), 'ASCII//TRANSLIT', $value);
+        setlocale(LC_COLLATE, $oldLocale);
+
+        $value = strtolower($value);
+        $value = preg_replace('#[^0-9a-z]+#i', '_', Mage::helper('catalog/product_url')->format($value));
+        $value = trim($value, '_');
+
+        return $value ? $value : $default;
+    }
+
+}
