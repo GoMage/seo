@@ -34,6 +34,11 @@
                     <layer_filter_attribute>GoMage_SeoBoosterBridge_Block_Catalog_Layer_Filter_Attribute</layer_filter_attribute>
                 </rewrite>
             </catalog>
+            <catalogsearch>
+                <rewrite>
+                    <layer>GoMage_SeoBoosterBridge_Block_Layer_Searchview</layer>
+                </rewrite>
+            </catalogsearch>
             <gomage_navigation>
                 <rewrite>
                     <product_list_toolbar_pager>GoMage_SeoBoosterBridge_Block_Catalog_Product_List_Toolbar_Pager</product_list_toolbar_pager>
