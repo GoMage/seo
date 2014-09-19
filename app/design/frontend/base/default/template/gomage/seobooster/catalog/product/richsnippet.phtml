@@ -69,4 +69,20 @@
             </div>
         <?php endif;?>
     </div>
+    <?php if ($this->isBreadcrumbs()): ?>
+        <?php if ($categories = $this->getCategories()): ?>
+            <?php foreach($categories as $category): ?>
+                <div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <a href="<?php echo $category->getUrl(); ?>" itemprop="url">
+                        <span itemprop="title"><?php echo $category->getName(); ?></span>
+                    </a>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+        <div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+            <a href="<?php echo Mage::helper('core/url')->getCurrentUrl(); ?>" itemprop="url">
+                <span itemprop="title"><?php echo $product->getName(); ?></span>
+            </a>
+        </div>
+    <?php endif; ?>
 </div>

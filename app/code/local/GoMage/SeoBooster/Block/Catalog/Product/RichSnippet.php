@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 /**
  * GoMage Seo Booster Extension
  *
@@ -10,7 +11,6 @@
  * @version      Release: 1.0.0
  * @since        Available since Release 1.0.0
  */
-
 class GoMage_SeoBooster_Block_Catalog_Product_RichSnippet extends Mage_Catalog_Block_Product_View
 {
     /**
@@ -41,18 +41,32 @@ class GoMage_SeoBooster_Block_Catalog_Product_RichSnippet extends Mage_Catalog_B
      */
     public function getCategory()
     {
-        $categories = array();
+        $categories = $this->getCategories();
+        if (!$categories) {
+            return false;
+        }
+
+        $names = array();
+        foreach ($categories as $category) {
+            $names[] = $category->getName();
+        }
+
+        return implode(' > ', $names);
+    }
+
+
+    /**
+     * Return categories array
+     *
+     * @return array
+     */
+    public function getCategories()
+    {
         $product = $this->getProduct();
         if (!$product->getCategoryId()) {
             return false;
         }
-
-        $categoryCollection = $product->getCategory()->getParentCategories();
-        foreach ($categoryCollection as $_category) {
-            $categories[] = $_category->getName();
-        }
-
-        return implode(' > ', $categories);
+        return $product->getCategory()->getParentCategories();
     }
 
     /**
@@ -74,9 +88,10 @@ class GoMage_SeoBooster_Block_Catalog_Product_RichSnippet extends Mage_Catalog_B
     public function getOfferUrl()
     {
         return Mage::helper('gomage_seobooster')->getUrl('*/*/*', array(
-            '_current'=>true,
-            '_use_rewrite'=>true,
-        ));
+                '_current'     => true,
+                '_use_rewrite' => true,
+            )
+        );
     }
 
     /**
@@ -121,11 +136,17 @@ class GoMage_SeoBooster_Block_Catalog_Product_RichSnippet extends Mage_Catalog_B
         }
 
         if (($this->getProduct()->getStockItem()->getManageStock()) &&
-            ($this->getProduct()->getStockItem()->getQty() > 0)) {
+            ($this->getProduct()->getStockItem()->getQty() > 0)
+        ) {
             return $this->getProduct()->getStockItem()->getQty();
         }
 
         return false;
+    }
+
+    public function isBreadcrumbs()
+    {
+        return Mage::getStoreConfig('gomage_seobooster/general/rich_snippets_link') == GoMage_SeoBooster_Model_Config_Source_Richsnippetslink::BREADCRUMBS;
     }
 
     protected function _toHtml()
