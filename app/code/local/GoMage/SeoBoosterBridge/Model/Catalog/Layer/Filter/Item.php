@@ -67,7 +67,7 @@ class GoMage_SeoBoosterBridge_Model_Catalog_Layer_Filter_Item extends GoMage_Nav
 
         if ($separator = Mage::helper('gomage_seobooster/layered')->getSeparator() || Mage::helper('gomage_seobooster/layered')->canAddRewritePath()) {
             $params['_layered_query_params'] = array($this->getFilter()->getRequestVar() => $reset_value);
-            if (in_array($this->getFilter()->getAttributeModel()->getFilterType(), array(
+            if ($this->getFilter()->hasData('attribute_model') && in_array($this->getFilter()->getAttributeModel()->getFilterType(), array(
                     GoMage_Navigation_Model_Layer::FILTER_TYPE_SLIDER,
                     GoMage_Navigation_Model_Layer::FILTER_TYPE_INPUT,
                     GoMage_Navigation_Model_Layer::FILTER_TYPE_INPUT_SLIDER,
