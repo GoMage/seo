@@ -8,7 +8,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use/
- * @version      Release: 1.0.0
+ * @version      Release: 1.1.0
  * @since        Available since Release 1.0.0
  */
 class GoMage_SeoBooster_Block_Adminhtml_System_Config_Fieldset_Help

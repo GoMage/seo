@@ -8,7 +8,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use/
- * @version      Release: 1.0.0
+ * @version      Release: 1.1.0
  * @since        Available since Release 1.0.0
  */
 class GoMage_SeoBooster_Helper_Data extends Mage_Core_Helper_Data
@@ -313,7 +313,7 @@ class GoMage_SeoBooster_Helper_Data extends Mage_Core_Helper_Data
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, sprintf('https://www.gomage.com/index.php/gomage_downloadable/key/check'));
         curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, 'key=' . urlencode($k) . '&sku=seo-booster&domains=' . urlencode(implode(',', $this->getAllStoreDomains())) . '&ver=' . urlencode('1.0'));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, 'key=' . urlencode($k) . '&sku=seo-booster&domains=' . urlencode(implode(',', $this->getAllStoreDomains())) . '&ver=' . urlencode('1.1'));
         curl_setopt($ch, CURLOPT_TIMEOUT, 30);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
@@ -426,7 +426,7 @@ class GoMage_SeoBooster_Helper_Data extends Mage_Core_Helper_Data
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, sprintf('https://www.gomage.com/index.php/gomage_notification/index/data'));
             curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, 'sku=seo-booster&timestamp=' . $timestamp . '&ver=' . urlencode('1.0'));
+            curl_setopt($ch, CURLOPT_POSTFIELDS, 'sku=seo-booster&timestamp=' . $timestamp . '&ver=' . urlencode('1.1'));
             curl_setopt($ch, CURLOPT_TIMEOUT, 30);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
