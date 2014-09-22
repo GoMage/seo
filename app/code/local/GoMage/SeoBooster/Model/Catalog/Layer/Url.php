@@ -205,14 +205,6 @@ class GoMage_SeoBooster_Model_Catalog_Layer_Url extends Mage_Core_Model_Url
             }
             $routePath = $this->getActionPath();
 
-            if ($this->getRouteParams()) {
-                foreach ($this->getRouteParams() as $key => $value) {
-                    if (is_null($value) || false === $value || '' === $value || !is_scalar($value)) {
-                        continue;
-                    }
-                    $routePath .= $key . '/' . $value . '/';
-                }
-            }
             if ($routePath != '' && substr($routePath, -1, 1) !== '/') {
                 $routePath .= '/';
             }

@@ -13,7 +13,7 @@
  */
 class GoMage_SeoBoosterBridge_Block_Layer_Searchview extends GoMage_Navigation_Block_Layer_Searchview
 {
-    
+
     public function getClearUrl($ajax = false)
     {
         $filterState = array();
@@ -52,8 +52,7 @@ class GoMage_SeoBoosterBridge_Block_Layer_Searchview extends GoMage_Navigation_B
             }
         }
 
-        $queryIndex          = Mage::helper('gomage_seobooster/layered')->getSeparator() ? '_layered_query_params' : '_query';
-        $params[$queryIndex] = $filterState;
+        $params['_layered_query_params'] = $filterState;
 
         $params['_nosid']       = true;
         $params['_current']     = true;
