@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GoMage Seo Booster Extension
  *
@@ -10,14 +11,13 @@
  * @version      Release: 1.1.0
  * @since        Available since Release 1.0.0
  */
-
 class GoMage_SeoBooster_Model_Catalog_Layer_Url extends Mage_Core_Model_Url
 {
     /**
      * Build url by requested path and parameters
      *
-     * @param   string|null $routePath   Route path
-     * @param   array|null  $routeParams Route params
+     * @param   string|null $routePath Route path
+     * @param   array|null $routeParams Route params
      * @return  string
      */
     public function getUrl($routePath = null, $routeParams = null)
@@ -107,8 +107,8 @@ class GoMage_SeoBooster_Model_Catalog_Layer_Url extends Mage_Core_Model_Url
     /**
      * Add query string to url
      *
-     * @param string $url         Url
-     * @param bool   $escapeQuery Escape Query
+     * @param string $url Url
+     * @param bool $escapeQuery Escape Query
      * @return string
      */
     protected function _addQueryToUrl($url, $escapeQuery = false)
@@ -118,8 +118,9 @@ class GoMage_SeoBooster_Model_Catalog_Layer_Url extends Mage_Core_Model_Url
         if ($layeredQueryParams = $this->_getData('layered_query_params')) {
             if ($layeredQuery = Mage::helper('gomage_seobooster/layered')->getQuery($layeredQueryParams, $escapeQuery)) {
                 if (Mage::helper('gomage_seobooster/layered')->getRewritePath()
-                    && $this->_getData('use_layer_rewrite') !== false) {
-                    if ($categorySuffix = Mage::getStoreConfig('catalog/seo/category_url_suffix')) {
+                    && $this->_getData('use_layer_rewrite') !== false
+                ) {
+                    if (Mage::registry('current_category') && ($categorySuffix = Mage::getStoreConfig('catalog/seo/category_url_suffix'))) {
                         $layeredQuery .= $categorySuffix;
                     }
                     $url .= $layeredQuery;
@@ -164,8 +165,8 @@ class GoMage_SeoBooster_Model_Catalog_Layer_Url extends Mage_Core_Model_Url
     /**
      * Set layer query param
      *
-     * @param string $key   Key
-     * @param mixed  $value Value
+     * @param string $key Key
+     * @param mixed $value Value
      * @return $this
      */
     public function setLayerQueryParam($key, $value = null)
@@ -205,7 +206,7 @@ class GoMage_SeoBooster_Model_Catalog_Layer_Url extends Mage_Core_Model_Url
             $routePath = $this->getActionPath();
 
             if ($this->getRouteParams()) {
-                foreach ($this->getRouteParams() as $key=>$value) {
+                foreach ($this->getRouteParams() as $key => $value) {
                     if (is_null($value) || false === $value || '' === $value || !is_scalar($value)) {
                         continue;
                     }
@@ -229,7 +230,8 @@ class GoMage_SeoBooster_Model_Catalog_Layer_Url extends Mage_Core_Model_Url
     protected function _addLayerRewritePathToRoute($routePath)
     {
         if (($layerRewritePath = Mage::helper('gomage_seobooster/layered')->getRewritePath())
-            && ($this->_getData('use_layer_rewrite') !== false)) {
+            && ($this->_getData('use_layer_rewrite') !== false)
+        ) {
             if ($routePath != '' && substr($routePath, -1, 1) !== '/') {
                 $routePath = preg_replace('/\.[a-z]{2,4}$/', '', $routePath);
                 $routePath .= '/';
@@ -244,7 +246,7 @@ class GoMage_SeoBooster_Model_Catalog_Layer_Url extends Mage_Core_Model_Url
     /**
      * Set route params
      *
-     * @param array   $data           Data
+     * @param array $data Data
      * @param boolean $unsetOldParams Unset old params
      * @return Mage_Core_Model_Url
      */

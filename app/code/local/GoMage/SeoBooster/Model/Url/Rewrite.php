@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GoMage Seo Booster Extension
  *
@@ -10,7 +11,6 @@
  * @version      Release: 1.1.0
  * @since        Available since Release 1.0.0
  */
-
 class GoMage_SeoBooster_Model_Url_Rewrite extends Mage_Core_Model_Url_Rewrite
 {
     /**
@@ -20,7 +20,7 @@ class GoMage_SeoBooster_Model_Url_Rewrite extends Mage_Core_Model_Url_Rewrite
      * @param   Zend_Controller_Response_Http $response
      * @return  Mage_Core_Model_Url
      */
-    public function rewrite(Zend_Controller_Request_Http $request=null, Zend_Controller_Response_Http $response=null)
+    public function rewrite(Zend_Controller_Request_Http $request = null, Zend_Controller_Response_Http $response = null)
     {
         if (!Mage::isInstalled()) {
             return false;
@@ -31,7 +31,7 @@ class GoMage_SeoBooster_Model_Url_Rewrite extends Mage_Core_Model_Url_Rewrite
         if (is_null($response)) {
             $response = Mage::app()->getFrontController()->getResponse();
         }
-        if (is_null($this->getStoreId()) || false===$this->getStoreId()) {
+        if (is_null($this->getStoreId()) || false === $this->getStoreId()) {
             $this->setStoreId(Mage::app()->getStore()->getId());
         }
 
@@ -41,9 +41,9 @@ class GoMage_SeoBooster_Model_Url_Rewrite extends Mage_Core_Model_Url_Rewrite
          * Choose any matched rewrite, but in priority order that depends on same presence of slash and query params.
          */
         $requestCases = array();
-        $pathInfo = $this->preparePathInfo($request);
+        $pathInfo     = $this->preparePathInfo($request);
 
-        $origSlash = (substr($pathInfo, -1) == '/') ? '/' : '';
+        $origSlash   = (substr($pathInfo, -1) == '/') ? '/' : '';
         $requestPath = trim($pathInfo, '/');
 
         // If there were final slash - add nothing to less priority paths. And vice versa.
@@ -65,8 +65,7 @@ class GoMage_SeoBooster_Model_Url_Rewrite extends Mage_Core_Model_Url_Rewrite
         if (!$this->getId() && isset($_GET['___from_store'])) {
             try {
                 $fromStoreId = Mage::app()->getStore($_GET['___from_store'])->getId();
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 return false;
             }
 
@@ -78,7 +77,7 @@ class GoMage_SeoBooster_Model_Url_Rewrite extends Mage_Core_Model_Url_Rewrite
             $this->setStoreId($currentStore->getId())->loadByIdPath($this->getIdPath());
 
             Mage::app()->getCookie()->set(Mage_Core_Model_Store::COOKIE_NAME, $currentStore->getCode(), true);
-            $targetUrl = $request->getBaseUrl(). '/' . $this->getRequestPath();
+            $targetUrl = $request->getBaseUrl() . '/' . $this->getRequestPath();
             $this->_sendRedirectHeaders($targetUrl, true);
         }
 
@@ -89,31 +88,31 @@ class GoMage_SeoBooster_Model_Url_Rewrite extends Mage_Core_Model_Url_Rewrite
 
         $request->setAlias(self::REWRITE_REQUEST_PATH_ALIAS, $this->getRequestPath());
         $this->_prepareTargetPath();
-        $external = substr($this->getTargetPath(), 0, 6);
+        $external                  = substr($this->getTargetPath(), 0, 6);
         $isPermanentRedirectOption = $this->hasOptioxn('RP');
         if ($external === 'http:/' || $external === 'https:') {
             $destinationStoreCode = Mage::app()->getStore($this->getStoreId())->getCode();
             Mage::app()->getCookie()->set(Mage_Core_Model_Store::COOKIE_NAME, $destinationStoreCode, true);
             $this->_sendRedirectHeaders($this->getTargetPath(), $isPermanentRedirectOption);
         } else {
-            $targetUrl = $request->getBaseUrl(). '/' . $this->getTargetPath();
+            $targetUrl = $request->getBaseUrl() . '/' . $this->getTargetPath();
         }
         $isRedirectOption = $this->hasOption('R');
         if ($isRedirectOption || $isPermanentRedirectOption) {
             if (Mage::getStoreConfig('web/url/use_store') && $storeCode = Mage::app()->getStore()->getCode()) {
-                $targetUrl = $request->getBaseUrl(). '/' . $storeCode . '/' .$this->getTargetPath();
+                $targetUrl = $request->getBaseUrl() . '/' . $storeCode . '/' . $this->getTargetPath();
             }
 
             $this->_sendRedirectHeaders($targetUrl, $isPermanentRedirectOption);
         }
 
         if (Mage::getStoreConfig('web/url/use_store') && $storeCode = Mage::app()->getStore()->getCode()) {
-            $targetUrl = $request->getBaseUrl(). '/' . $storeCode . '/' .$this->getTargetPath();
+            $targetUrl = $request->getBaseUrl() . '/' . $storeCode . '/' . $this->getTargetPath();
         }
 
         $queryString = $this->_getQueryString();
         if ($queryString) {
-            $targetUrl .= '?'.$queryString;
+            $targetUrl .= '?' . $queryString;
         }
 
         $request->setRequestUri($targetUrl);
@@ -145,10 +144,10 @@ class GoMage_SeoBooster_Model_Url_Rewrite extends Mage_Core_Model_Url_Rewrite
     {
         $pathInfo = $request->getPathInfo();
         if ($rewritePath = Mage::helper('gomage_seobooster/layered')->getRewritePath()) {
-            if ($rewritePathPos = strripos($pathInfo, '/'. $rewritePath)) {
+            if ($rewritePathPos = strripos($pathInfo, '/' . $rewritePath)) {
                 $queryString = substr($pathInfo, ($rewritePathPos + strlen($rewritePath) + 2));
                 if ($queryString) {
-                    $params = explode('/', $queryString);
+                    $params   = explode('/', $queryString);
                     $separtor = Mage::helper('gomage_seobooster/layered')->getSeparator();
                     if ($separtor == '/') {
                         if (!empty($params)) {
@@ -173,7 +172,7 @@ class GoMage_SeoBooster_Model_Url_Rewrite extends Mage_Core_Model_Url_Rewrite
                     }
                 }
                 $pathInfo = substr_replace($pathInfo, '', $rewritePathPos);
-                if ($categorySuffix = Mage::getStoreConfig('catalog/seo/category_url_suffix')) {
+                if (!$this->_isSearch($request) && ($categorySuffix = Mage::getStoreConfig('catalog/seo/category_url_suffix'))) {
                     $pathInfo .= $categorySuffix;
                 }
                 $request->setPathInfo($pathInfo);
@@ -182,4 +181,11 @@ class GoMage_SeoBooster_Model_Url_Rewrite extends Mage_Core_Model_Url_Rewrite
 
         return $pathInfo;
     }
+
+    protected function _isSearch($request)
+    {
+        $pathInfo = $request->getPathInfo();
+        return strpos($pathInfo, '/catalogsearch/') !== false;
+    }
+
 }

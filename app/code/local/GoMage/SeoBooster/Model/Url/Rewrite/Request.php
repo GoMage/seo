@@ -89,7 +89,7 @@ class GoMage_SeoBooster_Model_Url_Rewrite_Request extends Mage_Core_Model_Url_Re
                     }
                 }
                 $pathInfo = substr_replace($pathInfo, '', $rewritePathPos);
-                if ($categorySuffix = Mage::getStoreConfig('catalog/seo/category_url_suffix')) {
+                if (!$this->_isSearch($request) && ($categorySuffix = Mage::getStoreConfig('catalog/seo/category_url_suffix'))) {
                     $pathInfo .= $categorySuffix;
                 }
                 $request->setPathInfo($pathInfo);
@@ -97,6 +97,12 @@ class GoMage_SeoBooster_Model_Url_Rewrite_Request extends Mage_Core_Model_Url_Re
         }
 
         return $pathInfo;
+    }
+
+    protected function _isSearch($request)
+    {
+        $pathInfo = $request->getPathInfo();
+        return strpos($pathInfo, '/catalogsearch/') !== false;
     }
 
     /**
