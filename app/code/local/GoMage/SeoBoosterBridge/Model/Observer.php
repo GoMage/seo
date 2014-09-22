@@ -21,7 +21,7 @@ class GoMage_SeoBoosterBridge_Model_Observer
     {
         $event       = $observer->getEvent();
         $gomage_ajax = $event->getGomageAjax();
-        $gomage_ajax->setData('current_url', Mage::helper('gomage_seoboosterbridge')->getCurrentUrl());
+        $gomage_ajax->setData('current_url', urldecode(Mage::helper('gomage_seoboosterbridge')->getCurrentUrl()));
     }
 
 }

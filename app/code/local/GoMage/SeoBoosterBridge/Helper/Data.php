@@ -62,6 +62,7 @@ class GoMage_SeoBoosterBridge_Helper_Data extends Mage_Core_Helper_Abstract
         $params = array(
             '_current'     => true,
             '_use_rewrite' => true,
+            '_escape'      => true,
             '_query'       => $query,
         );
 
