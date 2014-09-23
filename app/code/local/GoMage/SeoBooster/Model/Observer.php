@@ -135,6 +135,9 @@ class GoMage_SeoBooster_Model_Observer
             $property   = $reflection->getProperty('_request');
             $property->setAccessible(true);
             $request = new GoMage_SeoBooster_Controller_Request_Http();
+            if ($request->has('q')) {
+                $request->setParam('q', trim($request->get('q'), '/'));
+            }
             $property->setValue($app, $request);
         }
     }

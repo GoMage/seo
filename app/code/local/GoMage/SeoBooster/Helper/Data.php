@@ -88,9 +88,8 @@ class GoMage_SeoBooster_Helper_Data extends Mage_Core_Helper_Data
     public function addTrailingSlash($routePath)
     {
         if ($this->canAddTrailingSlash()) {
-            if ((preg_match('/\.[a-z]{2,4}$/', $routePath) === 0)
-                && (substr($routePath, -1, 1) !== '/')
-            ) {
+            $path = urldecode($routePath);
+            if ((preg_match('/\.[a-z]{2,4}$/', $path) === 0) && (substr($path, -1) != '/')) {
                 return $routePath . '/';
             }
         }
