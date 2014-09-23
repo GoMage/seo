@@ -300,9 +300,15 @@ class GoMage_SeoBooster_Helper_Layered extends Mage_Core_Helper_Data
     {
         if (is_null($this->_filterableParamsCount)) {
             $count = 0;
-            foreach ($this->getFilterableParams() as $param) {
-                $param = explode(',', $param);
-                $count += count($param);
+            foreach ($this->getFilterableParams() as $key => $value) {
+                $attributeModel = Mage::getModel('eav/entity_attribute')->loadByCode('catalog_product', $key);
+                $attribute      = Mage::getModel('catalog/resource_eav_attribute')->load($attributeModel->getId());
+                if ($attribute && $attribute->getFrontendInput() == 'price') {
+                    $count++;
+                } else {
+                    $value = explode(',', $value);
+                    $count += count($value);
+                }
             }
             $this->_filterableParamsCount = $count;
         }
