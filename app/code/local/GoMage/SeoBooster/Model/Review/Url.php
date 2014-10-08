@@ -42,7 +42,7 @@ class GoMage_SeoBooster_Model_Review_Url
 
         $rewriteData = array(
             'product_id'   => $product->getId(),
-            'store_id'     => $storeId ? : $review->getStoreId(),
+            'store_id'     => $storeId ? $storeId : $review->getStoreId(),
             'id_path'      => $idPath,
             'request_path' => $requestPath,
             'target_path'  => $targetPath,
@@ -145,7 +145,7 @@ class GoMage_SeoBooster_Model_Review_Url
 
             $rewriteData = array(
                 'product_id'   => $product->getId(),
-                'store_id'     => $storeId ? : $review->getStoreId(),
+                'store_id'     => $storeId ? $storeId : $review->getStoreId(),
                 'id_path'      => $idPath,
                 'request_path' => $requestPath,
                 'target_path'  => $targetPath,
