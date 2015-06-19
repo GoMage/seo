@@ -50,10 +50,12 @@ class GoMage_SeoBooster_Model_Resource_Analyzer_Product_Collection
                 array('cat_index' => $this->getTable('catalog/category_product_index')),
                 "main_table.product_id = cat_index.product_id",
                 array()
-            )->where("cat_index.store_id = ?", $storeId)
-            ->group('main_table.product_id');
+            )->where("cat_index.store_id = ?", $storeId);
+
         }
 
+        $this->getSelect()->group('main_table.product_id');
+		
         $this->addFilterToMap('product_id', 'main_table.product_id');
         $this->addFilterToMap('product_name', 'catalog_product_name.value');
         $this->addFilterToMap('product_type', 'catalog_product.type_id');
