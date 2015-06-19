@@ -92,8 +92,11 @@ class GoMage_SeoBooster_Model_Sitemap_Sitemap extends Mage_Sitemap_Model_Sitemap
          */
         $changefreq = (string)Mage::getStoreConfig('sitemap/page/changefreq', $storeId);
         $priority   = (string)Mage::getStoreConfig('sitemap/page/priority', $storeId);
-        $collection = Mage::getResourceModel('sitemap/cms_page')->getCollection($storeId);
+        $collection = Mage::getResourceModel('gomage_seobooster/sitemap_cms_page')->getCollection($storeId);
         foreach ($collection as $item) {
+			if ($item->getExcludeFromSitemap()) {
+                continue;
+            }
             $xml = sprintf('<url><loc>%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq><priority>%.1f</priority></url>',
                 htmlspecialchars($baseUrl . $item->getUrl()),
                 $date,
