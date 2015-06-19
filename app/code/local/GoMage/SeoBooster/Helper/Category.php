@@ -38,12 +38,15 @@ class GoMage_SeoBooster_Helper_Category extends GoMage_SeoBooster_Helper_Canonic
     public function getCanonicalUrl($category)
     {
         $storeId = $this->getCanonicalStore($category);
+
         if ($storeId !== GoMage_SeoBooster_Helper_Data::CANONICAL_URL_DEFAULT_DOMAIN_VALUE ||
             $storeId !== Mage::app()->getStore()->getId()
         ) {
             $store = Mage::app()->getStore($storeId);
-            if ($store->getIsActive()) {
+			
+            if ($store->getId() && $store->getIsActive()) {
                 $storeCategory = $this->_getCategoryInStore($category->getId(), $store->getId());
+
                 if ($storeCategory->getIsActive()) {
                     return $this->getCategoryUrl($storeCategory, $storeId);
                 }
@@ -51,7 +54,6 @@ class GoMage_SeoBooster_Helper_Category extends GoMage_SeoBooster_Helper_Canonic
         }
 
         return $category->getUrl();
-
     }
 
     /**
@@ -149,11 +151,11 @@ class GoMage_SeoBooster_Helper_Category extends GoMage_SeoBooster_Helper_Canonic
                 }
                 if ($pager->isFirstPage() || $pager->getCurrentPage() < $pager->getLastPageNum()) {
                     $headBlock->addLinkRel('next', $pager->getPagerUrl(array(
-                                $pager->getLimitVarName() => $pager->getLimit(),
-                                $pager->getModeVarName()  => $pager->getMode(),
-                                $pager->getPageVarName()  => $pager->getCurrentPage() + 1
-                            )
+                            $pager->getLimitVarName() => $pager->getLimit(),
+                            $pager->getModeVarName()  => $pager->getMode(),
+                            $pager->getPageVarName()  => $pager->getCurrentPage() + 1
                         )
+                    )
                     );
                 }
             }
