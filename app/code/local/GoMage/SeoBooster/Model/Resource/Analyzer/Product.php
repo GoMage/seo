@@ -121,11 +121,11 @@ class GoMage_SeoBooster_Model_Resource_Analyzer_Product extends GoMage_SeoBooste
                     $duplicates[$attribute][$entity[$attribute]] = array();
                 }
                 if ($entity[$attribute]) {
-                    $duplicates[$attribute][$entity[$attribute]][] = $entity['product_id'];
+                    $duplicates[$attribute][$entity[$attribute]][$entity['product_id']] = $entity['product_id'];
                 }
             }
         }
-
+		
         $_duplicateTmpl = array();
         foreach ($this->_requiredAttributes as $attribute) {
             $_duplicateTmpl[$attribute] = null;
