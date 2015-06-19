@@ -23,15 +23,29 @@ class GoMage_SeoBooster_Block_Adminhtml_Widget_Form_Element_Dependence extends M
     protected function _getDependsJson()
     {
         $result = array();
+		
         foreach ($this->_depends as $to => $row) {
             foreach ($row as $from => $value) {
-                if (strpos($value, self::MULTIPLE_VALUE_PREFIX) !== false) {
-                    $value = str_replace(self::MULTIPLE_VALUE_PREFIX, '', $value);
-                    $value = explode('-', $value);
-                }
-                $result[$this->_fields[$to]][$this->_fields[$from]] = $value;
+				if (is_array($value)) {
+                	foreach ($value as $i => $v) {
+						if (strpos($v, self::MULTIPLE_VALUE_PREFIX) !== false) {
+							$v = str_replace(self::MULTIPLE_VALUE_PREFIX, '', $v);
+							$v = explode('-', $v);
+						}
+						
+						$result[$this->_fields[$to]][$this->_fields[$from]][$i] = $v;
+					}
+				} else {
+					if (strpos($value, self::MULTIPLE_VALUE_PREFIX) !== false) {
+						$value = str_replace(self::MULTIPLE_VALUE_PREFIX, '', $value);
+						$value = explode('-', $value);
+					}
+					
+					$result[$this->_fields[$to]][$this->_fields[$from]] = $value;
+				}
             }
         }
+		
         return Mage::helper('core')->jsonEncode($result);
     }
 

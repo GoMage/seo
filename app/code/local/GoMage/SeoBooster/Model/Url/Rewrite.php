@@ -89,7 +89,7 @@ class GoMage_SeoBooster_Model_Url_Rewrite extends Mage_Core_Model_Url_Rewrite
         $request->setAlias(self::REWRITE_REQUEST_PATH_ALIAS, $this->getRequestPath());
         $this->_prepareTargetPath();
         $external                  = substr($this->getTargetPath(), 0, 6);
-        $isPermanentRedirectOption = $this->hasOptioxn('RP');
+        $isPermanentRedirectOption = $this->hasOption('RP');
         if ($external === 'http:/' || $external === 'https:') {
             $destinationStoreCode = Mage::app()->getStore($this->getStoreId())->getCode();
             Mage::app()->getCookie()->set(Mage_Core_Model_Store::COOKIE_NAME, $destinationStoreCode, true);
