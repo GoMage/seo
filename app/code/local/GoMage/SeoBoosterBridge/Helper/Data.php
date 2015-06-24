@@ -27,10 +27,10 @@ class GoMage_SeoBoosterBridge_Helper_Data extends Mage_Core_Helper_Abstract
             foreach ($collection as $attribute) {
                 $an_attribute = Mage::getModel('gomage_navigation/attribute')->load($attribute->getAttributeId());
                 if ($an_attribute && in_array($an_attribute->getFilterType(), array(
-                            GoMage_Navigation_Model_Layer::FILTER_TYPE_SLIDER,
-                            GoMage_Navigation_Model_Layer::FILTER_TYPE_INPUT,
-                            GoMage_Navigation_Model_Layer::FILTER_TYPE_INPUT_SLIDER,
-                            GoMage_Navigation_Model_Layer::FILTER_TYPE_SLIDER_INPUT,)
+                            GoMage_Navigation_Model_Catalog_Layer::FILTER_TYPE_SLIDER,
+                            GoMage_Navigation_Model_Catalog_Layer::FILTER_TYPE_INPUT,
+                            GoMage_Navigation_Model_Catalog_Layer::FILTER_TYPE_INPUT_SLIDER,
+                            GoMage_Navigation_Model_Catalog_Layer::FILTER_TYPE_SLIDER_INPUT,)
                     )
                 ) {
                     $this->_slider_request_params[] = $attribute->getAttributeCode() . '_from';

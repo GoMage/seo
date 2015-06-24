@@ -9,9 +9,9 @@
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use/
  * @version      Release: 1.1.0
- * @since        Available since Release 1.1.0
+ * @since        Available since Release 1.2.0
  */
-class GoMage_SeoBoosterBridge_Block_Layer_View extends GoMage_Navigation_Block_Layer_View
+class GoMage_SeoBoosterBridge_Block_Catalogsearch_Layer extends GoMage_Navigation_Block_Catalogsearch_Layer
 {
 
     public function getClearUrl($ajax = false)
@@ -21,13 +21,13 @@ class GoMage_SeoBoosterBridge_Block_Layer_View extends GoMage_Navigation_Block_L
         foreach ($this->getActiveFilters() as $item) {
             try {
                 switch ($item->getFilter()->getAttributeModel()->getFilterType()) {
-                    case (GoMage_Navigation_Model_Layer::FILTER_TYPE_INPUT):
+                    case (GoMage_Navigation_Model_Catalog_Layer::FILTER_TYPE_INPUT):
                         $filterState[$item->getFilter()->getRequestVarValue() . '_from'] = null;
                         $filterState[$item->getFilter()->getRequestVarValue() . '_to']   = null;
                         break;
-                    case (GoMage_Navigation_Model_Layer::FILTER_TYPE_SLIDER):
-                    case (GoMage_Navigation_Model_Layer::FILTER_TYPE_SLIDER_INPUT):
-                    case (GoMage_Navigation_Model_Layer::FILTER_TYPE_INPUT_SLIDER):
+                    case (GoMage_Navigation_Model_Catalog_Layer::FILTER_TYPE_SLIDER):
+                    case (GoMage_Navigation_Model_Catalog_Layer::FILTER_TYPE_SLIDER_INPUT):
+                    case (GoMage_Navigation_Model_Catalog_Layer::FILTER_TYPE_INPUT_SLIDER):
                         if (Mage::helper('gomage_navigation')->isMobileDevice()) {
                             $filterState[$item->getFilter()->getRequestVarValue()] = $item->getFilter()->getResetValue();
                         } else {
@@ -35,7 +35,7 @@ class GoMage_SeoBoosterBridge_Block_Layer_View extends GoMage_Navigation_Block_L
                             $filterState[$item->getFilter()->getRequestVarValue() . '_to']   = null;
                         }
                         break;
-                    case (GoMage_Navigation_Model_Layer::FILTER_TYPE_DEFAULT):
+                    case (GoMage_Navigation_Model_Catalog_Layer::FILTER_TYPE_DEFAULT):
                         if ($item->getFilter()->getAttributeModel()->getRangeOptions() != GoMage_Navigation_Model_Adminhtml_System_Config_Source_Filter_Optionsrange::NO) {
                             $filterState[$item->getFilter()->getRequestVarValue() . '_from'] = null;
                             $filterState[$item->getFilter()->getRequestVarValue() . '_to']   = null;

@@ -11,7 +11,7 @@
  * @version      Release: 1.1.0
  * @since        Available since Release 1.0.0
  */
-class GoMage_SeoBoosterBridge_Block_Catalog_Layer_Filter_Price extends GoMage_Navigation_Block_Layer_Filter_Price
+class GoMage_SeoBoosterBridge_Block_Catalog_Layer_Filter_Price extends GoMage_Navigation_Block_Catalog_Layer_Filter_Price
 {
     /**
      * Init filter model object
@@ -40,31 +40,31 @@ class GoMage_SeoBoosterBridge_Block_Catalog_Layer_Filter_Price extends GoMage_Na
         if (Mage::helper('gomage_navigation')->isGomageNavigation()) {
 
             switch ($this->getAttributeModel()->getFilterType()) {
-                case(GoMage_Navigation_Model_Layer::FILTER_TYPE_INPUT):
+                case(GoMage_Navigation_Model_Catalog_Layer::FILTER_TYPE_INPUT):
                     $this->_template = ('gomage/navigation/layer/filter/input.phtml');
                     break;
-                case(GoMage_Navigation_Model_Layer::FILTER_TYPE_SLIDER):
+                case(GoMage_Navigation_Model_Catalog_Layer::FILTER_TYPE_SLIDER):
                     if (Mage::helper('gomage_navigation')->isMobileDevice()) {
                         $this->_template = ('gomage/seoboosterbridge/layer/filter/default.phtml');
                     } else {
                         $this->_template = ('gomage/seoboosterbridge/layer/filter/slider.phtml');
                     }
                     break;
-                case(GoMage_Navigation_Model_Layer::FILTER_TYPE_SLIDER_INPUT):
+                case(GoMage_Navigation_Model_Catalog_Layer::FILTER_TYPE_SLIDER_INPUT):
                     if (Mage::helper('gomage_navigation')->isMobileDevice()) {
                         $this->_template = ('gomage/seoboosterbridge/layer/filter/default.phtml');
                     } else {
                         $this->_template = ('gomage/seoboosterbridge/layer/filter/slider-input.phtml');
                     }
                     break;
-                case(GoMage_Navigation_Model_Layer::FILTER_TYPE_INPUT_SLIDER):
+                case(GoMage_Navigation_Model_Catalog_Layer::FILTER_TYPE_INPUT_SLIDER):
                     if (Mage::helper('gomage_navigation')->isMobileDevice()) {
                         $this->_template = ('gomage/seoboosterbridge/layer/filter/default.phtml');
                     } else {
                         $this->_template = ('gomage/seoboosterbridge/layer/filter/input-slider.phtml');
                     }
                     break;
-                case(GoMage_Navigation_Model_Layer::FILTER_TYPE_DROPDOWN):
+                case(GoMage_Navigation_Model_Catalog_Layer::FILTER_TYPE_DROPDOWN):
                     $this->_template = ('gomage/seoboosterbridge/layer/filter/dropdown.phtml');
                     break;
                 default:

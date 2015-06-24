@@ -11,7 +11,7 @@
  * @version      Release: 1.1.0
  * @since        Available since Release 1.0.0
  */
-class GoMage_SeoBoosterBridge_Block_Catalog_Layer_Filter_Decimal extends GoMage_Navigation_Block_Layer_Filter_Decimal
+class GoMage_SeoBoosterBridge_Block_Catalog_Layer_Filter_Decimal extends GoMage_Navigation_Block_Catalog_Layer_Filter_Decimal
 {
     /**
      * Init filter model object
@@ -45,11 +45,11 @@ class GoMage_SeoBoosterBridge_Block_Catalog_Layer_Filter_Decimal extends GoMage_
                     $this->_template = ('gomage/seoboosterbridge/layer/filter/default.phtml');
                     break;
 
-                case(GoMage_Navigation_Model_Layer::FILTER_TYPE_INPUT):
+                case(GoMage_Navigation_Model_Catalog_Layer::FILTER_TYPE_INPUT):
                     $this->_template = ('gomage/seoboosterbridge/layer/filter/input.phtml');
                     break;
 
-                case(GoMage_Navigation_Model_Layer::FILTER_TYPE_SLIDER):
+                case(GoMage_Navigation_Model_Catalog_Layer::FILTER_TYPE_SLIDER):
                     if (Mage::helper('gomage_navigation')->isMobileDevice()) {
                         $this->_template = ('gomage/seoboosterbridge/layer/filter/default.phtml');
                     } else {
@@ -57,7 +57,7 @@ class GoMage_SeoBoosterBridge_Block_Catalog_Layer_Filter_Decimal extends GoMage_
                     }
                     break;
 
-                case(GoMage_Navigation_Model_Layer::FILTER_TYPE_SLIDER_INPUT):
+                case(GoMage_Navigation_Model_Catalog_Layer::FILTER_TYPE_SLIDER_INPUT):
                     if (Mage::helper('gomage_navigation')->isMobileDevice()) {
                         $this->_template = ('gomage/seoboosterbridge/layer/filter/default.phtml');
                     } else {
@@ -65,7 +65,7 @@ class GoMage_SeoBoosterBridge_Block_Catalog_Layer_Filter_Decimal extends GoMage_
                     }
                     break;
 
-                case(GoMage_Navigation_Model_Layer::FILTER_TYPE_INPUT_SLIDER):
+                case(GoMage_Navigation_Model_Catalog_Layer::FILTER_TYPE_INPUT_SLIDER):
                     if (Mage::helper('gomage_navigation')->isMobileDevice()) {
                         $this->_template = ('gomage/seoboosterbridge/layer/filter/default.phtml');
                     } else {
@@ -73,7 +73,7 @@ class GoMage_SeoBoosterBridge_Block_Catalog_Layer_Filter_Decimal extends GoMage_
                     }
                     break;
 
-                case(GoMage_Navigation_Model_Layer::FILTER_TYPE_DROPDOWN):
+                case(GoMage_Navigation_Model_Catalog_Layer::FILTER_TYPE_DROPDOWN):
                     $this->_template = ('gomage/seoboosterbridge/layer/filter/dropdown.phtml');
                     break;
             }

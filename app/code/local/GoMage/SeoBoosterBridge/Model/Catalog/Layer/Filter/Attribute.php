@@ -11,7 +11,7 @@
  * @version      Release: 1.1.0
  * @since        Available since Release 1.0.0
  */
-class GoMage_SeoBoosterBridge_Model_Catalog_Layer_Filter_Attribute extends GoMage_Navigation_Model_Layer_Filter_Attribute
+class GoMage_SeoBoosterBridge_Model_Catalog_Layer_Filter_Attribute extends GoMage_Navigation_Model_Catalog_Layer_Filter_Attribute
 {
     /**
      * Get data array for building attribute filter items
@@ -84,7 +84,7 @@ class GoMage_SeoBoosterBridge_Model_Catalog_Layer_Filter_Attribute extends GoMag
                             Mage::helper('gomage_seobooster')->formatUrlValue($option['label'], $option['value']) : $option['value'];
                     } else {
                         $active = false;
-                        if (!empty($selected) && $attribute->getFilterType() != GoMage_Navigation_Model_Layer::FILTER_TYPE_DROPDOWN) {
+                        if (!empty($selected) && $attribute->getFilterType() != GoMage_Navigation_Model_Catalog_Layer::FILTER_TYPE_DROPDOWN) {
                             $value = array_merge($selected, (array)$option['value']);
                             if (Mage::helper('gomage_seobooster/layered')->canUseFriendlyUrl()) {
                                 foreach ($value as $_k => $_v) {

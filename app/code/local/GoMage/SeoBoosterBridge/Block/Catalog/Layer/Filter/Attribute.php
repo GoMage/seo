@@ -11,8 +11,18 @@
  * @version      Release: 1.1.0
  * @since        Available since Release 1.0.0
  */
-class GoMage_SeoBoosterBridge_Block_Catalog_Layer_Filter_Attribute extends GoMage_Navigation_Block_Layer_Filter_Attribute
+class GoMage_SeoBoosterBridge_Block_Catalog_Layer_Filter_Attribute extends GoMage_Navigation_Block_Catalog_Layer_Filter_Attribute
 {
+    /**
+     * Set model name
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->_filterModelName = 'gomage_seoboosterbridge/catalog_layer_filter_attribute';
+    }
+
     /**
      * Init filter model object
      *
@@ -45,11 +55,11 @@ class GoMage_SeoBoosterBridge_Block_Catalog_Layer_Filter_Attribute extends GoMag
                     $this->_template = ('gomage/seoboosterbridge/layer/filter/default.phtml');
                     break;
 
-                case(GoMage_Navigation_Model_Layer::FILTER_TYPE_IMAGE):
+                case(GoMage_Navigation_Model_Catalog_Layer::FILTER_TYPE_IMAGE):
                     $this->_template = ('gomage/seoboosterbridge/layer/filter/image.phtml');
                     break;
 
-                case(GoMage_Navigation_Model_Layer::FILTER_TYPE_DROPDOWN):
+                case(GoMage_Navigation_Model_Catalog_Layer::FILTER_TYPE_DROPDOWN):
                     $this->_template = ('gomage/seoboosterbridge/layer/filter/dropdown.phtml');
                     break;
             }
