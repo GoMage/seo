@@ -14,6 +14,13 @@
 class GoMage_SeoBooster_Adminhtml_Report_Seo_AnalyzerController extends Mage_Adminhtml_Controller_Action
 {
 
+    protected function _isAllowed()
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('report/gomage_seobooster/products_analyzer') ||
+        Mage::getSingleton('admin/session')->isAllowed('report/gomage_seobooster/categories_analyzer') ||
+        Mage::getSingleton('admin/session')->isAllowed('report/gomage_seobooster/pages_analyzer');
+    }
+    
     public function productAction()
     {
         $this->_title($this->__('Reports'))->_title($this->__('SEO Booster'))->_title($this->__('Products Analyzer'));
