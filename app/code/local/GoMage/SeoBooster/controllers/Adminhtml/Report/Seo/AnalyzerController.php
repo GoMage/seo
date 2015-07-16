@@ -8,7 +8,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use/
- * @version      Release: 1.2.0
+ * @version      Release: 1.3.0
  * @since        Available since Release 1.0.0
  */
 class GoMage_SeoBooster_Adminhtml_Report_Seo_AnalyzerController extends Mage_Adminhtml_Controller_Action
@@ -20,7 +20,7 @@ class GoMage_SeoBooster_Adminhtml_Report_Seo_AnalyzerController extends Mage_Adm
         Mage::getSingleton('admin/session')->isAllowed('report/gomage_seobooster/categories_analyzer') ||
         Mage::getSingleton('admin/session')->isAllowed('report/gomage_seobooster/pages_analyzer');
     }
-    
+
     public function productAction()
     {
         $this->_title($this->__('Reports'))->_title($this->__('SEO Booster'))->_title($this->__('Products Analyzer'));

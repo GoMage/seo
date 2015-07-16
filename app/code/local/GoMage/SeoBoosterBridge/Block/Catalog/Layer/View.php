@@ -8,7 +8,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use/
- * @version      Release: 1.2.0
+ * @version      Release: 1.3.0
  * @since        Available since Release 1.2.0
  */
 class GoMage_SeoBoosterBridge_Block_Catalog_Layer_View extends GoMage_Navigation_Block_Catalog_Layer_View
